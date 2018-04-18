@@ -41,16 +41,10 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout_2">
-    <item row="0" column="3">
-     <widget class="QSpinBox" name="spinBox">
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-      <property name="readOnly">
-       <bool>false</bool>
-      </property>
-      <property name="maximum">
-       <number>5</number>
+    <item row="0" column="2">
+     <widget class="QLabel" name="label_16">
+      <property name="text">
+       <string>Ansicht</string>
       </property>
      </widget>
     </item>
@@ -67,10 +61,16 @@
       </property>
      </spacer>
     </item>
-    <item row="0" column="2">
-     <widget class="QLabel" name="label_16">
-      <property name="text">
-       <string>Ansicht</string>
+    <item row="0" column="3">
+     <widget class="QSpinBox" name="spinBox">
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="readOnly">
+       <bool>false</bool>
+      </property>
+      <property name="maximum">
+       <number>5</number>
       </property>
      </widget>
     </item>
@@ -138,7 +138,7 @@
            <item row="2" column="0" colspan="2">
             <widget class="QLabel" name="label_20">
              <property name="text">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Wählen Sie bitte Ihr Konto aus!&lt;/p&gt;&lt;p&gt;Ist dieses noch nicht vorhanden, erstellen Sie es bitte, indem Sie einfach Ihren Namen eingeben und ENTER drücken oder auf &lt;span style=&quot; font-weight:600;&quot;&gt;hinzufügen&lt;/span&gt; wählen!&lt;/p&gt;&lt;p&gt;Wünschen Sie Ihr Konto gelöscht, dann wählen Sie es aus und klicken &lt;span style=&quot; font-weight:600;&quot;&gt;entfernen&lt;/span&gt;!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Wählen Sie bitte Ihr Konto aus!&lt;/p&gt;&lt;p&gt;Ist dieses noch nicht vorhanden, erstellen Sie es bitte, indem Sie einfach Ihren Namen eingeben und ENTER drücken oder auf &lt;span style=&quot; font-weight:600;&quot;&gt;hinzufügen&lt;/span&gt; klicken!&lt;/p&gt;&lt;p&gt;Wünschen Sie Ihr Konto gelöscht, dann wählen Sie es aus und klicken &lt;span style=&quot; font-weight:600;&quot;&gt;entfernen&lt;/span&gt;!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="wordWrap">
               <bool>true</bool>
@@ -1200,7 +1200,7 @@
         <item row="1" column="0">
          <widget class="QTabWidget" name="tabWidget">
           <property name="currentIndex">
-           <number>0</number>
+           <number>1</number>
           </property>
           <widget class="QWidget" name="tab">
            <attribute name="title">
@@ -1249,7 +1249,7 @@ p, li { white-space: pre-wrap; }
                <enum>Qt::RichText</enum>
               </property>
               <property name="alignment">
-               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+               <set>Qt::AlignHCenter|Qt::AlignTop</set>
               </property>
               <property name="wordWrap">
                <bool>true</bool>
@@ -1265,6 +1265,40 @@ p, li { white-space: pre-wrap; }
            <attribute name="title">
             <string>FrACT Wrapper</string>
            </attribute>
+           <layout class="QGridLayout" name="gridLayout_15">
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_29">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>FrACT Wrapper</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="label_28">
+              <property name="text">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;FrACT Wrapper ist ein Werkzeug mithilfe dessen Untersuchungen, die mit dem Programm FrACT durchgeführt werden, gesteuert und mit Metainformationen versehen werden können.&lt;/p&gt;&lt;p&gt;Hilfe zu FrACT findet man unter:&lt;/p&gt;&lt;p&gt;- &lt;a href=&quot;https://tpeschel.github.io/FrACTWrapper/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;FrACT Wrapper&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;Derzeitig unterstützte Untersuchung:&lt;/p&gt;&lt;p&gt;- &lt;a href=&quot;http://michaelbach.de/sci/acuity.html&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Acuity Londolt C Test&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignHCenter|Qt::AlignTop</set>
+              </property>
+              <property name="wordWrap">
+               <bool>true</bool>
+              </property>
+              <property name="openExternalLinks">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </widget>
          </widget>
         </item>
