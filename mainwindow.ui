@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>553</width>
-    <height>586</height>
+    <width>872</width>
+    <height>531</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -41,14 +41,14 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout_2">
-    <item row="0" column="2">
-     <widget class="QLabel" name="label_16">
+    <item row="0" column="1">
+     <widget class="QLabel" name="labelView">
       <property name="text">
        <string>Ansicht</string>
       </property>
      </widget>
     </item>
-    <item row="0" column="1">
+    <item row="0" column="0">
      <spacer name="horizontalSpacer">
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
@@ -61,8 +61,8 @@
       </property>
      </spacer>
     </item>
-    <item row="0" column="3">
-     <widget class="QSpinBox" name="spinBox">
+    <item row="0" column="2">
+     <widget class="QSpinBox" name="spinBoxView">
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
@@ -70,135 +70,372 @@
        <bool>false</bool>
       </property>
       <property name="maximum">
-       <number>5</number>
+       <number>6</number>
+      </property>
+      <property name="value">
+       <number>1</number>
       </property>
      </widget>
     </item>
-    <item row="1" column="1" colspan="3">
+    <item row="1" column="0" colspan="3">
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
-      <widget class="QWidget" name="page_6">
-       <layout class="QGridLayout" name="gridLayout_9">
-        <item row="2" column="0" colspan="2">
-         <widget class="QLabel" name="label_22">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="text">
-           <string>!!! Kein/e Untersucher/in - keine Session !!!</string>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="0" colspan="2">
-         <widget class="QLabel" name="label_24">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="text">
-           <string>!!! Kein/e Untersucher/in - keine Session !!!</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="0" colspan="2">
-         <widget class="QPushButton" name="pushButton_16">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="text">
-           <string>!!! Kein/e Untersucher/in - keine Session !!!</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0" colspan="2">
-         <widget class="QFrame" name="frame_5">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
+      <widget class="QWidget" name="pageNewAccount">
+       <layout class="QGridLayout" name="gridLayout_19">
+        <item row="0" column="0">
+         <widget class="QFrame" name="frame_9">
           <property name="frameShape">
            <enum>QFrame::StyledPanel</enum>
           </property>
           <property name="frameShadow">
            <enum>QFrame::Raised</enum>
           </property>
-          <layout class="QFormLayout" name="formLayout">
-           <item row="2" column="0" colspan="2">
-            <widget class="QLabel" name="label_20">
-             <property name="text">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Wählen Sie bitte Ihr Konto aus!&lt;/p&gt;&lt;p&gt;Ist dieses noch nicht vorhanden, erstellen Sie es bitte, indem Sie einfach Ihren Namen eingeben und ENTER drücken oder auf &lt;span style=&quot; font-weight:600;&quot;&gt;hinzufügen&lt;/span&gt; klicken!&lt;/p&gt;&lt;p&gt;Wünschen Sie Ihr Konto gelöscht, dann wählen Sie es aus und klicken &lt;span style=&quot; font-weight:600;&quot;&gt;entfernen&lt;/span&gt;!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <layout class="QGridLayout" name="gridLayout_18">
+           <item row="3" column="0" colspan="3">
+            <widget class="QFrame" name="frame_10">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
              </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="1">
-            <widget class="QFrame" name="frame_7">
              <property name="frameShape">
               <enum>QFrame::StyledPanel</enum>
              </property>
              <property name="frameShadow">
               <enum>QFrame::Raised</enum>
              </property>
-             <layout class="QGridLayout" name="gridLayout_12">
-              <item row="2" column="1">
-               <widget class="QPushButton" name="pushButton_7">
+             <layout class="QGridLayout" name="gridLayout_16">
+              <item row="0" column="1">
+               <widget class="QPushButton" name="pushButtonNewAccountOK">
                 <property name="text">
-                 <string>hinzufügen</string>
+                 <string>Konto anlegen</string>
                 </property>
                </widget>
               </item>
-              <item row="2" column="0">
-               <widget class="QPushButton" name="pushButton_15">
+              <item row="1" column="1">
+               <widget class="QPushButton" name="pushButtonNewAccountAbort">
                 <property name="text">
-                 <string>entfernen</string>
+                 <string>abbrechen</string>
                 </property>
-               </widget>
-              </item>
-              <item row="0" column="0" colspan="2">
-               <widget class="QFrame" name="frame_6">
-                <property name="frameShape">
-                 <enum>QFrame::StyledPanel</enum>
-                </property>
-                <property name="frameShadow">
-                 <enum>QFrame::Raised</enum>
-                </property>
-                <layout class="QFormLayout" name="formLayout_2">
-                 <item row="0" column="0">
-                  <widget class="QLabel" name="label_26">
-                   <property name="text">
-                    <string>Ihr Name</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="0" column="1">
-                  <widget class="QComboBox" name="comboBox">
-                   <property name="editable">
-                    <bool>true</bool>
-                   </property>
-                   <property name="insertPolicy">
-                    <enum>QComboBox::InsertAlphabetically</enum>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
                </widget>
               </item>
              </layout>
             </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_31">
+             <property name="text">
+              <string>Name</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_32">
+             <property name="text">
+              <string>Untersucher-ID</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLineEdit" name="lineEditExaminatorID"/>
+           </item>
+           <item row="2" column="0">
+            <spacer name="verticalSpacer_7">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="1" column="2">
+            <spacer name="horizontalSpacer_3">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="0" column="1" colspan="2">
+            <widget class="QLineEdit" name="lineEditExaminatorName"/>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="page_6">
+       <layout class="QGridLayout" name="gridLayout_21">
+        <item row="1" column="1">
+         <widget class="QFrame" name="frame_7">
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_12">
+           <item row="0" column="0" colspan="3">
+            <widget class="QLabel" name="label_19">
+             <property name="text">
+              <string>Besitzen Sie noch kein Konto,
+dann legen Sie bitte ein neues an!</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <spacer name="horizontalSpacer_10">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>197</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="1" column="1">
+            <widget class="QPushButton" name="pushButtonAddNewAccount">
+             <property name="text">
+              <string>neues Konto anlegen</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="2">
+            <spacer name="horizontalSpacer_9">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>197</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QFrame" name="frame_6">
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_9">
+           <item row="4" column="2">
+            <widget class="QComboBox" name="comboBoxExaminatorID">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="insertPolicy">
+              <enum>QComboBox::InsertAlphabetically</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0" colspan="4">
+            <spacer name="verticalSpacer_5">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="1" column="0" colspan="4">
+            <widget class="QLabel" name="label_20">
+             <property name="text">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Wählen Sie bitte Ihr Konto aus!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="2">
+            <widget class="QComboBox" name="comboBoxExaminatorName">
+             <property name="editable">
+              <bool>false</bool>
+             </property>
+             <property name="insertPolicy">
+              <enum>QComboBox::InsertAlphabetically</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="0">
+            <spacer name="horizontalSpacer_2">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="4" column="3">
+            <spacer name="horizontalSpacer_4">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="0" column="0" colspan="4">
+            <spacer name="verticalSpacer_4">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="5" column="2">
+            <widget class="QLabel" name="label_26">
+             <property name="text">
+              <string>Name</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="2">
+            <widget class="QLabel" name="label_30">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>Untersucher-ID</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QFrame" name="frameHelloMsg">
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_22">
+           <item row="2" column="2">
+            <spacer name="horizontalSpacer_6">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="1" column="0" colspan="3">
+            <widget class="QLabel" name="labelHelloMsg">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>kein/e Untersucher/in ausgewählt</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QPushButton" name="pushButtonStartSession">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>Los geht's!</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <spacer name="verticalSpacer_3">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Maximum</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="2" column="0">
+            <spacer name="horizontalSpacer_5">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
            </item>
           </layout>
          </widget>
@@ -207,6 +444,577 @@
       </widget>
       <widget class="QWidget" name="page_2">
        <layout class="QGridLayout" name="gridLayout_3">
+        <item row="5" column="0" colspan="2">
+         <widget class="QFrame" name="frame_8">
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_13">
+           <item row="5" column="0" colspan="2">
+            <widget class="QGroupBox" name="groupBox">
+             <property name="title">
+              <string>Untersuchungsblock</string>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_25">
+              <item row="1" column="1">
+               <widget class="QGroupBox" name="groupBox_3">
+                <property name="title">
+                 <string>OS</string>
+                </property>
+                <layout class="QGridLayout" name="gridLayout_24">
+                 <item row="1" column="1">
+                  <widget class="QComboBox" name="comboBox_6">
+                   <item>
+                    <property name="text">
+                     <string>keine Messung</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 1</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 2</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 3</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 4</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 5</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 6</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 7</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 8</string>
+                    </property>
+                   </item>
+                  </widget>
+                 </item>
+                 <item row="0" column="1">
+                  <widget class="QComboBox" name="comboBox_5">
+                   <item>
+                    <property name="text">
+                     <string>keine Messung</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 1</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 2</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 3</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 4</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 5</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 6</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 7</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 8</string>
+                    </property>
+                   </item>
+                  </widget>
+                 </item>
+                 <item row="0" column="0">
+                  <widget class="QLabel" name="label_9">
+                   <property name="text">
+                    <string>ohne Sehhilfe</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="0">
+                  <widget class="QLabel" name="label_10">
+                   <property name="text">
+                    <string>mit Messbrille</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="0">
+                  <widget class="QLabel" name="label_11">
+                   <property name="text">
+                    <string>mit Lochblende</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="1">
+                  <widget class="QComboBox" name="comboBox_7">
+                   <item>
+                    <property name="text">
+                     <string>keine Messung</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 1</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 2</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 3</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 4</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 5</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 6</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 7</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 8</string>
+                    </property>
+                   </item>
+                  </widget>
+                 </item>
+                 <item row="3" column="0">
+                  <widget class="QLabel" name="label_33">
+                   <property name="text">
+                    <string>mit Lochblende, wenn ohne Messbrille besser als mit</string>
+                   </property>
+                   <property name="wordWrap">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="3" column="1">
+                  <widget class="QComboBox" name="comboBox_9">
+                   <item>
+                    <property name="text">
+                     <string>keine Messung</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 1</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 2</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 3</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 4</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 5</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 6</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 7</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 8</string>
+                    </property>
+                   </item>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QGroupBox" name="groupBox_2">
+                <property name="title">
+                 <string>OD</string>
+                </property>
+                <layout class="QGridLayout" name="gridLayout_20">
+                 <item row="2" column="1">
+                  <widget class="QComboBox" name="comboBox_4">
+                   <item>
+                    <property name="text">
+                     <string>keine Messung</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 1</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 2</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 3</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 4</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 5</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 6</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 7</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 8</string>
+                    </property>
+                   </item>
+                  </widget>
+                 </item>
+                 <item row="1" column="1">
+                  <widget class="QComboBox" name="comboBox_3">
+                   <item>
+                    <property name="text">
+                     <string>keine Messung</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 1</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 2</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 3</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 4</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 5</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 6</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 7</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 8</string>
+                    </property>
+                   </item>
+                  </widget>
+                 </item>
+                 <item row="1" column="0">
+                  <widget class="QLabel" name="label_2">
+                   <property name="text">
+                    <string>mit Messbrille</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="1">
+                  <widget class="QComboBox" name="comboBox_2">
+                   <item>
+                    <property name="text">
+                     <string>keine Messung</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 1</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 2</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 3</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 4</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 5</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 6</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 7</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 8</string>
+                    </property>
+                   </item>
+                  </widget>
+                 </item>
+                 <item row="2" column="0">
+                  <widget class="QLabel" name="label_8">
+                   <property name="text">
+                    <string>mit Lochblende</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="0">
+                  <widget class="QLabel" name="label">
+                   <property name="text">
+                    <string>ohne Sehhilfe</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="3" column="0">
+                  <widget class="QLabel" name="label_13">
+                   <property name="text">
+                    <string>mit Lochblende, wenn ohne Messbrille besser als mit</string>
+                   </property>
+                   <property name="wordWrap">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="3" column="1">
+                  <widget class="QComboBox" name="comboBox_8">
+                   <item>
+                    <property name="text">
+                     <string>keine Messung</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 1</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 2</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 3</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 4</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 5</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 6</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 7</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Messung 8</string>
+                    </property>
+                   </item>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+              <item row="0" column="0" colspan="2">
+               <widget class="QComboBox" name="comboBox">
+                <item>
+                 <property name="text">
+                  <string>Standard, beide Augen</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>nur mit Messbrille, beide Augen</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>nur ohne Sehhilfe, beide Augen</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>nur mit Lochblende, beide Augen</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item row="0" column="0" colspan="2">
+            <widget class="QLabel" name="label_27">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>Starten bitte Sie jetzt einen Untersuchungsblock Ihrer Wahl!</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="6" column="0">
+            <widget class="QPushButton" name="pushButtonStartVisusTest">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>Visus Test</string>
+             </property>
+             <property name="autoDefault">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="6" column="1">
+            <widget class="QPushButton" name="pushButtonStartContrastTest">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>Kontrast Test</string>
+             </property>
+             <property name="autoDefault">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
         <item row="2" column="0" colspan="2">
          <widget class="QFrame" name="frame_4">
           <property name="sizePolicy">
@@ -223,20 +1031,7 @@
           </property>
           <layout class="QGridLayout" name="gridLayout_11">
            <item row="1" column="1">
-            <widget class="QLineEdit" name="lineEdit"/>
-           </item>
-           <item row="0" column="0" colspan="2">
-            <widget class="QLabel" name="label_25">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="text">
-              <string>Scannen Sie bitte jetzt die SIC vom Laufzettel des Probanden!</string>
-             </property>
-            </widget>
+            <widget class="QLineEdit" name="lineEditSIC"/>
            </item>
            <item row="1" column="0">
             <widget class="QLabel" name="label_23">
@@ -251,57 +1046,29 @@
              </property>
             </widget>
            </item>
-          </layout>
-         </widget>
-        </item>
-        <item row="5" column="0" colspan="2">
-         <widget class="QFrame" name="frame_8">
-          <property name="frameShape">
-           <enum>QFrame::StyledPanel</enum>
-          </property>
-          <property name="frameShadow">
-           <enum>QFrame::Raised</enum>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_13">
-           <item row="1" column="0">
-            <widget class="QPushButton" name="pushButton_11">
+           <item row="1" column="2">
+            <spacer name="horizontalSpacer_7">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="0" column="0" colspan="3">
+            <widget class="QLabel" name="label_25">
              <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="MinimumExpanding">
+              <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
              <property name="text">
-              <string>Visus Test</string>
-             </property>
-             <property name="autoDefault">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QPushButton" name="pushButton_10">
-             <property name="enabled">
-              <bool>true</bool>
-             </property>
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="MinimumExpanding">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="text">
-              <string>Kontrast Test</string>
-             </property>
-             <property name="autoDefault">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0" colspan="2">
-            <widget class="QLabel" name="label_27">
-             <property name="text">
-              <string>Starten bitte Sie jetzt die Untersuchung Ihrer Wahl!</string>
+              <string>Scannen Sie bitte jetzt die SIC vom Laufzettel des Probanden!</string>
              </property>
              <property name="wordWrap">
               <bool>true</bool>
@@ -311,356 +1078,52 @@
           </layout>
          </widget>
         </item>
-        <item row="6" column="0">
-         <spacer name="verticalSpacer_2">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>40</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
        </layout>
       </widget>
       <widget class="QWidget" name="page">
        <layout class="QGridLayout" name="gridLayout">
-        <item row="3" column="2">
-         <widget class="QLabel" name="label_2">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
+        <item row="24" column="0" colspan="3">
+         <widget class="QFrame" name="frame_3">
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
           </property>
-          <property name="text">
-           <string>noch kein Wert gemessen</string>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
           </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0" colspan="3">
-         <widget class="Line" name="line_4">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="2">
-         <widget class="QLabel" name="label_4">
-          <property name="toolTip">
-           <string>linkes Auge des Probanden</string>
-          </property>
-          <property name="text">
-           <string>SINISTER</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-          <property name="wordWrap">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="QPushButton" name="pushButton">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt; font-weight:600; text-decoration: underline;&quot;&gt;Visus Test&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Oculus&lt;/span&gt;&lt;/p&gt;&lt;p&gt;-Dexter&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;-rechtes Auge des Probanden&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Messbrille &lt;/span&gt;&lt;/p&gt;&lt;p&gt;-nein&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Lochblende&lt;/span&gt;&lt;/p&gt;&lt;p&gt;-nein&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-          </property>
-          <property name="text">
-           <string>&amp;1</string>
-          </property>
+          <layout class="QGridLayout" name="gridLayout_10">
+           <item row="1" column="0">
+            <widget class="QPushButton" name="pushButtonFinishExamination">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Untersuchung fertigstellen&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="text">
+              <string>Untersuchung abschliessen</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </widget>
         </item>
         <item row="8" column="0">
-         <widget class="QLabel" name="label_8">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
+         <widget class="QLineEdit" name="lineEditCommentOD"/>
+        </item>
+        <item row="16" column="1">
+         <widget class="QLabel" name="label_22">
           <property name="text">
-           <string>noch kein Wert gemessen</string>
+           <string>&lt;Kommentare&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
           </property>
          </widget>
         </item>
-        <item row="7" column="0">
-         <widget class="QPushButton" name="pushButton_3">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt; font-weight:600; text-decoration: underline;&quot;&gt;Visus Test&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Oculus&lt;/span&gt;&lt;/p&gt;&lt;p&gt;-Dexter&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;-rechtes Auge des Probanden&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Messbrille &lt;/span&gt;&lt;/p&gt;&lt;p&gt;-ja&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Lochblende&lt;/span&gt;&lt;/p&gt;&lt;p&gt;-nein&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-          </property>
-          <property name="text">
-           <string>&amp;3</string>
-          </property>
-         </widget>
-        </item>
-        <item row="6" column="0" colspan="3">
-         <widget class="Line" name="line_3">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="2">
-         <widget class="QPushButton" name="pushButton_2">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt; font-weight:600; text-decoration: underline;&quot;&gt;Visus Test&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Oculus&lt;/span&gt;&lt;/p&gt;&lt;p&gt;-Sinister&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;-linkes Auge des Probanden&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Messbrille &lt;/span&gt;&lt;/p&gt;&lt;p&gt;-nein&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Lochblende&lt;/span&gt;&lt;/p&gt;&lt;p&gt;-nein&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-          </property>
-          <property name="text">
-           <string>&amp;2</string>
-          </property>
-         </widget>
-        </item>
-        <item row="12" column="2">
-         <widget class="QPushButton" name="pushButton_6">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt; font-weight:600; text-decoration: underline;&quot;&gt;Visus Test&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Oculus&lt;/span&gt;&lt;/p&gt;&lt;p&gt;-Sinister&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;-linkes Auge des Probanden&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Messbrille &lt;/span&gt;&lt;/p&gt;&lt;p&gt;-nein&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Lochblende&lt;/span&gt;&lt;/p&gt;&lt;p&gt;-ja&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-          </property>
-          <property name="text">
-           <string>&amp;6</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_3">
-          <property name="toolTip">
-           <string>rechtes Auge des Probanden</string>
-          </property>
-          <property name="text">
-           <string>DEXTER</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-          <property name="wordWrap">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="7" column="2">
-         <widget class="QPushButton" name="pushButton_4">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt; font-weight:600; text-decoration: underline;&quot;&gt;Visus Test&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Oculus&lt;/span&gt;&lt;/p&gt;&lt;p&gt;-Sinister&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;-linkes Auge des Probanden&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Messbrille &lt;/span&gt;&lt;/p&gt;&lt;p&gt;-ja&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Lochblende&lt;/span&gt;&lt;/p&gt;&lt;p&gt;-nein&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-          </property>
-          <property name="text">
-           <string>&amp;4</string>
-          </property>
-         </widget>
-        </item>
-        <item row="11" column="0" colspan="3">
-         <widget class="Line" name="line_2">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="0">
-         <widget class="QLabel" name="label">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="text">
-           <string>noch kein Wert gemessen</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="18" column="0" colspan="3">
-         <widget class="Line" name="line">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="8" column="2">
-         <widget class="QLabel" name="label_9">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="text">
-           <string>noch kein Wert gemessen</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="12" column="0">
-         <widget class="QPushButton" name="pushButton_5">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt; font-weight:600; text-decoration: underline;&quot;&gt;Visus Test&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Oculus&lt;/span&gt;&lt;/p&gt;&lt;p&gt;-Dexter&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;-rechtes Auge des Probanden&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Messbrille &lt;/span&gt;&lt;/p&gt;&lt;p&gt;-nein&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Lochblende&lt;/span&gt;&lt;/p&gt;&lt;p&gt;-ja&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-          </property>
-          <property name="text">
-           <string>&amp;5</string>
-          </property>
-         </widget>
-        </item>
-        <item row="13" column="0">
-         <widget class="QLabel" name="label_10">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="text">
-           <string>keine Messung nötig</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QLabel" name="label_21">
-          <property name="text">
-           <string>Oculus</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="9" column="2">
-         <widget class="QLineEdit" name="lineEdit_10">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-         </widget>
-        </item>
-        <item row="13" column="2">
-         <widget class="QLabel" name="label_11">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="text">
-           <string>keine Messung nötig</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="16" column="0" colspan="3">
-         <widget class="Line" name="line_5">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="0">
-         <widget class="QLineEdit" name="lineEdit_7">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-         </widget>
-        </item>
-        <item row="9" column="0">
-         <widget class="QLineEdit" name="lineEdit_9">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="2">
-         <widget class="QLineEdit" name="lineEdit_8">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-         </widget>
-        </item>
-        <item row="14" column="0">
-         <widget class="QLineEdit" name="lineEdit_11">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-         </widget>
-        </item>
-        <item row="7" column="1" rowspan="3">
-         <widget class="QLabel" name="label_6">
-          <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Benutzen Sie bitte für die Messung eine Messbrille!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-          </property>
-          <property name="text">
-           <string>Messbrille</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1" rowspan="3">
+        <item row="6" column="1" rowspan="2">
          <widget class="QLabel" name="label_5">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -679,43 +1142,112 @@
           </property>
          </widget>
         </item>
-        <item row="5" column="0" colspan="3">
-         <spacer name="verticalSpacer_3">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>40</height>
-           </size>
-          </property>
-         </spacer>
+        <item row="21" column="2">
+         <widget class="QLineEdit" name="lineEditCommentOSA"/>
         </item>
-        <item row="14" column="2">
-         <widget class="QLineEdit" name="lineEdit_12">
+        <item row="8" column="2">
+         <widget class="QLineEdit" name="lineEditCommentOS"/>
+        </item>
+        <item row="8" column="1">
+         <widget class="QLabel" name="label_16">
+          <property name="text">
+           <string>&lt;Kommentare&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="17" column="0" colspan="3">
+         <widget class="Line" name="line">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="12" column="0" colspan="3">
+         <widget class="Line" name="line_7">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="16" column="0">
+         <widget class="QLineEdit" name="lineEditCommentODTF"/>
+        </item>
+        <item row="4" column="0" colspan="3">
+         <widget class="Line" name="line_8">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="14" column="1" rowspan="2">
+         <widget class="QLabel" name="label_6">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Benutzen Sie bitte für die Messung eine Messbrille!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="text">
+           <string>Messbrille</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="21" column="1">
+         <widget class="QLabel" name="label_24">
+          <property name="text">
+           <string>&lt;Kommentare&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="22" column="0" colspan="3">
+         <widget class="Line" name="line_6">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="16" column="2">
+         <widget class="QLineEdit" name="lineEditCommentOSTF"/>
+        </item>
+        <item row="7" column="2">
+         <widget class="QLabel" name="labelOSVal">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
+           <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
+          <property name="text">
+           <string>noch kein Wert gemessen</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
          </widget>
         </item>
-        <item row="10" column="0" colspan="3">
-         <spacer name="verticalSpacer_4">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
+        <item row="1" column="1">
+         <widget class="QLabel" name="label_21">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
           </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>40</height>
-           </size>
+          <property name="text">
+           <string>Oculus</string>
           </property>
-         </spacer>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
         </item>
-        <item row="12" column="1" rowspan="3">
+        <item row="19" column="1" rowspan="2">
          <widget class="QLabel" name="label_7">
           <property name="toolTip">
            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Benutzen Sie bitte für die Messung eine Lochblende!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -728,287 +1260,430 @@
           </property>
          </widget>
         </item>
-        <item row="17" column="0" colspan="3">
-         <widget class="QFrame" name="frame_3">
-          <property name="frameShape">
-           <enum>QFrame::StyledPanel</enum>
+        <item row="23" column="0" colspan="3">
+         <widget class="Line" name="line_5">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
           </property>
-          <property name="frameShadow">
-           <enum>QFrame::Raised</enum>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_10">
-           <item row="0" column="0">
-            <widget class="QPushButton" name="pushButton_9">
-             <property name="toolTip">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Untersuchung abbrechen&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-             </property>
-             <property name="text">
-              <string>Abbruch</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QPushButton" name="pushButton_8">
-             <property name="toolTip">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Untersuchung fertigstellen&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-             </property>
-             <property name="text">
-              <string>Fertigstellen</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
          </widget>
         </item>
-        <item row="15" column="0" colspan="3">
-         <spacer name="verticalSpacer_5">
+        <item row="20" column="2">
+         <widget class="QLabel" name="labelOSAVal">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>keine Messung nötig</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="2">
+         <widget class="QPushButton" name="pushButtonOSVisus">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt; font-weight:600; text-decoration: underline;&quot;&gt;Visus Test&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Oculus&lt;/span&gt;&lt;/p&gt;&lt;p&gt;-Sinister&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;-linkes Auge des Probanden&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Messbrille &lt;/span&gt;&lt;/p&gt;&lt;p&gt;-nein&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Lochblende&lt;/span&gt;&lt;/p&gt;&lt;p&gt;-nein&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="text">
+           <string>&amp;2</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QLabel" name="label_4">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="toolTip">
+           <string>linkes Auge des Probanden</string>
+          </property>
+          <property name="text">
+           <string>SINISTER</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="0" colspan="3">
+         <widget class="Line" name="line_4">
           <property name="orientation">
-           <enum>Qt::Vertical</enum>
+           <enum>Qt::Horizontal</enum>
           </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>40</height>
-           </size>
+         </widget>
+        </item>
+        <item row="18" column="0" colspan="3">
+         <widget class="Line" name="line_2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
           </property>
-         </spacer>
+         </widget>
+        </item>
+        <item row="13" column="0" colspan="3">
+         <widget class="Line" name="line_3">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="0">
+         <widget class="QPushButton" name="pushButtonODVisus">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt; font-weight:600; text-decoration: underline;&quot;&gt;Visus Test&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Oculus&lt;/span&gt;&lt;/p&gt;&lt;p&gt;-Dexter&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;-rechtes Auge des Probanden&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Messbrille &lt;/span&gt;&lt;/p&gt;&lt;p&gt;-nein&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Lochblende&lt;/span&gt;&lt;/p&gt;&lt;p&gt;-nein&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="text">
+           <string>&amp;1</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_3">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="toolTip">
+           <string>rechtes Auge des Probanden</string>
+          </property>
+          <property name="text">
+           <string>DEXTER</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="14" column="2">
+         <widget class="QPushButton" name="pushButtonOSVisusTrialFrame">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt; font-weight:600; text-decoration: underline;&quot;&gt;Visus Test&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Oculus&lt;/span&gt;&lt;/p&gt;&lt;p&gt;-Sinister&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;-linkes Auge des Probanden&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Messbrille &lt;/span&gt;&lt;/p&gt;&lt;p&gt;-ja&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Lochblende&lt;/span&gt;&lt;/p&gt;&lt;p&gt;-nein&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="text">
+           <string>&amp;4</string>
+          </property>
+         </widget>
+        </item>
+        <item row="19" column="2">
+         <widget class="QPushButton" name="pushButtonOSVisusAperture">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt; font-weight:600; text-decoration: underline;&quot;&gt;Visus Test&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Oculus&lt;/span&gt;&lt;/p&gt;&lt;p&gt;-Sinister&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;-linkes Auge des Probanden&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Messbrille &lt;/span&gt;&lt;/p&gt;&lt;p&gt;-nein&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Lochblende&lt;/span&gt;&lt;/p&gt;&lt;p&gt;-ja&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="text">
+           <string>&amp;6</string>
+          </property>
+         </widget>
+        </item>
+        <item row="15" column="0">
+         <widget class="QLabel" name="labelODTFVal">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>noch kein Wert gemessen</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="14" column="0">
+         <widget class="QPushButton" name="pushButtonODVisusTrialFrame">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt; font-weight:600; text-decoration: underline;&quot;&gt;Visus Test&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Oculus&lt;/span&gt;&lt;/p&gt;&lt;p&gt;-Dexter&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;-rechtes Auge des Probanden&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Messbrille &lt;/span&gt;&lt;/p&gt;&lt;p&gt;-ja&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Lochblende&lt;/span&gt;&lt;/p&gt;&lt;p&gt;-nein&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="text">
+           <string>&amp;3</string>
+          </property>
+         </widget>
+        </item>
+        <item row="21" column="0">
+         <widget class="QLineEdit" name="lineEditCommentODA"/>
+        </item>
+        <item row="15" column="2">
+         <widget class="QLabel" name="labelOSTFVal">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>noch kein Wert gemessen</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="0">
+         <widget class="QLabel" name="labelODVal">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>noch kein Wert gemessen</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="19" column="0">
+         <widget class="QPushButton" name="pushButtonODVisusAperture">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt; font-weight:600; text-decoration: underline;&quot;&gt;Visus Test&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Oculus&lt;/span&gt;&lt;/p&gt;&lt;p&gt;-Dexter&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;-rechtes Auge des Probanden&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Messbrille &lt;/span&gt;&lt;/p&gt;&lt;p&gt;-nein&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Lochblende&lt;/span&gt;&lt;/p&gt;&lt;p&gt;-ja&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="text">
+           <string>&amp;5</string>
+          </property>
+         </widget>
+        </item>
+        <item row="20" column="0">
+         <widget class="QLabel" name="labelODAVal">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>keine Messung nötig</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0" colspan="3">
+         <widget class="QPushButton" name="pushButton">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="MinimumExpanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>Messung starten - OD ohne Sehhilfe</string>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>
       <widget class="QWidget" name="page_5">
-       <layout class="QGridLayout" name="gridLayout_6">
-        <item row="0" column="0">
-         <widget class="QTableWidget" name="tableWidget">
-          <property name="verticalScrollBarPolicy">
-           <enum>Qt::ScrollBarAsNeeded</enum>
+       <layout class="QGridLayout" name="gridLayout_17">
+        <item row="0" column="0" colspan="2">
+         <widget class="QTabWidget" name="tabWidget_2">
+          <property name="tabPosition">
+           <enum>QTabWidget::South</enum>
           </property>
-          <property name="horizontalScrollBarPolicy">
-           <enum>Qt::ScrollBarAsNeeded</enum>
+          <property name="currentIndex">
+           <number>0</number>
           </property>
-          <property name="sizeAdjustPolicy">
-           <enum>QAbstractScrollArea::AdjustIgnored</enum>
+          <widget class="QWidget" name="tab_3">
+           <attribute name="title">
+            <string>Untersuchung</string>
+           </attribute>
+           <layout class="QGridLayout" name="gridLayout_6">
+            <item row="0" column="0">
+             <widget class="QTableWidget" name="tableWidgetExamination">
+              <property name="verticalScrollBarPolicy">
+               <enum>Qt::ScrollBarAsNeeded</enum>
+              </property>
+              <property name="horizontalScrollBarPolicy">
+               <enum>Qt::ScrollBarAsNeeded</enum>
+              </property>
+              <property name="sizeAdjustPolicy">
+               <enum>QAbstractScrollArea::AdjustIgnored</enum>
+              </property>
+              <property name="showDropIndicator" stdset="0">
+               <bool>true</bool>
+              </property>
+              <property name="alternatingRowColors">
+               <bool>true</bool>
+              </property>
+              <property name="gridStyle">
+               <enum>Qt::SolidLine</enum>
+              </property>
+              <property name="sortingEnabled">
+               <bool>true</bool>
+              </property>
+              <property name="cornerButtonEnabled">
+               <bool>true</bool>
+              </property>
+              <attribute name="horizontalHeaderCascadingSectionResizes">
+               <bool>false</bool>
+              </attribute>
+              <attribute name="horizontalHeaderDefaultSectionSize">
+               <number>70</number>
+              </attribute>
+              <attribute name="horizontalHeaderHighlightSections">
+               <bool>true</bool>
+              </attribute>
+              <attribute name="horizontalHeaderMinimumSectionSize">
+               <number>64</number>
+              </attribute>
+              <attribute name="horizontalHeaderStretchLastSection">
+               <bool>true</bool>
+              </attribute>
+              <attribute name="verticalHeaderCascadingSectionResizes">
+               <bool>false</bool>
+              </attribute>
+              <attribute name="verticalHeaderShowSortIndicator" stdset="0">
+               <bool>true</bool>
+              </attribute>
+              <attribute name="verticalHeaderStretchLastSection">
+               <bool>false</bool>
+              </attribute>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="tab_4">
+           <attribute name="title">
+            <string>Untersucher/innen</string>
+           </attribute>
+           <layout class="QGridLayout" name="gridLayout_23">
+            <item row="0" column="0">
+             <widget class="QTableWidget" name="tableWidgetExaminators">
+              <property name="alternatingRowColors">
+               <bool>true</bool>
+              </property>
+              <property name="sortingEnabled">
+               <bool>true</bool>
+              </property>
+              <attribute name="horizontalHeaderDefaultSectionSize">
+               <number>59</number>
+              </attribute>
+              <attribute name="horizontalHeaderStretchLastSection">
+               <bool>true</bool>
+              </attribute>
+              <attribute name="verticalHeaderStretchLastSection">
+               <bool>true</bool>
+              </attribute>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QPushButton" name="pushButtonNewProbandFromTabView">
+          <property name="text">
+           <string>Neuer Proband</string>
           </property>
-          <property name="showDropIndicator" stdset="0">
-           <bool>true</bool>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QPushButton" name="pushButtonExitFromTabView">
+          <property name="text">
+           <string>Programm beenden</string>
           </property>
-          <property name="alternatingRowColors">
-           <bool>true</bool>
-          </property>
-          <property name="gridStyle">
-           <enum>Qt::SolidLine</enum>
-          </property>
-          <property name="sortingEnabled">
-           <bool>true</bool>
-          </property>
-          <property name="cornerButtonEnabled">
-           <bool>true</bool>
-          </property>
-          <attribute name="horizontalHeaderCascadingSectionResizes">
-           <bool>true</bool>
-          </attribute>
-          <attribute name="horizontalHeaderDefaultSectionSize">
-           <number>80</number>
-          </attribute>
-          <attribute name="horizontalHeaderHighlightSections">
-           <bool>true</bool>
-          </attribute>
-          <attribute name="horizontalHeaderStretchLastSection">
-           <bool>true</bool>
-          </attribute>
-          <attribute name="verticalHeaderCascadingSectionResizes">
-           <bool>true</bool>
-          </attribute>
-          <attribute name="verticalHeaderShowSortIndicator" stdset="0">
-           <bool>true</bool>
-          </attribute>
-          <attribute name="verticalHeaderStretchLastSection">
-           <bool>true</bool>
-          </attribute>
-          <row>
-           <property name="text">
-            <string>1</string>
-           </property>
-          </row>
-          <row>
-           <property name="text">
-            <string>2</string>
-           </property>
-          </row>
-          <row>
-           <property name="text">
-            <string>3</string>
-           </property>
-          </row>
-          <row>
-           <property name="text">
-            <string>4</string>
-           </property>
-          </row>
-          <row>
-           <property name="text">
-            <string>6</string>
-           </property>
-          </row>
-          <row>
-           <property name="text">
-            <string>7</string>
-           </property>
-          </row>
-          <column>
-           <property name="text">
-            <string>SIC</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Datum</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Zeit</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Test</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Oculus</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Sehhilfen</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Messwert</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Messwert Einheit</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Kommentar</string>
-           </property>
-          </column>
-          <item row="0" column="0">
-           <property name="text">
-            <string>LI0123456X</string>
-           </property>
-          </item>
-          <item row="0" column="1">
-           <property name="text">
-            <string>2018-04-17</string>
-           </property>
-          </item>
-          <item row="0" column="2">
-           <property name="text">
-            <string>12:00:33</string>
-           </property>
-          </item>
-          <item row="0" column="3">
-           <property name="text">
-            <string>Acuity Landolt C</string>
-           </property>
-          </item>
-          <item row="0" column="4">
-           <property name="text">
-            <string>Dexter</string>
-           </property>
-          </item>
-          <item row="0" column="5">
-           <property name="text">
-            <string>keine</string>
-           </property>
-          </item>
-          <item row="0" column="6">
-           <property name="text">
-            <string>2.2121</string>
-           </property>
-          </item>
-          <item row="0" column="7">
-           <property name="text">
-            <string>1/arcmin</string>
-           </property>
-          </item>
-          <item row="0" column="8">
-           <property name="text">
-            <string>unrihige Person</string>
-           </property>
-          </item>
-          <item row="1" column="0">
-           <property name="text">
-            <string>LI10000000</string>
-           </property>
-          </item>
-          <item row="1" column="1">
-           <property name="text">
-            <string>2018-04-17</string>
-           </property>
-          </item>
-          <item row="1" column="2">
-           <property name="text">
-            <string>13:00:44</string>
-           </property>
-          </item>
-          <item row="1" column="3">
-           <property name="text">
-            <string>Acuity Landolt C</string>
-           </property>
-          </item>
-          <item row="1" column="4">
-           <property name="text">
-            <string>Sinister</string>
-           </property>
-          </item>
-          <item row="1" column="5">
-           <property name="text">
-            <string>Lochblende</string>
-           </property>
-          </item>
-          <item row="1" column="6">
-           <property name="text">
-            <string>1.23</string>
-           </property>
-          </item>
-          <item row="1" column="7">
-           <property name="text">
-            <string>1/arcmin</string>
-           </property>
-          </item>
-          <item row="2" column="0">
-           <property name="text">
-            <string>LI37591648</string>
-           </property>
-          </item>
-          <item row="3" column="0">
-           <property name="text">
-            <string>LI83656274</string>
-           </property>
-          </item>
-          <item row="4" column="0">
-           <property name="text">
-            <string>LI27475838</string>
-           </property>
-          </item>
-          <item row="5" column="0">
-           <property name="text">
-            <string>LI74628472</string>
-           </property>
-          </item>
-          <item row="5" column="1">
-           <property name="text">
-            <string>2018-04-17</string>
-           </property>
-          </item>
          </widget>
         </item>
        </layout>
@@ -1024,29 +1699,15 @@
            <enum>QFrame::Raised</enum>
           </property>
           <layout class="QGridLayout" name="gridLayout_4">
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_12">
+             <property name="text">
+              <string>Flash Player Projector</string>
+             </property>
+            </widget>
+           </item>
            <item row="1" column="2">
-            <widget class="QToolButton" name="toolButton_4">
-             <property name="text">
-              <string>...</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="2">
-            <widget class="QToolButton" name="toolButton_2">
-             <property name="text">
-              <string>...</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <widget class="QLabel" name="label_19">
-             <property name="text">
-              <string>FrACT SWF Local</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="2">
-            <widget class="QToolButton" name="toolButton_5">
+            <widget class="QToolButton" name="toolButtonFractSWF">
              <property name="text">
               <string>...</string>
              </property>
@@ -1055,92 +1716,37 @@
            <item row="1" column="0">
             <widget class="QLabel" name="label_18">
              <property name="text">
-              <string>Flash Player Projector Exe</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QLabel" name="label_13">
-             <property name="text">
-              <string>FrACT SWF URL</string>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="2">
-            <widget class="QToolButton" name="toolButton_3">
-             <property name="text">
-              <string>...</string>
+              <string>FrACT SWF</string>
              </property>
             </widget>
            </item>
            <item row="0" column="2">
-            <widget class="QToolButton" name="toolButton">
+            <widget class="QToolButton" name="toolButtonFlashPlayer">
              <property name="text">
               <string>...</string>
              </property>
             </widget>
            </item>
-           <item row="1" column="1">
-            <widget class="QLineEdit" name="lineEdit_5"/>
-           </item>
-           <item row="2" column="1">
-            <widget class="QLineEdit" name="lineEdit_3"/>
-           </item>
-           <item row="0" column="0">
-            <widget class="QLabel" name="label_12">
-             <property name="text">
-              <string>Flash Player Projector URL</string>
-             </property>
-            </widget>
-           </item>
            <item row="3" column="1">
-            <widget class="QLineEdit" name="lineEdit_6"/>
+            <widget class="QLineEdit" name="lineEditDataDir"/>
            </item>
            <item row="0" column="1">
-            <widget class="QLineEdit" name="lineEdit_2"/>
+            <widget class="QLineEdit" name="lineEditFlashPlayer"/>
            </item>
-           <item row="4" column="0">
+           <item row="1" column="1">
+            <widget class="QLineEdit" name="lineEditFractSWF"/>
+           </item>
+           <item row="3" column="0">
             <widget class="QLabel" name="label_14">
              <property name="text">
               <string>Datenverzeichnis</string>
              </property>
             </widget>
            </item>
-           <item row="4" column="1">
-            <widget class="QLineEdit" name="lineEdit_4"/>
-           </item>
-           <item row="0" column="3">
-            <widget class="QToolButton" name="toolButton_6">
+           <item row="3" column="2">
+            <widget class="QToolButton" name="toolButtonDataDir">
              <property name="text">
-              <string>setze zurück</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="3">
-            <widget class="QToolButton" name="toolButton_7">
-             <property name="text">
-              <string>setze zurück</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="3">
-            <widget class="QToolButton" name="toolButton_8">
-             <property name="text">
-              <string>setze zurück</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="3">
-            <widget class="QToolButton" name="toolButton_9">
-             <property name="text">
-              <string>setze zurück</string>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="3">
-            <widget class="QToolButton" name="toolButton_10">
-             <property name="text">
-              <string>setze zurück</string>
+              <string>...</string>
              </property>
             </widget>
            </item>
@@ -1156,24 +1762,10 @@
            <enum>QFrame::Raised</enum>
           </property>
           <layout class="QGridLayout" name="gridLayout_7">
-           <item row="0" column="0" colspan="2">
-            <widget class="QPushButton" name="pushButton_12">
+           <item row="0" column="0">
+            <widget class="QPushButton" name="pushButtonSetupBack">
              <property name="text">
-              <string>Setze alle Einstellungen zurück</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QPushButton" name="pushButton_13">
-             <property name="text">
-              <string>Abbrechen</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QPushButton" name="pushButton_14">
-             <property name="text">
-              <string>Fertig</string>
+              <string>zurück</string>
              </property>
             </widget>
            </item>
@@ -1197,7 +1789,7 @@
       </widget>
       <widget class="QWidget" name="page_4">
        <layout class="QGridLayout" name="gridLayout_5">
-        <item row="1" column="0">
+        <item row="0" column="0">
          <widget class="QTabWidget" name="tabWidget">
           <property name="currentIndex">
            <number>1</number>
@@ -1216,7 +1808,7 @@
                </sizepolicy>
               </property>
               <property name="text">
-               <string>FrACT Wrapper</string>
+               <string>FrACT</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
@@ -1236,10 +1828,9 @@
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Liberation Mono'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;FrACT Wrapper ist ein Werkzeug mithilfe dessen Untersuchungen, die mit dem Programm &lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;FrACT ist ein Werkzeug mithilfe dessen Augenuntersuchungen durchgeführt werden können.&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Georgia,Palatino,New York,Trebuchet MS,Times,Times New Roman,serif'; font-size:16px; color:#000000; background-color:transparent;&quot;&gt;Freiburg Vision Test (‘FrACT’)&lt;/span&gt; &lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://michaelbach.de/fract/index.html&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;FrACT&lt;/span&gt;&lt;/a&gt; von &lt;a href=&quot;https://www.uniklinik-freiburg.de/augenklinik/mit/bach.html&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Prof. Dr. rer. nat. Michael Bach&lt;/span&gt;&lt;/a&gt; &lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;durchgeführt werden, gesteuert und mit Metainformationen versehen werden können.&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Hilfe zu FrACT findet man unter:&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;- &lt;a href=&quot;http://michaelbach.de/fract/media/FrACT3_Manual.pdf&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;FrACT3 Manual PDF&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Derzeitig unterstützte Untersuchung:&lt;/p&gt;
@@ -1285,7 +1876,7 @@ p, li { white-space: pre-wrap; }
             <item row="1" column="0">
              <widget class="QLabel" name="label_28">
               <property name="text">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;FrACT Wrapper ist ein Werkzeug mithilfe dessen Untersuchungen, die mit dem Programm FrACT durchgeführt werden, gesteuert und mit Metainformationen versehen werden können.&lt;/p&gt;&lt;p&gt;Hilfe zu FrACT findet man unter:&lt;/p&gt;&lt;p&gt;- &lt;a href=&quot;https://tpeschel.github.io/FrACTWrapper/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;FrACT Wrapper&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;Derzeitig unterstützte Untersuchung:&lt;/p&gt;&lt;p&gt;- &lt;a href=&quot;http://michaelbach.de/sci/acuity.html&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Acuity Londolt C Test&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;FrACT Wrapper ist ein Werkzeug mithilfe dessen Untersuchungen, die mit dem Programm FrACT durchgeführt werden, gesteuert und mit Metainformationen versehen werden können.&lt;/p&gt;&lt;p&gt;Hilfe zu FrACT Wrapper findet man unter:&lt;/p&gt;&lt;p&gt;- &lt;a href=&quot;https://tpeschel.github.io/FrACTWrapper/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;FrACT Wrapper&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;Derzeitig unterstützte Untersuchung:&lt;/p&gt;&lt;p&gt;- &lt;a href=&quot;http://michaelbach.de/sci/acuity.html&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Acuity Londolt C Test&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignHCenter|Qt::AlignTop</set>
@@ -1313,7 +1904,7 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>553</width>
+     <width>872</width>
      <height>21</height>
     </rect>
    </property>
@@ -1321,15 +1912,6 @@ p, li { white-space: pre-wrap; }
     <property name="title">
      <string>&amp;Aktion</string>
     </property>
-    <widget class="QMenu" name="menuVisus_Test">
-     <property name="title">
-      <string>&amp;Starte Untersuchung</string>
-     </property>
-     <addaction name="actionNeuer_Proband"/>
-     <addaction name="action_Abbruch"/>
-    </widget>
-    <addaction name="menuVisus_Test"/>
-    <addaction name="separator"/>
     <addaction name="action_Feierabend"/>
    </widget>
    <widget class="QMenu" name="menu_Gehe_zu">
@@ -1352,8 +1934,6 @@ p, li { white-space: pre-wrap; }
      <addaction name="actionzu_FractWrapper_2"/>
      <addaction name="actionzu_FrACT_2"/>
     </widget>
-    <addaction name="action_aktueller_Session"/>
-    <addaction name="actionaktuelle_Untersuchung"/>
     <addaction name="menuDatenblatt"/>
     <addaction name="actionEinstellungen"/>
     <addaction name="menuHilfe_2"/>
@@ -1445,7 +2025,7 @@ p, li { white-space: pre-wrap; }
     <string>aktuelle &amp;Session</string>
    </property>
   </action>
-  <action name="actionaktuelle_Untersuchung">
+  <action name="action">
    <property name="text">
     <string>aktuelle &amp;Untersuchung</string>
    </property>
@@ -1488,17 +2068,47 @@ p, li { white-space: pre-wrap; }
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <tabstops>
-  <tabstop>pushButton</tabstop>
-  <tabstop>pushButton_2</tabstop>
-  <tabstop>pushButton_3</tabstop>
-  <tabstop>pushButton_4</tabstop>
-  <tabstop>pushButton_5</tabstop>
-  <tabstop>pushButton_6</tabstop>
+  <tabstop>spinBoxView</tabstop>
+  <tabstop>pushButtonODVisus</tabstop>
+  <tabstop>lineEditCommentOD</tabstop>
+  <tabstop>pushButtonOSVisus</tabstop>
+  <tabstop>lineEditCommentOS</tabstop>
+  <tabstop>pushButtonODVisusTrialFrame</tabstop>
+  <tabstop>lineEditCommentODTF</tabstop>
+  <tabstop>pushButtonOSVisusTrialFrame</tabstop>
+  <tabstop>lineEditCommentOSTF</tabstop>
+  <tabstop>pushButtonODVisusAperture</tabstop>
+  <tabstop>lineEditCommentODA</tabstop>
+  <tabstop>pushButtonOSVisusAperture</tabstop>
+  <tabstop>lineEditCommentOSA</tabstop>
+  <tabstop>pushButtonFinishExamination</tabstop>
+  <tabstop>pushButtonNewAccountAbort</tabstop>
+  <tabstop>pushButtonStartSession</tabstop>
+  <tabstop>tabWidget_2</tabstop>
+  <tabstop>tableWidgetExamination</tabstop>
+  <tabstop>toolButtonFlashPlayer</tabstop>
+  <tabstop>toolButtonFractSWF</tabstop>
+  <tabstop>pushButtonSetupBack</tabstop>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>lineEditSIC</tabstop>
+  <tabstop>lineEditExaminatorID</tabstop>
+  <tabstop>pushButtonNewAccountOK</tabstop>
+  <tabstop>comboBoxExaminatorName</tabstop>
+  <tabstop>lineEditExaminatorName</tabstop>
+  <tabstop>pushButtonAddNewAccount</tabstop>
+  <tabstop>tableWidgetExaminators</tabstop>
+  <tabstop>lineEditDataDir</tabstop>
+  <tabstop>lineEditFlashPlayer</tabstop>
+  <tabstop>lineEditFractSWF</tabstop>
+  <tabstop>toolButtonDataDir</tabstop>
+  <tabstop>comboBoxExaminatorID</tabstop>
+  <tabstop>pushButtonNewProbandFromTabView</tabstop>
+  <tabstop>pushButtonExitFromTabView</tabstop>
  </tabstops>
  <resources/>
  <connections>
   <connection>
-   <sender>spinBox</sender>
+   <sender>spinBoxView</sender>
    <signal>valueChanged(int)</signal>
    <receiver>stackedWidget</receiver>
    <slot>setCurrentIndex(int)</slot>
