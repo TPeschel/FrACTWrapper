@@ -12,28 +12,31 @@
 #include <QStringList>
 #include <QClipboard>
 #include "table.hpp"
-
-
-enum Acuity_LandoltCModes {
-
-	ODWithoutOpticalAid,
-	OSWithoutOpticalAid,
-	ODWithTrialFrame,
-	OSWithTrialFrame,
-	ODWithHoleAperture,
-	OSWithHoleAperture
-};
+#include "xmltree.hpp"
+#include "session.hpp"
+#include "order.h"
 
 static QString const modeStrings[ ] = {
 
-"OD_PLACEHOLDER_WithoutOpticalAid",
-"OS_PLACEHOLDER_WithoutOpticalAid",
-"OD_PLACEHOLDER_WithTrialFrame",
-"OS_PLACEHOLDER_WithTrialFrame",
-"OD_PLACEHOLDER_WithHoleAperture",
-"OS_PLACEHOLDER_WithHoleAperture"
+"OD_PLACEHOLDER_Normal",
+"OS_PLACEHOLDER_Normal",
+"OD_PLACEHOLDER_TrialFrame",
+"OS_PLACEHOLDER_TrialFrame",
+"OD_PLACEHOLDER_HoleAperture",
+"OS_PLACEHOLDER_HoleAperture"
 };
 
+/*static QString const modeText[ ] = {
+
+"no measurement",
+"OD without optical aid",
+"OS without optical aid",
+"OD with trial frame",
+"OS with trial frame",
+"OD with hole aperture",
+"OS with hole aperture"
+};
+*/
 enum StackedWidgetID {
 
 	ADDNEWEXAMINATOR = 0,
@@ -45,6 +48,27 @@ enum StackedWidgetID {
 	HELP
 };
 
+struct
+Examinator {
+
+	enum SORTITEM { ID, NAME };
+
+	int
+	id;
+
+	QString
+	name;
+
+	Examinator( ) {
+
+	}
+
+	Examinator( int p_id, QString const & p_name ) :
+	id( p_id ),
+	name( p_name ) {
+
+	}
+};
 
 namespace Ui {
 class MainWindow;
@@ -55,112 +79,131 @@ public QMainWindow {
 
 		Q_OBJECT
 
-public:
+	public:
 
 		explicit
 		MainWindow( QWidget *parent = 0 );
 
-	~MainWindow( );
+		~MainWindow( );
 
-	void showWidget( StackedWidgetID const & p_id );
-	void startFrACT( );
-	void updateConfigView( );
-	void updateExaminatorsView( );
-	void updateExaminationView();
-	void checkForExistingConfig( );
-	void checkForExistingExaminators( );
+		void loadConfig( );
+		void saveSession( );
+		void showWidget( StackedWidgetID const & p_id );
+		void startFrACT( );
+		void updateExaminatorsView( );
+		void updateExaminationView( );
+		void updatePathsConfigView( );
+		void updateSessionView( );
 
+	public slots:
 
-public slots:
-
-	void slotAddNewExaminator( );
-	void slotShowLobby( );
-	void slotShowProperties( );
-	void slotExaminatorNameChanged( int p_id );
-	void slotExaminatorIDChanged( int p_id );
-	void slotNewExaminatorOK( );
-	void slotNewExaminatorCancel( );
-	void slotStartSession( );
-	void slotScanSic( const QString & p_sic );
-	void slotFrACTFinished( int p_exitCode );
-	void slotStartFrACTAcuity_LandoltCOD( );
-	void slotStartFrACTAcuity_LandoltCOS( );
-	void slotStartFrACTAcuity_LandoltCODWithTrialFrame( );
-	void slotStartFrACTAcuity_LandoltCOSWithTrialFrame( );
-	void slotStartFrACTAcuity_LandoltCODWithHoleAperture( );
-	void slotStartFrACTAcuity_LandoltCOSWithHoleAperture( );
-	void slotDoVisusTest( );
-	void slotStartFileDialogForFlashPlayer( );
-	void slotStartFileDialogForFractSWF( );
-	void slotStartFileDialogForDataDir( );
-	void slotFinishSetup( );
-	void slotFinishExamination( );
+		void slotAddNewExaminator( );
+		void slotDoVisusTest( );
+		void slotExaminatorVNameChanged( int p_id );
+		void slotExaminatorNNameChanged( int p_id );
+		void slotExaminatorIDChanged( int p_id );
+		void slotFinishSetup( );
+		void slotFinishSession( );
+		void slotCancelSession( );
+		void slotFrACTFinished( int p_exitCode );
+		void slotNewExaminatorOK( );
+		void slotNewExaminatorCancel( );
+		void slotStartSession( );
+		void slotScanSic( const QString & p_sic );
+		void slotShowLobby( );
+		void slotShowProperties( );
+		void slotStartFrACTAcuity_LandoltCOD( );
+		void slotStartFrACTAcuity_LandoltCOS( );
+		void slotStartFrACTAcuity_LandoltCODWithTrialFrame( );
+		void slotStartFrACTAcuity_LandoltCOSWithTrialFrame( );
+		void slotStartFrACTAcuity_LandoltCODWithHoleAperture( );
+		void slotStartFrACTAcuity_LandoltCOSWithHoleAperture( );
+		void slotStartFileDialogForFlashPlayer( );
+		void slotStartFileDialogForFractSWF( );
+		void slotStartFileDialogForDataDir( );
 
 	signals:
 
-	void signalNoConfigFound( );
-	void signalNoExaminatorFound( );
+		void signalNoConfigFound( );
+		void signalNoExaminatorFound( );
 
-private:
+	private:
 
-	Ui::MainWindow
-	*ui;
+		Ui::MainWindow
+		*ui;
 
-private:
+	private:
 
-	Table
-	config,
-	tableExaminators,
-	tableSession,
-	tableSessions;
+		XMLTree
+		cfg;
 
-	QString
-	currExaminatorName,
-	currExaminatorID,
-	currSIC,
-	flashPlayerEXE,
-	fractSWF,
-	dataDir;
+		Table
+		tableSession;
 
-	QProcess
-	*proc;
+		QString
+		currSIC,
+		currExaminatorID;
 
-	Acuity_LandoltCModes
-	currMode;
+		QProcess
+		*proc;
 
-	StackedWidgetID
-	currWidget,
-	lastWidget;
+		MeasurementType
+		currMeasurementType;
 
-	struct VisusMeasurements {
+		StackedWidgetID
+		currWidget,
+		lastWidget;
 
-		bool
-		measured;
+		struct Measurements {
 
-		double
-		value;
+			bool
+			measured;
 
-		VisusMeasurements( ) : measured( false ), value( 0. ) {
+			double
+			value;
 
-		}
+			Measurements( ) :
+			measured( false ),
+			value( 0. ) {
 
-		void
-		setValue( double const & p_value ) {
+			}
 
-			value    = p_value;
-			measured = true;
-		}
+			void
+			setValue( double const & p_value ) {
 
-		void
-		clear( ) {
+				value    = p_value;
+				measured = true;
+			}
 
-			value = 0.;
-			measured = false;
-		}
-	};
+			void
+			clear( ) {
 
-	VisusMeasurements
-	visusMeasurements[ 6 ];
+				value = 0.;
+				measured = false;
+			}
+		};
+
+		Measurements
+		measurements[ 6 ];
+
+		QVector< Session >
+		sessions;
+
+		int
+		currSession;
+
+		QStringList
+		vnames,
+		nnames,
+		ids;
+
+		Order
+		vnames2id,
+		vnames2nnames,
+		nnames2id,
+		nnames2vnames,
+		id2vnames,
+		id2nnames;
 };
 
 #endif // MAINWINDOW_H

@@ -57,6 +57,18 @@ class Table {
 */
 	public:
 
+		void
+		addRow( QStringList const & p_row ) {
+
+/*            QVector< QString >
+			qv;
+
+			copy( qv, p_row );
+
+			__rows.push_back( qv );*/
+			__rows.push_back( p_row );
+		}
+
 		int
 		cols( ) const {
 
@@ -82,54 +94,6 @@ class Table {
 			clearContent( );
 		}
 
-		QString
-		get( int const & p_row, int const & p_col ) const {
-
-			return p_row < __rows.length( ) && p_col < __rows[ p_row ].length( ) ? __rows[ p_row ][ p_col ] : "";
-		}
-
-		void
-		set( int const & p_row, int const & p_col, QString const & p_value ) {
-
-			while( __rows[ p_row ].length( ) < p_col ) {
-
-				__rows[ p_row ] << "";
-			}
-
-			__rows[ p_row ][ p_col ] = p_value;
-		}
-
-		int
-		rows( ) const {
-
-			return __rows.length( );
-		}
-
-		void
-		newHeader( QStringList const & p_columnNames ) {
-
-//            copy( __header, p_columnNames );
-			__header = p_columnNames;
-		}
-
-		Row
-		header( ) const {
-
-			return __header;
-		}
-
-		void
-		addRow( QStringList const & p_row ) {
-
-/*            QVector< QString >
-			qv;
-
-			copy( qv, p_row );
-
-			__rows.push_back( qv );*/
-			__rows.push_back( p_row );
-		}
-
 		void
 		delRow( int const & p_id ) {
 
@@ -137,7 +101,7 @@ class Table {
 		}
 
 		void
-		loadFromString( QString const & p_text, bool p_firstRowIsHeader = false ) {
+		fromString( QString const & p_text, bool p_firstRowIsHeader = false ) {
 
 			QStringList
 			dat = p_text.split( QRegExp( "[\n\r]+" ), QString::SkipEmptyParts );
@@ -158,8 +122,20 @@ class Table {
 			}
 		}
 
+		QString
+		get( int const & p_row, int const & p_col ) const {
+
+			return p_row < __rows.length( ) && p_col < __rows[ p_row ].length( ) ? __rows[ p_row ][ p_col ] : "";
+		}
+
+		Row
+		header( ) const {
+
+			return __header;
+		}
+
 		bool
-		loadFromFile( QString const & p_filename, bool p_firstRowIsHeader = true ) {
+		load( QString const & p_filename, bool p_firstRowIsHeader = true ) {
 
 			QFile
 			file( p_filename );
@@ -203,8 +179,32 @@ class Table {
 			return false;
 		}
 
+		void
+		newHeader( QStringList const & p_columnNames ) {
+
+//            copy( __header, p_columnNames );
+			__header = p_columnNames;
+		}
+
+		int
+		rows( ) const {
+
+			return __rows.length( );
+		}
+
+		void
+		set( int const & p_row, int const & p_col, QString const & p_value ) {
+
+			while( __rows[ p_row ].length( ) < p_col ) {
+
+				__rows[ p_row ] << "";
+			}
+
+			__rows[ p_row ][ p_col ] = p_value;
+		}
+
 		bool
-		saveTSV( QString const & p_filename, bool p_firstRowIsHeader = true ) {
+		save( QString const & p_filename, bool p_firstRowIsHeader = true ) {
 
 			QFile
 			file( p_filename );
@@ -247,7 +247,7 @@ class Table {
 		}
 
 		int
-		whereIsInColumn( QString const & p_pattern, int p_column = 0, int p_firstRow = 0 ) {
+		whereInColumnIs( QString const & p_pattern, int p_column = 0, int p_firstRow = 0 ) {
 
 			for( int i = p_firstRow; i < rows( ); ++ i ) {
 

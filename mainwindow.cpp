@@ -13,6 +13,7 @@ QTableWidgetItem
 MainWindow::MainWindow( QWidget * parent ) :
 QMainWindow( parent ),
 ui( new Ui::MainWindow ) {
+
 	ui->setupUi( this );
 
 	currWidget = LOBBY;
@@ -24,10 +25,7 @@ ui( new Ui::MainWindow ) {
 	QStringList( ) <<
 	"SIC" << "DATE" << "TIME" << "RESULT" <<
 	"RESULT_UNIT" << "OCULUS" << "DETAILS" << "TEST_NAME" <<
-	"DISTANCE" << "DISTANCE_UNIT" << "N_TRIALS" << "ID" << "COMMENT" );
-
-	tableSessions.newHeader( tableSession.header( ) );
-
+	"DISTANCE" << "DISTANCE_UNIT" << "N_TRIALS" << "EID" << "COMMENT" );
 
 //    this->layout()->setSizeConstraint(QLayout::SetFixedSize);
 //    this->setWindowFlags( this->windowFlags( ) & ~( Qt::WindowMaximizeButtonHint | Qt::WindowMinimizeButtonHint | Qt::Window | Qt::MSWindowsFixedSizeDialogHint ) );
@@ -38,7 +36,8 @@ ui( new Ui::MainWindow ) {
 	connect( ui->actionEinstellungen,         SIGNAL( triggered( ) ),               this, SLOT( slotShowProperties( ) ) );
 	connect( ui->lineEditSIC,                 SIGNAL( textChanged( QString ) ),     this, SLOT( slotScanSic( QString ) ) );
 
-	connect( ui->comboBoxExaminatorName,      SIGNAL( currentIndexChanged( int ) ), this, SLOT( slotExaminatorNameChanged( int ) ) );
+	connect( ui->comboBoxExaminatorVName,     SIGNAL( currentIndexChanged( int ) ), this, SLOT( slotExaminatorVNameChanged( int ) ) );
+	connect( ui->comboBoxExaminatorNName,     SIGNAL( currentIndexChanged( int ) ), this, SLOT( slotExaminatorNNameChanged( int ) ) );
 	connect( ui->comboBoxExaminatorID,        SIGNAL( currentIndexChanged( int ) ), this, SLOT( slotExaminatorIDChanged( int ) ) );
 
 	connect( ui->pushButtonAddNewAccount,     SIGNAL( released( ) ), this, SLOT( slotAddNewExaminator( ) ) );
@@ -58,37 +57,38 @@ ui( new Ui::MainWindow ) {
 	connect( ui->toolButtonDataDir,           SIGNAL( released( ) ), this, SLOT( slotStartFileDialogForDataDir( ) ) );
 
 	connect( ui->pushButtonSetupBack,         SIGNAL( released( ) ), this, SLOT( slotFinishSetup( ) ) );
-	connect( ui->pushButtonFinishExamination, SIGNAL( released( ) ), this, SLOT( slotFinishExamination( ) ) );
+	connect( ui->pushButtonFinishSession,     SIGNAL( released( ) ), this, SLOT( slotFinishSession( ) ) );
+	connect( ui->pushButtonCancelSession,     SIGNAL( released( ) ), this, SLOT( slotCancelSession( ) ) );
 
 	connect( ui->pushButtonExitFromTabView,       SIGNAL( released( ) ), this, SLOT( close( ) ) );
 	connect( ui->pushButtonNewProbandFromTabView, SIGNAL( released( ) ), this, SLOT( slotStartSession( ) ) );
 
-	connect( ui->action_Beenden, SIGNAL(triggered( ) ), this, SLOT( close( ) ) );
+	connect( ui->action_Beenden,              SIGNAL(triggered( ) ), this, SLOT( close( ) ) );
 
 	ui->tableWidgetExamination->horizontalHeader( )->setSectionResizeMode( QHeaderView::Stretch );
-	ui->tableWidgetExaminators->horizontalHeader( )->setSectionResizeMode( QHeaderView::Stretch );
 
 	showWidget( StackedWidgetID::LOBBY );
 
-	checkForExistingConfig( );
+	loadConfig( );
 
-	updateConfigView( );
+	updatePathsConfigView( );
 
-	checkForExistingExaminators( );
+	updateSessionView( );
 
 	updateExaminatorsView( );
 
 	updateExaminationView( );
 }
 
-MainWindow::~MainWindow()
-{
+MainWindow::~MainWindow( ) {
+
 	delete ui;
 }
 
+/*
 void MainWindow::checkForExistingConfig( ) {
 
-	if( ! config.loadFromFile( "config.tsv" ) ) {
+	if( ! config.load( "config.tsv" ) ) {
 
 		config.clearAll( );
 
@@ -96,27 +96,59 @@ void MainWindow::checkForExistingConfig( ) {
 
 		config.addRow( QStringList( ) << "Flash Player Projector" << "FrACT*.swf" << "data directory" );
 
-		config.saveTSV( "config.tsv" );
+		config.save( "config.tsv" );
 
 		ui->statusBar->showMessage( "Creating dummy config.tsv ... Please configure first!" );
 
 		emit signalNoConfigFound( );
 	}
 }
+*/
 
-void MainWindow::checkForExistingExaminators( ) {
+void MainWindow::loadConfig( ) {
 
-	if( ! tableExaminators.loadFromFile( "examinators.tsv" ) ) {
+	if( ! cfg.load( "cfg.xml" ) ) {
 
-		tableExaminators.clearAll( );
+		cfg.clear( );
 
-		tableExaminators.newHeader( QStringList( ) << "ID" << "NAME" );
+/*	cfg
+		.rp( )
+		.tag( "cfg" ).att( "date", QDate::currentDate( ).toString( ) ).att( "time", QTime::currentTime( ).toString( ) );
+*/
 
-		tableExaminators.saveTSV( "examinators.tsv" );
+		cfg
+		.rp( )
+		.tag( "cfg" ).att( "date", QDate::currentDate( ).toString( ) ).att( "time", QTime::currentTime( ).toString( ) )
+			.tag( "paths")
+				.tag( "flash" ).txt( "../flash(flash_sa_29.exe" ).gat( )
+				.tag( "fract" ).txt( "../fract/FrACT3.10.0d.swf").gat( )
+				.tag( "data" ).txt( "../data" ).gat( 2 )
+			.tag( "examinators" )
+				.tag( "examinator" ).att( "id", "0000" ).att( "name", "Thomas Peschel" ).gat( 2 )
+			.tag( "last-examinations" ).att( "id", "0000" );
 
-		emit signalNoExaminatorFound( );
+		cfg.save( "cfg.xml" );
+
+		emit signalNoConfigFound( );
 	}
 }
+/*
+	if( ! config.load( "config.tsv" ) ) {
+
+		config.clearAll( );
+
+		config.newHeader( QStringList( ) << "FLASHPLAYER" << "FRACTSWF" << "DATADIR" );
+
+		config.addRow( QStringList( ) << "Flash Player Projector" << "FrACT*.swf" << "data directory" );
+
+		config.save( "config.tsv" );
+
+		ui->statusBar->showMessage( "Creating dummy config.tsv ... Please configure first!" );
+
+		emit signalNoConfigFound( );
+	}
+}
+*/
 
 void MainWindow::showWidget( StackedWidgetID const & p_id ) {
 
@@ -139,16 +171,18 @@ void MainWindow::startFrACT( ) {
 
 	QObject::connect( proc, SIGNAL( finished( int ) ), this, SLOT( slotFrACTFinished( int ) ) );
 
-	QStringList
-	arg;
+//	QStringList
+//	arg;
 
 	//arg << "http://www.michaelbach.de/fract/versions/FrACT3.10.0d.swf";
 	//arg << "C:/Users/Thomas Peschel/Documents/dev/c++/life/Franziska/github.com/TPeschel/VisusTestWrapperQt/release/flash/FrACT3.10.0d.swf";
-	arg << fractSWF;
+	//arg << cfg.rp( ).in( "cfg" ).in( "paths" ).in( "fract" ).curr( )->attrs( ).value( "path" ).toString( );
 	//proc->setWorkingDirectory ( "C:/Users/Thomas Peschel/Documents/dev/c++/life/Franziska/github.com/TPeschel/VisusWarapperQt/release/" );
-	proc->setWorkingDirectory ( dataDir );
+	proc->setWorkingDirectory ( cfg.rp( ).in( "cfg" ).in( "paths" ).in( "data" ).curr( )->attrs( ).value( "path" ).toString( ) );
 
-	proc->start( flashPlayerEXE, arg ); //windows
+	proc->start(
+		cfg.rp( ).in( "cfg" ).in( "paths" ).in( "flash" ).curr( )->data( ),
+		QStringList( ) << cfg.rp( ).in( "cfg" ).in( "paths" ).in( "fract" ).curr( )->data( ) ); //windows
 
 	// QTimer::singleShot( 2000, this, SLOT( slotPressA( ) ) );
 
@@ -157,15 +191,150 @@ void MainWindow::startFrACT( ) {
 	//    proc->startDetached ( "flashplayer", arg ); //linux
 }
 
-void MainWindow::updateConfigView( ) {
+void MainWindow::updateExaminatorsView( ) {
 
-	flashPlayerEXE = config.get( 0, 0 );
-	fractSWF       = config.get( 0, 1 );
-	dataDir        = config.get( 0, 2 );
+ 	vnames.clear( );
+	nnames.clear( );
+	ids.clear( );
 
-	ui->lineEditFlashPlayer->setText( flashPlayerEXE );
-	ui->lineEditFractSWF->setText( fractSWF );
-	ui->lineEditDataDir->setText( dataDir );
+	int
+	id = 0;
+
+	XMLTag
+	* run = cfg.rp( ).in( "cfg" ).in( "examinators" ).curr( )->child( "examinator", id );
+
+	while( run ) {
+
+		vnames << run->attrs( ).value( "vname" ).toString( );
+		nnames << run->attrs( ).value( "nname" ).toString( );
+		ids   << run->attrs( ).value( "id" ).toString( );
+
+		run = cfg.rp( ).in( "cfg" ).in( "examinators" ).curr( )->child( "examinator", ++ id );
+	}
+
+	Order
+	ordVName = order( vnames, smaller< QString > ),
+	ordNName = order( nnames, smaller< QString > ),
+	ordId    = order( ids, smaller< QString > ),
+	rnkVName = rank( vnames, smaller< QString > ),
+	rnkNName = rank( nnames, smaller< QString > ),
+	rnkId    = rank( ids, smaller< QString > );
+
+	QStringList
+	slVNames,
+	slNNames,
+	slIds;
+
+	for( int i = 0; i < vnames.size( ); ++ i ) {
+
+		slVNames << vnames[ ordVName[ i ] ];
+		slNNames << nnames[ ordNName[ i ] ];
+		slIds    << ids[ ordId[ i ] ];
+	}
+
+	vnames2id.reserve( vnames.size( ) );
+	vnames2nnames.reserve( vnames.size( ) );
+	nnames2vnames.reserve( nnames.size( ) );
+	nnames2id.reserve( nnames.size( ) );
+	id2vnames.reserve( ids.size( ) );
+	id2nnames.reserve( ids.size( ) );
+
+	vnames2id.clear( );
+	vnames2nnames.clear( );
+	nnames2vnames.clear( );
+	nnames2id.clear( );
+	id2vnames.clear( );
+	id2nnames.clear( );
+
+	for( std::size_t i = 0; i < rnkNName.size( ); ++ i ) {
+
+		nnames2id[ i ] = rnkId[ ordNName[ i ] ];
+		vnames2id[ i ] = rnkId[ ordVName[ i ] ];
+		id2nnames[ i ] = rnkNName[ ordId[ i ] ];
+		id2vnames[ i ] = rnkVName[ ordId[ i ] ];
+		vnames2nnames[ i ] = rnkNName[ ordVName[ i ] ];
+		nnames2vnames[ i ] = rnkVName[ ordNName[ i ] ];
+	}
+
+	ui->comboBoxExaminatorVName->clear( );
+	ui->comboBoxExaminatorVName->addItems( slVNames );
+
+	ui->comboBoxExaminatorNName->clear( );
+	ui->comboBoxExaminatorNName->addItems( slNNames );
+
+	ui->comboBoxExaminatorID->clear( );
+	ui->comboBoxExaminatorID->addItems( slIds );
+
+	QString
+	eid = cfg.rp( ).in( "cfg" ).in( "last-session-examinator-id" ).curr( )->attrs( ).value( "id" ).toString( );
+
+	for( int i = 0; i < ids.size( ); ++ i ) {
+
+		if( ids[ ordId[ i ] ] == eid ) {
+
+			ui->comboBoxExaminatorVName->setCurrentIndex( i );
+			ui->comboBoxExaminatorNName->setCurrentIndex( vnames2nnames[ i ] );
+			ui->comboBoxExaminatorID->setCurrentIndex( vnames2id[ i ] );
+
+			break;
+		}
+	}
+}
+
+void MainWindow::updatePathsConfigView( ) {
+
+	ui->lineEditFlashPlayer->setText( cfg.rp( ).in( "cfg" ).in( "paths" ).in( "flash" ).curr( )->data( ) );
+	ui->lineEditFractSWF->setText( cfg.rp( ).in( "cfg" ).in( "paths" ).in( "fract" ).curr( )->data( ) );
+	ui->lineEditDataDir->setText( cfg.rp( ).in( "cfg" ).in( "paths" ).in( "data" ).curr( )->data( ) );
+}
+
+void MainWindow::updateSessionView( ) {
+
+	sessions.clear( );
+
+	for( int i = 0; i < cfg.rp( ).in( "cfg" ).in( "session-types" ).curr( )->children( ).size( ); ++ i ) {
+
+		Session
+		s( cfg.rp( ).in( "cfg" ).in( "session-types" ).in( "type", i ).curr( )->attrs( ).value( "name" ).toString( ) );
+
+		for( int j = 0; j < cfg.rp( ).in( "cfg" ).in( "session-types" ).in( "type", i ).curr( )->children( ).size( ); ++ j ) {
+
+			QString
+			t = cfg.rp( ).in( "cfg" ).in( "session-types" ).in( "type", i ).in( "measurement", j ).in( "type" ).curr( )->data( );
+
+			s.addMeasurement(
+				t == "VDN"
+					? VDN
+					: t == "VSN"
+						? VSN
+						: t == "VDT"
+							? VDT
+							: t == "VST"
+								? VST
+								: t == "VDA"
+									? VDA
+									: t == "VSA"
+										? VSA
+										: t == "VDC"
+											? VDC
+											: t == "VSC"
+												? VSC
+												: NO );
+		}
+
+		sessions.push_back( s );
+	}
+
+	currSession = cfg.rp( ).in( "cfg" ).in( "last-session-type" ).curr( )->attrs( ).value( "id" ).toInt( ) - 1;
+
+	ui->comboBoxSessionType->clear( );
+
+	for( int i = 0; i < sessions.size( ); ++ i ) {
+
+		ui->comboBoxSessionType->addItem( sessions[ i ].name );
+	}
+
+	ui->comboBoxSessionType->setCurrentIndex( currSession );
 }
 
 void MainWindow::updateExaminationView( ) {
@@ -185,39 +354,13 @@ void MainWindow::updateExaminationView( ) {
 	}
 }
 
-void MainWindow::updateExaminatorsView( ) {
-
-	ui->comboBoxExaminatorName->clear( );
-	ui->comboBoxExaminatorID->clear( );
-
-	for( int i = 0; i < tableExaminators.rows( ); ++ i ) {
-
-		ui->comboBoxExaminatorID->addItem( tableExaminators.get( i, 0 ) );
-		ui->comboBoxExaminatorName->addItem( tableExaminators.get( i, 1 ) );
-	}
-
-	currExaminatorName = ui->comboBoxExaminatorName->currentText( );
-	currExaminatorID = ui->comboBoxExaminatorID->currentText( );
-
-	ui->tableWidgetExaminators->clear( );
-	ui->tableWidgetExaminators->setRowCount( tableExaminators.rows( ) );
-	ui->tableWidgetExaminators->setColumnCount( tableExaminators.cols( ) );
-
-	ui->tableWidgetExaminators->setHorizontalHeaderLabels( tableExaminators.header( ) );
-
-	for( int r = 0; r < tableExaminators.rows( ); ++ r ) {
-
-		for( int c = 0; c < tableExaminators.cols( ); ++ c ) {
-
-			ui->tableWidgetExaminators->setItem( r, c, createTableItemAlignCenter( tableExaminators.get( r, c ) ) );
-		}
-	}
-}
-
 void MainWindow::slotAddNewExaminator( ) {
 
+	ui->lineEditExaminatorVName->setText( "" );
+
+	ui->lineEditExaminatorNName->setText( "" );
+
 	ui->lineEditExaminatorID->setText( "" );
-	ui->lineEditExaminatorName->setText( "" );
 
 	showWidget( ADDNEWEXAMINATOR );
 }
@@ -229,26 +372,34 @@ void MainWindow::slotDoVisusTest( ) {
 	ui->pushButtonODVisus->setFocus( );
 }
 
-void MainWindow::slotExaminatorNameChanged( int p_id ) {
+void MainWindow::slotExaminatorVNameChanged( int p_id ) {
 
-	ui->comboBoxExaminatorID->setCurrentIndex( p_id );
+	ui->comboBoxExaminatorNName->setCurrentIndex( vnames2nnames[ p_id ] );
+	ui->comboBoxExaminatorID->setCurrentIndex( vnames2id[ p_id ] );
 
-	currExaminatorName = ui->comboBoxExaminatorName->currentText( );
+	ui->labelHelloMsg->setText( "Hallo\n" + ui->comboBoxExaminatorVName->currentText( ) + " " + ui->comboBoxExaminatorNName->currentText( ) + " [" + ui->comboBoxExaminatorID->currentText( ) + "]" );
 
-	currExaminatorID= ui->comboBoxExaminatorID->currentText( );
+	currExaminatorID = ui->comboBoxExaminatorID->currentText( );
+}
 
-	ui->labelHelloMsg->setText( "Hallo " + currExaminatorName + "\nIhre ID: " + currExaminatorID );
+void MainWindow::slotExaminatorNNameChanged( int p_id ) {
+
+	ui->comboBoxExaminatorVName->setCurrentIndex( nnames2vnames[ p_id ] );
+	ui->comboBoxExaminatorID->setCurrentIndex( nnames2id[ p_id ] );
+
+	ui->labelHelloMsg->setText( "Hallo\n" + ui->comboBoxExaminatorVName->currentText( ) + " " + ui->comboBoxExaminatorNName->currentText( ) + " [" + ui->comboBoxExaminatorID->currentText( ) + "]" );
+
+	currExaminatorID = ui->comboBoxExaminatorID->currentText( );
 }
 
 void MainWindow::slotExaminatorIDChanged( int p_id ) {
 
-	ui->comboBoxExaminatorName->setCurrentIndex( p_id );
+	ui->comboBoxExaminatorNName->setCurrentIndex( id2nnames[ p_id ] );
+	ui->comboBoxExaminatorVName->setCurrentIndex( id2vnames[ p_id ] );
 
-	currExaminatorName = ui->comboBoxExaminatorName->currentText( );
+	ui->labelHelloMsg->setText( "Hallo\n" + ui->comboBoxExaminatorVName->currentText( ) + " " + ui->comboBoxExaminatorNName->currentText( ) + " [" + ui->comboBoxExaminatorID->currentText( ) + "]" );
 
 	currExaminatorID = ui->comboBoxExaminatorID->currentText( );
-
-	ui->labelHelloMsg->setText( "Hallo " + currExaminatorName + "\nIhre ID: " + currExaminatorID );
 }
 
 void MainWindow::slotFinishSetup( ) {
@@ -256,7 +407,29 @@ void MainWindow::slotFinishSetup( ) {
 	showWidget( lastWidget );
 }
 
-void MainWindow::slotFinishExamination( ) {
+void MainWindow::slotCancelSession( ) {
+
+	//saveSession( );
+
+	showWidget( STARTSESSION );
+}
+
+void MainWindow::slotFinishSession( ) {
+
+	saveSession( );
+
+	ui->comboBoxExaminatorID->currentIndex( );
+
+	cfg.rp( ).in( "cfg" ).in( "last-session-examinator-id" ).att( "id", currExaminatorID );
+
+	cfg.save( "cfg.xml" );
+
+	showWidget( TABLEVIEW );
+
+	ui->tableWidgetExamination->show( );
+}
+
+void MainWindow::saveSession( ) {
 
 	for( int r = 0; r < tableSession.rows( ); ++ r ) {
 
@@ -310,13 +483,9 @@ void MainWindow::slotFinishExamination( ) {
 	dt << d.toString( "yyyyMMdd" ) << t.toString( "HHmmss" );
 
 	QString
-	filename( dataDir + "/Session-" + currSIC + "-" + dt.join( "-" ) + "-Acuity_LandoltC.tsv" );
+	filename( cfg.rp( ).in( "cfg" ).in( "paths" ).in( "data" ).curr( )->data( ) + "/Session-" + currSIC + "-" + dt.join( "-" ) + "-Acuity_LandoltC.tsv" );
 
-	tableSession.saveTSV( filename );
-
-	showWidget( TABLEVIEW );
-
-	ui->tableWidgetExamination->show( );
+	tableSession.save( filename );
 }
 
 void MainWindow::slotFrACTFinished( int p_exitCode ) {
@@ -351,10 +520,13 @@ void MainWindow::slotFrACTFinished( int p_exitCode ) {
 		dt = date.join( "" ) + "-" + time.join( "" );
 
 		QStringList
-		msl = modeStrings[ currMode ].split( "_PLACEHOLDER_" );
+		msl = modeStrings[ currMeasurementType ].split( "_PLACEHOLDER_" );
+
+		QString
+		pth = cfg.rp( ).in( "cfg" ).in( "paths" ).in( "data" ).curr( )->data( );
 
 		QFile
-		fileResult( dataDir + "/" + currSIC + "-" + dt + "-Acuity_LandoltC-" + msl[ 0 ] + "-" + msl[ 1 ] + "-Result.tsv" );
+		fileResult( pth + "/" + currSIC + "-" + dt + "-Acuity_LandoltC-" + msl[ 0 ] + "-" + msl[ 1 ] + "-Result.tsv" );
 
 		if( fileResult.open( QIODevice::WriteOnly | QIODevice::Text ) ) {
 
@@ -362,21 +534,22 @@ void MainWindow::slotFrACTFinished( int p_exitCode ) {
 			ts( &fileResult );
 
 			ts <<
-			"SIC" << "\t" << "DATE" << "\t" << "TIME" << "\t" << "RESULT" << "\t" <<
-			"RESULT_UNIT" << "\t" << "OCULUS" << "\t" << "DETAILS" << "\t" << "TEST_NAME" <<
-			"\t" << "DISTANCE" << "\t" << "DISTANCE_UNIT" << "\t" << "N_TRIALS" << "\t" << "ID" << "\t" << "COMMENT" << "\n" <<
-			currSIC << "\t" <<
-			row.at( 0 ) << "\t" <<
-			row.at( 1 ) << "\t" <<
-			row.at( 2 ) << "\t" <<
-			row.at( 3 ) << "\t" <<
-			msl[ 0 ] << "\t" <<
-			msl[ 1 ] << "\t" <<
-			row.at( 4 ) << "\t" <<
-			row.at( 5 ) << "\t" <<
-			row.at( 6 ) << "\t" <<
-			row.at( 7 ) << "\t" <<
-			currExaminatorID << "\n";
+				"SIC" << "\t" << "DATE" << "\t" << "TIME" << "\t" << "RESULT" << "\t" <<
+				"RESULT_UNIT" << "\t" << "OCULUS" << "\t" << "DETAILS" << "\t" << "TEST_NAME" <<
+				"\t" << "DISTANCE" << "\t" << "DISTANCE_UNIT" << "\t" << "N_TRIALS" << "\t" << "EID" << "\t" << "COMMENT" << "\n" <<
+				currSIC << "\t" <<
+				row.at( 0 ) << "\t" <<
+				row.at( 1 ) << "\t" <<
+				row.at( 2 ) << "\t" <<
+				row.at( 3 ) << "\t" <<
+				msl[ 0 ] << "\t" <<
+				msl[ 1 ] << "\t" <<
+				row.at( 4 ) << "\t" <<
+				row.at( 5 ) << "\t" <<
+				row.at( 6 ) << "\t" <<
+				row.at( 7 ) << "\t" <<
+				currExaminatorID << "\t" <<
+				"";
 
 			fileResult.close( );
 		}
@@ -384,7 +557,7 @@ void MainWindow::slotFrACTFinished( int p_exitCode ) {
 		if( 12 < row.size( ) ) {
 
 			QFile
-			fileData( dataDir + "/" + currSIC + "-" + dt + "-Acuity_LandoltC-" + msl[ 0 ] + "-" + msl[ 1 ] + "-Data.tsv" );
+			fileData( pth + "/" + currSIC + "-" + dt + "-Acuity_LandoltC-" + msl[ 0 ] + "-" + msl[ 1 ] + "-Data.tsv" );
 
 			if( fileData.open( QIODevice::WriteOnly | QIODevice::Text ) ) {
 
@@ -410,81 +583,81 @@ void MainWindow::slotFrACTFinished( int p_exitCode ) {
 		}
 
 		tableSession.addRow(
-		QStringList( ) <<
-		currSIC <<
-		row.at( 0 ) <<
-		row.at( 1 ) <<
-		row.at( 2 ) <<
-		row.at( 3 ) <<
-		msl[ 0 ] <<
-		msl[ 1 ] <<
-		row.at( 4 ) <<
-		row.at( 5 ) <<
-		row.at( 6 ) <<
-		row.at( 7 ) <<
-		currExaminatorID << "" );
+			QStringList( ) <<
+			currSIC <<
+			row.at( 0 ) <<
+			row.at( 1 ) <<
+			row.at( 2 ) <<
+			row.at( 3 ) <<
+			msl[ 0 ] <<
+			msl[ 1 ] <<
+			row.at( 4 ) <<
+			row.at( 5 ) <<
+			row.at( 6 ) <<
+			row.at( 7 ) <<
+			currExaminatorID << "" );
 
 		double
 		val = row.at( 2 ).toDouble( );
 
-		switch ( currMode ) {
+		switch ( currMeasurementType ) {
 
-			case ODWithoutOpticalAid : {
+			case VDN : {
 
 				//ui->pushButtonODVisus->setStyleSheet( "QPushButton { color : green; }" );
 				ui->labelODVal->setStyleSheet( "QLabel { color : green; }" );
-				ui->labelODVal->setText( QString( "VA = %1  logMAR = %2" ).arg(val ).arg( -log10( val ) ) );
-				visusMeasurements[ ODWithoutOpticalAid ].setValue( val );
+				ui->labelODVal->setText( QString( "VA = %1  logMAR = %2" ).arg( val ).arg( -log10( val ) ) );
+				measurements[ VDN ].setValue( val );
 
 				break;
 			}
 
-			case OSWithoutOpticalAid : {
+			case VSN : {
 
 				//ui->pushButtonOSVisus->setStyleSheet( "QPushButton { color : green; }" );
 				ui->labelOSVal->setStyleSheet( "QLabel { color : green; }" );
-				ui->labelOSVal->setText( QString( "VA = %1  logMAR = %2" ).arg(val ).arg( -log10( val ) ) );
-				visusMeasurements[ OSWithoutOpticalAid ].setValue( val );
+				ui->labelOSVal->setText( QString( "VA = %1  logMAR = %2" ).arg( val ).arg( -log10( val ) ) );
+				measurements[ VSN ].setValue( val );
 
 				break;
 			}
 
-			case ODWithTrialFrame : {
+			case VDT : {
 
 				//ui->pushButtonODVisusTrialFrame->setStyleSheet( "QPushButton { color : green; }" );
 				ui->labelODTFVal->setStyleSheet( "QLabel { color : green; }" );
-				ui->labelODTFVal->setText( QString( "VA = %1  logMAR = %2" ).arg(val ).arg( -log10( val ) ) );
-				visusMeasurements[ ODWithTrialFrame ].setValue( val );
+				ui->labelODTFVal->setText( QString( "VA = %1  logMAR = %2" ).arg( val ).arg( -log10( val ) ) );
+				measurements[ VDT ].setValue( val );
 
 				break;
 			}
 
-			case OSWithTrialFrame : {
+			case VST : {
 
 				//ui->pushButtonOSVisusTrialFrame->setStyleSheet( "QPushButton { color : green; }" );
 				ui->labelOSTFVal->setStyleSheet( "QLabel { color : green; }" );
-				ui->labelOSTFVal->setText( QString( "VA = %1  logMAR = %2" ).arg(val ).arg( -log10( val ) ) );
-				visusMeasurements[ OSWithTrialFrame ].setValue( val );
+				ui->labelOSTFVal->setText( QString( "VA = %1  logMAR = %2" ).arg( val ).arg( -log10( val ) ) );
+				measurements[ VST ].setValue( val );
 
 				break;
 			}
 
-			case ODWithHoleAperture : {
+			case VDA : {
 
 				//ui->pushButtonODVisusAperture->setStyleSheet( "QPushButton { color : green; }" );
 				ui->labelODAVal->setStyleSheet( "QLabel { color : green; }" );
-				ui->labelODAVal->setText( QString( "VA = %1  logMAR = %2" ).arg(val ).arg( -log10( val ) ) );
-				visusMeasurements[ ODWithHoleAperture ].setValue( val );
+				ui->labelODAVal->setText( QString( "VA = %1  logMAR = %2" ).arg( val ).arg( -log10( val ) ) );
+				measurements[ VDA ].setValue( val );
 
 				break;
 			}
 
-			case OSWithHoleAperture : {
+			case VSA : {
 
 				//ui->pushButtonOSVisusAperture->setStyleSheet( "QPushButton { color : green; }" );
 				ui->labelOSAVal->setStyleSheet( "QLabel { color : green; }" );
-				ui->labelOSAVal->setText( QString( "VA = %1  logMAR = %2" ).arg(val ).arg( -log10( val ) ) );
-				visusMeasurements[ OSWithHoleAperture ].setValue( val );
+				ui->labelOSAVal->setText( QString( "VA = %1  logMAR = %2" ).arg( val ).arg( -log10( val ) ) );
+				measurements[ VSA ].setValue( val );
 
 				break;
 			}
@@ -496,7 +669,7 @@ void MainWindow::slotFrACTFinished( int p_exitCode ) {
 
 		ui->statusBar->clearMessage( );
 
-		if( visusMeasurements[ ODWithoutOpticalAid ].measured && visusMeasurements[ ODWithTrialFrame ].measured && !visusMeasurements[ ODWithHoleAperture ].measured && visusMeasurements[ ODWithoutOpticalAid ].value > visusMeasurements[ ODWithTrialFrame ].value ) {
+		if( measurements[ VDN ].measured && measurements[ VDT ].measured && !measurements[ VDA ].measured && measurements[ VDN ].value > measurements[ VDT ].value ) {
 
 			//ui->pushButtonODVisusAperture->setEnabled( true );
 			ui->labelODAVal->setStyleSheet( "QLabel { color : red; }" );
@@ -505,7 +678,7 @@ void MainWindow::slotFrACTFinished( int p_exitCode ) {
 			ui->statusBar->showMessage( "Die Messung des rechten Auges (OD) ohne Messbrille ist besser als die mit Messbrille.\nBitte messen Sie nun mit Messblende!" );
 		}
 
-		if( visusMeasurements[ OSWithoutOpticalAid ].measured && visusMeasurements[ OSWithTrialFrame ].measured && !visusMeasurements[ OSWithHoleAperture ].measured && visusMeasurements[ OSWithoutOpticalAid ].value > visusMeasurements[ OSWithTrialFrame ].value ) {
+		if( measurements[ VSN ].measured && measurements[ VST ].measured && !measurements[ VSA ].measured && measurements[ VSN ].value > measurements[ VST ].value ) {
 
 			ui->labelOSAVal->setStyleSheet( "QLabel { color : red; }" );
 			ui->labelOSAVal->setText( "noch kein kein Wert gemessen" );
@@ -520,12 +693,24 @@ void MainWindow::slotNewExaminatorOK( ) {
 	bool
 	ok  = true;
 
-	if( ui->lineEditExaminatorName->text( ).isEmpty( ) ) {
+	if( ui->lineEditExaminatorVName->text( ).isEmpty( ) ) {
 
 		QMessageBox
 		mb;
 
-		mb.setText( "Geben Sie bitte Ihren Namen ein!" );
+		mb.setText( "Geben Sie bitte Ihren Vornamen ein! Dieser kann auch gerne ein Spitzname." );
+
+		mb.exec( );
+
+		ok = false;
+	}
+
+	if( ui->lineEditExaminatorNName->text( ).isEmpty( ) ) {
+
+		QMessageBox
+		mb;
+
+		mb.setText( "Geben Sie bitte Ihren Nachnamen ein! Dieser kann auch gerne ein Spitzname." );
 
 		mb.exec( );
 
@@ -546,14 +731,29 @@ void MainWindow::slotNewExaminatorOK( ) {
 
 	if( ok ) {
 
-		tableExaminators.loadFromFile( "examinators.tsv", true );
+		cfg.rp( ).in( "cfg" ).in( "examinators" ).addTag( "examinator" ).att( "id", ui->lineEditExaminatorID->text( ) ).att( "vname", ui->lineEditExaminatorVName->text( ) ).att( "nname", ui->lineEditExaminatorNName->text( ) );
 
-		currExaminatorID = ui->lineEditExaminatorID->text( );
+		cfg.save( "cfg.xml" );
+
+		updateExaminatorsView( );
+
+		ui->pushButtonStartSession->setFocus( );
+
+		showWidget( LOBBY );
+	}
+
+/*
+	if( ok ) {
+
+		currExaminatorID = ui->lineEditExaminatorID->text( ).toInt( );
+
+		QString
+		currExaminatorName = ui->lineEditExaminatorName->text( );
 
 		currExaminatorName = ui->lineEditExaminatorName->text( );
 
 		int
-		id = tableExaminators.whereIsInColumn( currExaminatorID );
+		id = tableExaminators.whereInColumnIs( currExaminatorID );
 
 		if( 0 <= id ) {
 
@@ -569,7 +769,7 @@ void MainWindow::slotNewExaminatorOK( ) {
 
 			tableExaminators.addRow( QStringList( { currExaminatorID, currExaminatorName } ) );
 
-			while( ! tableExaminators.saveTSV( "examinators.tsv", true ) ) {
+			while( ! tableExaminators.save( "examinators.tsv", true ) ) {
 
 				QMessageBox
 				mb;
@@ -586,6 +786,7 @@ void MainWindow::slotNewExaminatorOK( ) {
 			showWidget( LOBBY );
 		}
 	}
+*/
 }
 
 void MainWindow::slotNewExaminatorCancel( ) {
@@ -612,14 +813,14 @@ void MainWindow::slotScanSic( QString const & p_sic ) {
 
 void MainWindow::slotShowLobby( ) {
 
-	updateExaminatorsView( );
+	//updateExaminatorsView( );
 }
 
 void MainWindow::slotShowProperties( ) {
 
-	ui->lineEditFlashPlayer->setText( config.get( 0, 0 ) );
-	ui->lineEditFractSWF->setText( config.get( 0, 1 ) );
-	ui->lineEditDataDir->setText( config.get( 0, 2 ) );
+	ui->lineEditFlashPlayer->setText( cfg.rp( ).in( "cfg" ).in( "paths" ).in( "flash" ).curr( )->data( ) );
+	ui->lineEditFractSWF->setText( cfg.rp( ).in( "cfg" ).in( "paths" ).in( "fract" ).curr( )->data( ) );
+	ui->lineEditDataDir->setText( cfg.rp( ).in( "cfg" ).in( "paths" ).in( "data" ).curr( )->data( ) );
 
 	lastWidget = SETUP;
 
@@ -634,7 +835,7 @@ void MainWindow::slotStartSession( ) {
 
 	for( int i = 0; i < 6; ++ i ) {
 
-		visusMeasurements[ i ].clear( );
+		measurements[ i ].clear( );
 	}
 
 	ui->lineEditSIC->setEnabled( true );
@@ -670,8 +871,9 @@ void MainWindow::slotStartSession( ) {
 	ui->stackedWidget->setCurrentIndex( STARTSESSION );
 }
 
-void MainWindow::slotStartFileDialogForFlashPlayer( )
-{
+void MainWindow::slotStartFileDialogForFlashPlayer( ) {
+
+	QString
 	flashPlayerEXE = QFileDialog::getOpenFileName( this, tr( "Flash Player Projector" ), ".", tr( "Exe Datei (*.exe)" ) );
 
 	if( flashPlayerEXE.isEmpty( ) ) {
@@ -681,13 +883,14 @@ void MainWindow::slotStartFileDialogForFlashPlayer( )
 
 	ui->lineEditFlashPlayer->setText( flashPlayerEXE );
 
-	config.set( 0, 0, flashPlayerEXE );
+	cfg.rp( ).in( "cfg" ).in( "paths" ).in( "flash" ).curr()->setData( flashPlayerEXE );
 
-	config.saveTSV( "config.tsv" );
+	cfg.save( "cfg.xml" );
 }
 
-void MainWindow::slotStartFileDialogForFractSWF( )
-{
+void MainWindow::slotStartFileDialogForFractSWF( ) {
+
+	QString
 	fractSWF = QFileDialog::getOpenFileName( this, tr( "FrACT*.swf" ), ".", tr( "SWF Datei (*.swf)" ) );
 
 	if( fractSWF.isEmpty( ) ) {
@@ -697,13 +900,15 @@ void MainWindow::slotStartFileDialogForFractSWF( )
 
 	ui->lineEditFractSWF->setText( fractSWF );
 
-	config.set( 0, 1, fractSWF );
+	cfg.rp( ).in( "cfg" ).in( "paths" ).in( "fract" ).curr()->setData( fractSWF );
 
-	config.saveTSV( "config.tsv" );
+	cfg.save( "cfg.xml" );
+
 }
 
 void MainWindow::slotStartFileDialogForDataDir( ) {
 
+	QString
 	dataDir = QFileDialog::getExistingDirectory( this, tr( "Daten Verzeichnis" ), tr( "." ), QFileDialog::ShowDirsOnly );
 
 	if( dataDir.isEmpty( ) ) {
@@ -713,43 +918,44 @@ void MainWindow::slotStartFileDialogForDataDir( ) {
 
 	ui->lineEditDataDir->setText( dataDir );
 
-	config.set( 0, 2, dataDir );
+	cfg.rp( ).in( "cfg" ).in( "paths" ).in( "data" ).curr()->setData( dataDir );
 
-	config.saveTSV( "config.tsv" );
+	cfg.save( "cfg.xml" );
 }
 
-void MainWindow::slotStartFrACTAcuity_LandoltCOD( )
-{
-	currMode = ODWithoutOpticalAid;
+void MainWindow::slotStartFrACTAcuity_LandoltCOD( ) {
+
+	currMeasurementType = VDN;
+
 	startFrACT( );
 }
 
 void MainWindow::slotStartFrACTAcuity_LandoltCOS( )
 {
-	currMode = OSWithoutOpticalAid;
+	currMeasurementType = VSN;
 	startFrACT( );
 }
 
 void MainWindow::slotStartFrACTAcuity_LandoltCODWithTrialFrame( )
 {
-	currMode = ODWithTrialFrame;
+	currMeasurementType = VDT;
 	startFrACT( );
 }
 
 void MainWindow::slotStartFrACTAcuity_LandoltCOSWithTrialFrame( )
 {
-	currMode = OSWithTrialFrame;
+	currMeasurementType = VST;
 	startFrACT( );
 }
 
 void MainWindow::slotStartFrACTAcuity_LandoltCODWithHoleAperture( ) {
 
-	currMode = ODWithHoleAperture;
+	currMeasurementType = VDA;
 	startFrACT( );
 }
 
 void MainWindow::slotStartFrACTAcuity_LandoltCOSWithHoleAperture( )
 {
-	currMode = OSWithHoleAperture;
+	currMeasurementType = VSA;
 	startFrACT( );
 }
