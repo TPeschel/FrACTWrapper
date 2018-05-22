@@ -16,16 +16,15 @@ ui( new Ui::MainWindow ) {
 
 	ui->setupUi( this );
 
-	currWidget = LOBBY;
-	lastWidget = LOBBY;
+	currWidget = SWID_LOBBY;
 
 	proc = nullptr;
 
 	tableSession.newHeader(
 	QStringList( ) <<
 	"SIC" << "DATE" << "TIME" << "RESULT" <<
-	"RESULT_UNIT" << "OCULUS" << "DETAILS" << "TEST_NAME" <<
-	"DISTANCE" << "DISTANCE_UNIT" << "N_TRIALS" << "EID" << "COMMENT" );
+	"RESULT_UNIT" << "OCULUS" << "OPTICAL_AID" << "TEST_NAME" <<
+	"DISTANCE" << "DISTANCE_UNIT" << "N_TRIALS" << "EID" << "COMMENT" << "MID" );
 
 //    this->layout()->setSizeConstraint(QLayout::SetFixedSize);
 //    this->setWindowFlags( this->windowFlags( ) & ~( Qt::WindowMaximizeButtonHint | Qt::WindowMinimizeButtonHint | Qt::Window | Qt::MSWindowsFixedSizeDialogHint ) );
@@ -34,6 +33,8 @@ ui( new Ui::MainWindow ) {
 	connect( this,                            SIGNAL( signalNoConfigFound( ) ),     this, SLOT( slotShowProperties( ) ) );
 
 	connect( ui->actionEinstellungen,         SIGNAL( triggered( ) ),               this, SLOT( slotShowProperties( ) ) );
+	connect( ui->actionHilfe,                 SIGNAL( triggered( ) ),               this, SLOT( slotShowHelp( ) ) );
+
 	connect( ui->lineEditSIC,                 SIGNAL( textChanged( QString ) ),     this, SLOT( slotScanSic( QString ) ) );
 
 	connect( ui->comboBoxExaminatorVName,     SIGNAL( currentIndexChanged( int ) ), this, SLOT( slotExaminatorVNameChanged( int ) ) );
@@ -44,36 +45,36 @@ ui( new Ui::MainWindow ) {
 	connect( ui->pushButtonNewAccountOK,      SIGNAL( released( ) ), this, SLOT( slotNewExaminatorOK( ) ) );
 	connect( ui->pushButtonNewAccountAbort,   SIGNAL( released( ) ), this, SLOT( slotNewExaminatorCancel( ) ) );
 	connect( ui->pushButtonStartSession,      SIGNAL( released( ) ), this, SLOT( slotStartSession( ) ) );
-	connect( ui->pushButtonStartVisusTest,    SIGNAL( released( ) ), this, SLOT( slotDoVisusTest( ) ) );
-	connect( ui->pushButtonODVisus,           SIGNAL( released( ) ), this, SLOT( slotStartFrACTAcuity_LandoltCOD( ) ) );
-	connect( ui->pushButtonOSVisus,           SIGNAL( released( ) ), this, SLOT( slotStartFrACTAcuity_LandoltCOS( ) ) );
-	connect( ui->pushButtonODVisusTrialFrame, SIGNAL( released( ) ), this, SLOT( slotStartFrACTAcuity_LandoltCODWithTrialFrame( ) ) );
-	connect( ui->pushButtonOSVisusTrialFrame, SIGNAL( released( ) ), this, SLOT( slotStartFrACTAcuity_LandoltCOSWithTrialFrame( ) ) );
-	connect( ui->pushButtonODVisusAperture,   SIGNAL( released( ) ), this, SLOT( slotStartFrACTAcuity_LandoltCODWithHoleAperture( ) ) );
-	connect( ui->pushButtonOSVisusAperture,   SIGNAL( released( ) ), this, SLOT( slotStartFrACTAcuity_LandoltCOSWithHoleAperture( ) ) );
+	connect( ui->pushButtonODNO,              SIGNAL( released( ) ), this, SLOT( slotStartFrACTOD( ) ) );
+	connect( ui->pushButtonOSNO,              SIGNAL( released( ) ), this, SLOT( slotStartFrACTOS( ) ) );
+	connect( ui->pushButtonODTF,              SIGNAL( released( ) ), this, SLOT( slotStartFrACTODTF( ) ) );
+	connect( ui->pushButtonOSTF,              SIGNAL( released( ) ), this, SLOT( slotStartFrACTOSTF( ) ) );
+	connect( ui->pushButtonODHA,              SIGNAL( released( ) ), this, SLOT( slotStartFrACTODHA( ) ) );
+	connect( ui->pushButtonOSHA,              SIGNAL( released( ) ), this, SLOT( slotStartFrACTOSHA( ) ) );
 
 	connect( ui->toolButtonFlashPlayer,       SIGNAL( released( ) ), this, SLOT( slotStartFileDialogForFlashPlayer( ) ) );
 	connect( ui->toolButtonFractSWF,          SIGNAL( released( ) ), this, SLOT( slotStartFileDialogForFractSWF( ) ) );
 	connect( ui->toolButtonDataDir,           SIGNAL( released( ) ), this, SLOT( slotStartFileDialogForDataDir( ) ) );
 
 	connect( ui->pushButtonSetupBack,         SIGNAL( released( ) ), this, SLOT( slotFinishSetup( ) ) );
+	connect( ui->pushButtonBackFromHelp,      SIGNAL( released( ) ), this, SLOT( slotFinishHelp( ) ) );
 	connect( ui->pushButtonFinishSession,     SIGNAL( released( ) ), this, SLOT( slotFinishSession( ) ) );
 	connect( ui->pushButtonCancelSession,     SIGNAL( released( ) ), this, SLOT( slotCancelSession( ) ) );
 
 	connect( ui->pushButtonExitFromTabView,       SIGNAL( released( ) ), this, SLOT( close( ) ) );
 	connect( ui->pushButtonNewProbandFromTabView, SIGNAL( released( ) ), this, SLOT( slotStartSession( ) ) );
 
-	connect( ui->action_Beenden,              SIGNAL(triggered( ) ), this, SLOT( close( ) ) );
+	connect( ui->action_Beenden,              SIGNAL( triggered( ) ), this, SLOT( close( ) ) );
+	connect( ui->action_Feierabend,           SIGNAL( triggered( ) ), this, SLOT( close( ) ) );
 
 	ui->tableWidgetExamination->horizontalHeader( )->setSectionResizeMode( QHeaderView::Stretch );
+	ui->tableWidgetResult->horizontalHeader( )->setSectionResizeMode( QHeaderView::Stretch );
 
-	showWidget( StackedWidgetID::LOBBY );
+	//switchWidget( SWID_LOBBY );
 
 	loadConfig( );
 
 	updatePathsConfigView( );
-
-	updateSessionView( );
 
 	updateExaminatorsView( );
 
@@ -85,81 +86,196 @@ MainWindow::~MainWindow( ) {
 	delete ui;
 }
 
-/*
-void MainWindow::checkForExistingConfig( ) {
-
-	if( ! config.load( "config.tsv" ) ) {
-
-		config.clearAll( );
-
-		config.newHeader( QStringList( ) << "FLASHPLAYER" << "FRACTSWF" << "DATADIR" );
-
-		config.addRow( QStringList( ) << "Flash Player Projector" << "FrACT*.swf" << "data directory" );
-
-		config.save( "config.tsv" );
-
-		ui->statusBar->showMessage( "Creating dummy config.tsv ... Please configure first!" );
-
-		emit signalNoConfigFound( );
-	}
-}
-*/
-
-void MainWindow::loadConfig( ) {
+void
+MainWindow::loadConfig( ) {
 
 	if( ! cfg.load( "cfg.xml" ) ) {
 
 		cfg.clear( );
 
-/*	cfg
-		.rp( )
-		.tag( "cfg" ).att( "date", QDate::currentDate( ).toString( ) ).att( "time", QTime::currentTime( ).toString( ) );
-*/
+		QString
+		cdir  = QDir::currentPath( ),
+		flash = QDir( cdir ).filePath( "flash/flashplayer_29_sa.exe" ),
+		fract = QDir( cdir ).filePath( "fract/FrACT3.10.0d.swf" ),
+		data  = QDir( cdir ).filePath( "data" );
 
-		cfg
-		.rp( )
+		cfg.rp( )
 		.tag( "cfg" ).att( "date", QDate::currentDate( ).toString( ) ).att( "time", QTime::currentTime( ).toString( ) )
-			.tag( "paths")
-				.tag( "flash" ).txt( "../flash(flash_sa_29.exe" ).gat( )
-				.tag( "fract" ).txt( "../fract/FrACT3.10.0d.swf").gat( )
-				.tag( "data" ).txt( "../data" ).gat( 2 )
-			.tag( "examinators" )
-				.tag( "examinator" ).att( "id", "0000" ).att( "name", "Thomas Peschel" ).gat( 2 )
-			.tag( "last-examinations" ).att( "id", "0000" );
+			.tag( "paths" )
+				.tag( "flash" ).txt( flash ).gat( )
+				.tag( "fract" ).txt( fract ).gat( )
+				.tag( "data" ).txt( data );
+
+		cfg.rp( )
+			.tag( "list-examinators" ).att( "size", "8" )
+				.tag( "item" ).att( "i", "0" )
+					.tag( "id" ).txt( "xxxx" ).gat( )
+					.tag( "vname" ).txt( "Thomas" ).gat( )
+					.tag( "nname" ).txt( "Peschel" ).gat( 3 )
+			.tag( "last-examinator-id" ).txt( "xxxx" ).gat( )
+			.tag( "last-examination-id" ).txt( "0" );
 
 		cfg.save( "cfg.xml" );
 
 		emit signalNoConfigFound( );
 	}
+
+	examinationId = cfg.rp( ).in( "cfg" ).in( "last-examination-id" ).curr( )->data( ).toLong( );
 }
-/*
-	if( ! config.load( "config.tsv" ) ) {
 
-		config.clearAll( );
+void
+MainWindow::prepareSession( ) {
 
-		config.newHeader( QStringList( ) << "FLASHPLAYER" << "FRACTSWF" << "DATADIR" );
+//	currExamination = 0;
 
-		config.addRow( QStringList( ) << "Flash Player Projector" << "FrACT*.swf" << "data directory" );
+//	updateSessionSequence( );
 
-		config.save( "config.tsv" );
+	tableSession.clearContent( );
 
-		ui->statusBar->showMessage( "Creating dummy config.tsv ... Please configure first!" );
+	updateExaminationView( );
 
-		emit signalNoConfigFound( );
+	updateTableWidgetResults( );
+
+	for( int i = 0; i < 6; ++ i ) {
+
+		measurements[ i ].clear( );
 	}
+
+	ui->lineEditSIC->setEnabled( true );
+	ui->lineEditSIC->clear( );
+	ui->lineEditSIC->setFocus( );
+
+	ui->labelODVal->setStyleSheet( "QLabel { color : black }" );
+	ui->labelODVal->setText( "noch kein Wert gemesen" );
+	ui->pushButtonODNO->setEnabled( true );
+//	ui->lineEditCommentOD->setEnabled( false );
+	ui->lineEditCommentOD->clear( );
+
+	ui->labelOSVal->setStyleSheet( "QLabel { color : black }" );
+	ui->labelOSVal->setText( "noch kein Wert gemesen" );
+	ui->pushButtonOSNO->setEnabled( true );
+//	ui->lineEditCommentOS->setEnabled( false );
+	ui->lineEditCommentOS->clear( );
+
+	ui->labelODTFVal->setStyleSheet( "QLabel { color : black }" );
+	ui->labelODTFVal->setText( "noch kein Wert gemesen" );
+	ui->pushButtonODTF->setEnabled( true );
+//	ui->lineEditCommentODTF->setEnabled( false );
+	ui->lineEditCommentODTF->clear( );
+
+	ui->labelOSTFVal->setStyleSheet( "QLabel { color : black }" );
+	ui->labelOSTFVal->setText( "noch kein Wert gemesen" );
+	ui->pushButtonOSTF->setEnabled( true );
+//	ui->lineEditCommentOSTF->setEnabled( false );
+	ui->lineEditCommentOSTF->clear( );
+
+	ui->labelODAVal->setStyleSheet( "QLabel { color : black }" );
+	ui->labelODAVal->setText( "keine Messung nötig" );
+	ui->pushButtonODHA->setEnabled( true );
+//	ui->lineEditCommentODA->setEnabled( false );
+	ui->lineEditCommentODA->clear( );
+	ui->labelODAVal->setStyleSheet( "color : black" );
+
+	ui->labelOSAVal->setStyleSheet( "QLabel { color : black }" );
+	ui->labelOSAVal->setText( "keine Messung nötig" );
+	ui->pushButtonOSHA->setEnabled( true );
+//	ui->lineEditCommentOSA->setEnabled( false );
+	ui->lineEditCommentOSA->clear( );
+	ui->labelOSAVal->setStyleSheet( "color : black" );
+
+//	ui->stackedWidget->setCurrentIndex( STARTSESSION );
+
+//	ui->stackedWidget->setCurrentIndex( VISUSEXAMINATION );
+
+//	ui->pushButtonSessionSequence->setFocus( );
 }
-*/
 
-void MainWindow::showWidget( StackedWidgetID const & p_id ) {
+void
+MainWindow::saveSession( ) {
 
-	lastWidget = currWidget;
-	currWidget = p_id;
+	for( int r = 0; r < tableSession.rows( ); ++ r ) {
 
-	ui->spinBoxView->setValue( p_id );
-	ui->stackedWidget->setCurrentIndex( p_id );
+		QString
+		oc = tableSession.get( r, 5 ),
+		oa = tableSession.get( r, 6 );
+
+		if( oc == "dexter" ) {
+
+			if( oa == "none" ) {
+
+				tableSession.set( r, 12, ui->lineEditCommentOD->text( ) );
+			}
+			else if ( oa == "trial_frame" ) {
+
+				tableSession.set( r, 12, ui->lineEditCommentODTF->text( ) );
+			}
+			else if ( oa == "hole_aperture" ) {
+
+				tableSession.set( r, 12, ui->lineEditCommentODA->text( ) );
+			}
+		}
+		else if( oc == "sinister" ) {
+
+			if( oa == "none" ) {
+
+				tableSession.set( r, 12, ui->lineEditCommentOS->text( ) );
+			}
+			else if ( oa == "trial_frame" ) {
+
+				tableSession.set( r, 12, ui->lineEditCommentOSTF->text( ) );
+			}
+			else if ( oa == "hole_aperture" ) {
+
+				tableSession.set( r, 12, ui->lineEditCommentOSA->text( ) );
+			}
+		}
+	}
+
+	updateExaminationView( );
+
+	QDate
+	d = QDate::currentDate( );
+
+	QTime
+	t = QTime::currentTime( );
+
+	QStringList
+	dt;
+
+	dt << d.toString( "yyyyMMdd" ) << t.toString( "HHmmss" );
+
+	QString
+	filename( cfg.rp( ).in( "cfg" ).in( "paths" ).in( "data" ).curr( )->data( ) + "/" + currSIC + "-" + dt.join( "-" ) + "-SESSION" + ".tsv" );
+//	filename( cfg.rp( ).in( "cfg" ).in( "paths" ).in( "data" ).curr( )->data( ) + "/Session-" + currSIC + "-" + dt.join( "-" ) + ".tsv" );
+
+	tableSession.save( filename );
 }
 
-void MainWindow::startFrACT( ) {
+void
+MainWindow::switchWidget( StackedWidgetID p_newId ) {
+
+	widgetHistory.push_back( currWidget );
+
+	currWidget = p_newId;
+
+	ui->stackedWidget->setCurrentIndex( currWidget );
+}
+
+void
+MainWindow::switchWidgetBack( ) {
+
+	StackedWidgetID
+	swid =  widgetHistory[  widgetHistory.size( ) - 1 ];
+
+	widgetHistory.pop_back( );
+
+	currWidget = swid;
+
+	ui->stackedWidget->setCurrentIndex( swid );
+}
+
+void
+MainWindow::startFrACT( ) {
 
 	QApplication::clipboard( )->clear( QClipboard::Clipboard );
 
@@ -171,45 +287,29 @@ void MainWindow::startFrACT( ) {
 
 	QObject::connect( proc, SIGNAL( finished( int ) ), this, SLOT( slotFrACTFinished( int ) ) );
 
-//	QStringList
-//	arg;
-
-	//arg << "http://www.michaelbach.de/fract/versions/FrACT3.10.0d.swf";
-	//arg << "C:/Users/Thomas Peschel/Documents/dev/c++/life/Franziska/github.com/TPeschel/VisusTestWrapperQt/release/flash/FrACT3.10.0d.swf";
-	//arg << cfg.rp( ).in( "cfg" ).in( "paths" ).in( "fract" ).curr( )->attrs( ).value( "path" ).toString( );
-	//proc->setWorkingDirectory ( "C:/Users/Thomas Peschel/Documents/dev/c++/life/Franziska/github.com/TPeschel/VisusWarapperQt/release/" );
-	proc->setWorkingDirectory ( cfg.rp( ).in( "cfg" ).in( "paths" ).in( "data" ).curr( )->attrs( ).value( "path" ).toString( ) );
+	proc->setWorkingDirectory ( cfg.rp( ).in( "cfg" ).in( "paths" ).in( "data" ).curr( )->data( ) );
 
 	proc->start(
 		cfg.rp( ).in( "cfg" ).in( "paths" ).in( "flash" ).curr( )->data( ),
 		QStringList( ) << cfg.rp( ).in( "cfg" ).in( "paths" ).in( "fract" ).curr( )->data( ) ); //windows
-
-	// QTimer::singleShot( 2000, this, SLOT( slotPressA( ) ) );
-
-	//QApplication::sendEvent( proc, &event );
-//    proc->start( "flash/start.bat" ); //windows
-	//    proc->startDetached ( "flashplayer", arg ); //linux
 }
 
-void MainWindow::updateExaminatorsView( ) {
+void
+MainWindow::updateExaminatorsView( ) {
 
  	vnames.clear( );
 	nnames.clear( );
 	ids.clear( );
 
 	int
-	id = 0;
+	sz = cfg.rp( ).in( "cfg" ).in( "list-examinators" ).curr( )->children( ).size( );
+	//sz = cfg.rp( ).in( "cfg" ).in( "list-examinators" ).curr( )->attrs( ).value( "size" ).toInt( );
 
-	XMLTag
-	* run = cfg.rp( ).in( "cfg" ).in( "examinators" ).curr( )->child( "examinator", id );
+	for( int i = 0; i < sz; ++ i ) {
 
-	while( run ) {
-
-		vnames << run->attrs( ).value( "vname" ).toString( );
-		nnames << run->attrs( ).value( "nname" ).toString( );
-		ids   << run->attrs( ).value( "id" ).toString( );
-
-		run = cfg.rp( ).in( "cfg" ).in( "examinators" ).curr( )->child( "examinator", ++ id );
+		ids    << cfg.rp( ).in( "cfg" ).in( "list-examinators" ).in( "item", i ).in( "id" ).curr( )->data( ),
+		vnames << cfg.rp( ).in( "cfg" ).in( "list-examinators" ).in( "item", i ).in( "vname" ).curr( )->data( ),
+		nnames << cfg.rp( ).in( "cfg" ).in( "list-examinators" ).in( "item", i ).in( "nname" ).curr( )->data( );
 	}
 
 	Order
@@ -256,6 +356,10 @@ void MainWindow::updateExaminatorsView( ) {
 		nnames2vnames[ i ] = rnkVName[ ordNName[ i ] ];
 	}
 
+	ui->comboBoxExaminatorID->blockSignals( true );
+	ui->comboBoxExaminatorVName->blockSignals( true );
+	ui->comboBoxExaminatorNName->blockSignals( true );
+
 	ui->comboBoxExaminatorVName->clear( );
 	ui->comboBoxExaminatorVName->addItems( slVNames );
 
@@ -265,79 +369,36 @@ void MainWindow::updateExaminatorsView( ) {
 	ui->comboBoxExaminatorID->clear( );
 	ui->comboBoxExaminatorID->addItems( slIds );
 
-	QString
-	eid = cfg.rp( ).in( "cfg" ).in( "last-session-examinator-id" ).curr( )->attrs( ).value( "id" ).toString( );
+	currExaminatorID = cfg.rp( ).in( "cfg" ).in( "last-examinator-id" ).curr( )->data( );
 
 	for( int i = 0; i < ids.size( ); ++ i ) {
 
-		if( ids[ ordId[ i ] ] == eid ) {
+		if( ids[ ordId[ i ] ] == currExaminatorID ) {
 
-			ui->comboBoxExaminatorVName->setCurrentIndex( i );
-			ui->comboBoxExaminatorNName->setCurrentIndex( vnames2nnames[ i ] );
-			ui->comboBoxExaminatorID->setCurrentIndex( vnames2id[ i ] );
+			ui->comboBoxExaminatorID->setCurrentIndex( i );
+			ui->comboBoxExaminatorVName->setCurrentIndex( id2vnames[ i ] );
+			ui->comboBoxExaminatorNName->setCurrentIndex( id2nnames[ i ] );
+			ui->labelHelloMsg->setText( "Hallo\n" + ui->comboBoxExaminatorVName->currentText( ) + " " + ui->comboBoxExaminatorNName->currentText( ) + " [" + currExaminatorID + "]" );
 
 			break;
 		}
 	}
+
+	ui->comboBoxExaminatorID->blockSignals( false);
+	ui->comboBoxExaminatorVName->blockSignals( false );
+	ui->comboBoxExaminatorNName->blockSignals( false );
 }
 
-void MainWindow::updatePathsConfigView( ) {
+void
+MainWindow::updatePathsConfigView( ) {
 
 	ui->lineEditFlashPlayer->setText( cfg.rp( ).in( "cfg" ).in( "paths" ).in( "flash" ).curr( )->data( ) );
 	ui->lineEditFractSWF->setText( cfg.rp( ).in( "cfg" ).in( "paths" ).in( "fract" ).curr( )->data( ) );
 	ui->lineEditDataDir->setText( cfg.rp( ).in( "cfg" ).in( "paths" ).in( "data" ).curr( )->data( ) );
 }
 
-void MainWindow::updateSessionView( ) {
-
-	sessions.clear( );
-
-	for( int i = 0; i < cfg.rp( ).in( "cfg" ).in( "session-types" ).curr( )->children( ).size( ); ++ i ) {
-
-		Session
-		s( cfg.rp( ).in( "cfg" ).in( "session-types" ).in( "type", i ).curr( )->attrs( ).value( "name" ).toString( ) );
-
-		for( int j = 0; j < cfg.rp( ).in( "cfg" ).in( "session-types" ).in( "type", i ).curr( )->children( ).size( ); ++ j ) {
-
-			QString
-			t = cfg.rp( ).in( "cfg" ).in( "session-types" ).in( "type", i ).in( "measurement", j ).in( "type" ).curr( )->data( );
-
-			s.addMeasurement(
-				t == "VDN"
-					? VDN
-					: t == "VSN"
-						? VSN
-						: t == "VDT"
-							? VDT
-							: t == "VST"
-								? VST
-								: t == "VDA"
-									? VDA
-									: t == "VSA"
-										? VSA
-										: t == "VDC"
-											? VDC
-											: t == "VSC"
-												? VSC
-												: NO );
-		}
-
-		sessions.push_back( s );
-	}
-
-	currSession = cfg.rp( ).in( "cfg" ).in( "last-session-type" ).curr( )->attrs( ).value( "id" ).toInt( ) - 1;
-
-	ui->comboBoxSessionType->clear( );
-
-	for( int i = 0; i < sessions.size( ); ++ i ) {
-
-		ui->comboBoxSessionType->addItem( sessions[ i ].name );
-	}
-
-	ui->comboBoxSessionType->setCurrentIndex( currSession );
-}
-
-void MainWindow::updateExaminationView( ) {
+void
+MainWindow::updateExaminationView( ) {
 
 	ui->tableWidgetExamination->clear( );
 	ui->tableWidgetExamination->setRowCount( tableSession.rows( ) );
@@ -354,7 +415,34 @@ void MainWindow::updateExaminationView( ) {
 	}
 }
 
-void MainWindow::slotAddNewExaminator( ) {
+void
+MainWindow::updateTableWidgetResults( ) {
+
+	Row
+	hdr;
+
+	for( int i = 0; i < tableSession.cols( ) - 2; ++ i ) {
+
+		hdr << tableSession.header( ).at( i );
+	}
+
+	ui->tableWidgetResult->clear( );
+	ui->tableWidgetResult->setRowCount( tableSession.rows( ) );
+	ui->tableWidgetResult->setColumnCount( tableSession.cols( ) - 2 );
+	ui->tableWidgetResult->setHorizontalHeaderLabels( hdr );
+	ui->tableWidgetResult->horizontalHeader( )->setSectionResizeMode( QHeaderView::ResizeToContents );
+
+	for( int r = 0; r < tableSession.rows( ); ++ r ) {
+
+		for( int c = 0; c < tableSession.cols( ) - 2; ++ c ) {
+
+			ui->tableWidgetResult->setItem( r, c, createTableItemAlignCenter( tableSession.get( r, c ) ) );
+		}
+	}
+}
+
+void
+MainWindow::slotAddNewExaminator( ) {
 
 	ui->lineEditExaminatorVName->setText( "" );
 
@@ -362,133 +450,94 @@ void MainWindow::slotAddNewExaminator( ) {
 
 	ui->lineEditExaminatorID->setText( "" );
 
-	showWidget( ADDNEWEXAMINATOR );
+	switchWidget( SWID_ADDNEWEXAMINATOR );
 }
 
-void MainWindow::slotDoVisusTest( ) {
+void
+MainWindow::slotCancelSession( ) {
 
-	ui->stackedWidget->setCurrentIndex( VISUSEXAMINATION );
+	//saveSession( );
 
-	ui->pushButtonODVisus->setFocus( );
+	ui->lineEditSIC->clear( );
+	ui->lineEditSIC->setEnabled( true );
+	ui->lineEditSIC->setFocus( );
+
+	switchWidget( SWID_STARTSESSION );
 }
 
-void MainWindow::slotExaminatorVNameChanged( int p_id ) {
+void
+MainWindow::slotExaminatorVNameChanged( int p_id ) {
 
 	ui->comboBoxExaminatorNName->setCurrentIndex( vnames2nnames[ p_id ] );
+
 	ui->comboBoxExaminatorID->setCurrentIndex( vnames2id[ p_id ] );
 
 	ui->labelHelloMsg->setText( "Hallo\n" + ui->comboBoxExaminatorVName->currentText( ) + " " + ui->comboBoxExaminatorNName->currentText( ) + " [" + ui->comboBoxExaminatorID->currentText( ) + "]" );
 
 	currExaminatorID = ui->comboBoxExaminatorID->currentText( );
+
+//	cfg.rp( ).in( "cfg" ).in( "last-examinator-id" ).txt( currExaminatorID );
 }
 
-void MainWindow::slotExaminatorNNameChanged( int p_id ) {
+void
+MainWindow::slotExaminatorNNameChanged( int p_id ) {
 
 	ui->comboBoxExaminatorVName->setCurrentIndex( nnames2vnames[ p_id ] );
+
 	ui->comboBoxExaminatorID->setCurrentIndex( nnames2id[ p_id ] );
 
 	ui->labelHelloMsg->setText( "Hallo\n" + ui->comboBoxExaminatorVName->currentText( ) + " " + ui->comboBoxExaminatorNName->currentText( ) + " [" + ui->comboBoxExaminatorID->currentText( ) + "]" );
 
 	currExaminatorID = ui->comboBoxExaminatorID->currentText( );
+
+//	cfg.rp( ).in( "cfg" ).in( "last-examinator-id" ).txt( currExaminatorID );
 }
 
-void MainWindow::slotExaminatorIDChanged( int p_id ) {
+void
+MainWindow::slotExaminatorIDChanged( int p_id ) {
 
 	ui->comboBoxExaminatorNName->setCurrentIndex( id2nnames[ p_id ] );
+
 	ui->comboBoxExaminatorVName->setCurrentIndex( id2vnames[ p_id ] );
 
 	ui->labelHelloMsg->setText( "Hallo\n" + ui->comboBoxExaminatorVName->currentText( ) + " " + ui->comboBoxExaminatorNName->currentText( ) + " [" + ui->comboBoxExaminatorID->currentText( ) + "]" );
 
 	currExaminatorID = ui->comboBoxExaminatorID->currentText( );
+
+	//	cfg.rp( ).in( "cfg" ).in( "last-examinator-id" ).txt( currExaminatorID );
 }
 
-void MainWindow::slotFinishSetup( ) {
+void
+MainWindow::slotFinishHelp( ) {
 
-	showWidget( lastWidget );
+	switchWidgetBack( );
 }
 
-void MainWindow::slotCancelSession( ) {
+void
+MainWindow::slotFinishSetup( ) {
 
-	//saveSession( );
-
-	showWidget( STARTSESSION );
+	switchWidgetBack( );
 }
 
-void MainWindow::slotFinishSession( ) {
+void
+MainWindow::slotFinishSession( ) {
 
 	saveSession( );
 
-	ui->comboBoxExaminatorID->currentIndex( );
-
-	cfg.rp( ).in( "cfg" ).in( "last-session-examinator-id" ).att( "id", currExaminatorID );
+	cfg.rp( ).in( "cfg" ).in( "last-examinator-id" ).txt( currExaminatorID );
+	cfg.rp( ).in( "cfg" ).in( "last-examination-id" ).txt( QString( "%1" ).arg( examinationId ) );
 
 	cfg.save( "cfg.xml" );
 
-	showWidget( TABLEVIEW );
+	switchWidget( SWID_TABLEVIEW );
 
-	ui->tableWidgetExamination->show( );
+//	ui->tableWidgetExamination->show( );
 }
 
-void MainWindow::saveSession( ) {
+void
+MainWindow::slotFrACTFinished( int p_exitCode ) {
 
-	for( int r = 0; r < tableSession.rows( ); ++ r ) {
-
-		QString
-		oc = tableSession.get( r, 5 ),
-		oa = tableSession.get( r, 6 );
-
-		if( oc == "OD" ) {
-
-			if( oa == "WithoutOpticalAid" ) {
-
-				tableSession.set( r, 12, ui->lineEditCommentOD->text( ) );
-			}
-			else if ( oa == "WithTrialFrame" ) {
-
-				tableSession.set( r, 12, ui->lineEditCommentODTF->text( ) );
-			}
-			else if ( oa == "WithHoleAperture" ) {
-
-				tableSession.set( r, 12, ui->lineEditCommentODA->text( ) );
-			}
-		}
-		else if( oc == "OS" ) {
-
-			if( oa == "WithoutOpticalAid" ) {
-
-				tableSession.set( r, 12, ui->lineEditCommentOS->text( ) );
-			}
-			else if ( oa == "WithTrialFrame" ) {
-
-				tableSession.set( r, 12, ui->lineEditCommentOSTF->text( ) );
-			}
-			else if ( oa == "WithHoleAperture" ) {
-
-				tableSession.set( r, 12, ui->lineEditCommentOSA->text( ) );
-			}
-		}
-	}
-
-	updateExaminationView( );
-
-	QDate
-	d = QDate::currentDate( );
-
-	QTime
-	t = QTime::currentTime( );
-
-	QStringList
-	dt;
-
-	dt << d.toString( "yyyyMMdd" ) << t.toString( "HHmmss" );
-
-	QString
-	filename( cfg.rp( ).in( "cfg" ).in( "paths" ).in( "data" ).curr( )->data( ) + "/Session-" + currSIC + "-" + dt.join( "-" ) + "-Acuity_LandoltC.tsv" );
-
-	tableSession.save( filename );
-}
-
-void MainWindow::slotFrACTFinished( int p_exitCode ) {
+	ui->statusBar->clearMessage( );
 
 	std::cout << "exit code: " << p_exitCode << std::endl;
 
@@ -509,6 +558,8 @@ void MainWindow::slotFrACTFinished( int p_exitCode ) {
 
 	if( 0 < row.size( ) && row.at( 0 )[ 0 ] == '2' ) {
 
+		++examinationId;
+
 		QStringList
 		date,
 		time;
@@ -526,7 +577,7 @@ void MainWindow::slotFrACTFinished( int p_exitCode ) {
 		pth = cfg.rp( ).in( "cfg" ).in( "paths" ).in( "data" ).curr( )->data( );
 
 		QFile
-		fileResult( pth + "/" + currSIC + "-" + dt + "-Acuity_LandoltC-" + msl[ 0 ] + "-" + msl[ 1 ] + "-Result.tsv" );
+		fileResult( pth + "/" + currSIC + "-" + dt + "-" + row.at( 4 ) + "-" + fileNameStrings[ currMeasurementType ] + QString( "-%1" ).arg( examinationId ) + "-RESULT.tsv" );
 
 		if( fileResult.open( QIODevice::WriteOnly | QIODevice::Text ) ) {
 
@@ -535,8 +586,8 @@ void MainWindow::slotFrACTFinished( int p_exitCode ) {
 
 			ts <<
 				"SIC" << "\t" << "DATE" << "\t" << "TIME" << "\t" << "RESULT" << "\t" <<
-				"RESULT_UNIT" << "\t" << "OCULUS" << "\t" << "DETAILS" << "\t" << "TEST_NAME" <<
-				"\t" << "DISTANCE" << "\t" << "DISTANCE_UNIT" << "\t" << "N_TRIALS" << "\t" << "EID" << "\t" << "COMMENT" << "\n" <<
+				"RESULT_UNIT" << "\t" << "OCULUS" << "\t" << "OPTICAL_AID" << "\t" << "TEST_NAME" <<
+				"\t" << "DISTANCE" << "\t" << "DISTANCE_UNIT" << "\t" << "N_TRIALS" << "\t" << "EID" << "\t" << "COMMENT" << "\t" << "MID" << "\n" <<
 				currSIC << "\t" <<
 				row.at( 0 ) << "\t" <<
 				row.at( 1 ) << "\t" <<
@@ -549,7 +600,8 @@ void MainWindow::slotFrACTFinished( int p_exitCode ) {
 				row.at( 6 ) << "\t" <<
 				row.at( 7 ) << "\t" <<
 				currExaminatorID << "\t" <<
-				"";
+				"" <<
+				examinationId;
 
 			fileResult.close( );
 		}
@@ -557,7 +609,7 @@ void MainWindow::slotFrACTFinished( int p_exitCode ) {
 		if( 12 < row.size( ) ) {
 
 			QFile
-			fileData( pth + "/" + currSIC + "-" + dt + "-Acuity_LandoltC-" + msl[ 0 ] + "-" + msl[ 1 ] + "-Data.tsv" );
+			fileData( pth + "/" + currSIC + "-" + dt +"-" + row.at( 4 ) + "-" + fileNameStrings[ currMeasurementType ] + QString( "-%1" ).arg( examinationId ) + "-DATA.tsv" );
 
 			if( fileData.open( QIODevice::WriteOnly | QIODevice::Text ) ) {
 
@@ -595,69 +647,81 @@ void MainWindow::slotFrACTFinished( int p_exitCode ) {
 			row.at( 5 ) <<
 			row.at( 6 ) <<
 			row.at( 7 ) <<
-			currExaminatorID << "" );
+			currExaminatorID << "" << QString( "%1" ).arg( examinationId ) );
 
 		double
 		val = row.at( 2 ).toDouble( );
 
 		switch ( currMeasurementType ) {
 
-			case VDN : {
+			case MT_OD_NO : {
 
 				//ui->pushButtonODVisus->setStyleSheet( "QPushButton { color : green; }" );
 				ui->labelODVal->setStyleSheet( "QLabel { color : green; }" );
-				ui->labelODVal->setText( QString( "VA = %1  logMAR = %2" ).arg( val ).arg( -log10( val ) ) );
-				measurements[ VDN ].setValue( val );
+				ui->labelODVal->setText( QString( "%1 %2" ).arg( val ).arg( row.at( 3 ) ) );
+				//ui->pushButtonODNO->setEnabled( false );
+				//ui->lineEditCommentOD->setEnabled( true );
+				measurements[ currMeasurementType ].setValue( val );
 
 				break;
 			}
 
-			case VSN : {
+			case MT_OS_NO : {
 
 				//ui->pushButtonOSVisus->setStyleSheet( "QPushButton { color : green; }" );
 				ui->labelOSVal->setStyleSheet( "QLabel { color : green; }" );
-				ui->labelOSVal->setText( QString( "VA = %1  logMAR = %2" ).arg( val ).arg( -log10( val ) ) );
-				measurements[ VSN ].setValue( val );
+				ui->labelOSVal->setText( QString( "%1 %2" ).arg( val ).arg( row.at( 3 ) ) );
+				//ui->pushButtonOSNO->setEnabled( false );
+				//ui->lineEditCommentOS->setEnabled( true );
+				measurements[ currMeasurementType ].setValue( val );
 
 				break;
 			}
 
-			case VDT : {
+			case MT_OD_TF : {
 
 				//ui->pushButtonODVisusTrialFrame->setStyleSheet( "QPushButton { color : green; }" );
 				ui->labelODTFVal->setStyleSheet( "QLabel { color : green; }" );
-				ui->labelODTFVal->setText( QString( "VA = %1  logMAR = %2" ).arg( val ).arg( -log10( val ) ) );
-				measurements[ VDT ].setValue( val );
+				ui->labelODTFVal->setText( QString( "%1 %2" ).arg( val ).arg( row.at( 3 ) ) );
+				//ui->pushButtonODTF->setEnabled( false );
+				//ui->lineEditCommentODTF->setEnabled( true );
+				measurements[ currMeasurementType ].setValue( val );
 
 				break;
 			}
 
-			case VST : {
+			case MT_OS_TF : {
 
 				//ui->pushButtonOSVisusTrialFrame->setStyleSheet( "QPushButton { color : green; }" );
 				ui->labelOSTFVal->setStyleSheet( "QLabel { color : green; }" );
-				ui->labelOSTFVal->setText( QString( "VA = %1  logMAR = %2" ).arg( val ).arg( -log10( val ) ) );
-				measurements[ VST ].setValue( val );
+				ui->labelOSTFVal->setText( QString( "%1 %2" ).arg( val ).arg( row.at( 3 ) ) );
+				//ui->pushButtonOSTF->setEnabled( false );
+				//ui->lineEditCommentOSTF->setEnabled( true );
+				measurements[ currMeasurementType ].setValue( val );
 
 				break;
 			}
 
-			case VDA : {
+			case MT_OD_HA : {
 
 				//ui->pushButtonODVisusAperture->setStyleSheet( "QPushButton { color : green; }" );
 				ui->labelODAVal->setStyleSheet( "QLabel { color : green; }" );
-				ui->labelODAVal->setText( QString( "VA = %1  logMAR = %2" ).arg( val ).arg( -log10( val ) ) );
-				measurements[ VDA ].setValue( val );
+				ui->labelODAVal->setText( QString( "%1 %2" ).arg( val ).arg( row.at( 3 ) ) );
+				//ui->pushButtonODHA->setEnabled( false );
+				//ui->lineEditCommentODA->setEnabled( true );
+				measurements[ currMeasurementType ].setValue( val );
 
 				break;
 			}
 
-			case VSA : {
+			case MT_OS_HA : {
 
 				//ui->pushButtonOSVisusAperture->setStyleSheet( "QPushButton { color : green; }" );
 				ui->labelOSAVal->setStyleSheet( "QLabel { color : green; }" );
-				ui->labelOSAVal->setText( QString( "VA = %1  logMAR = %2" ).arg( val ).arg( -log10( val ) ) );
-				measurements[ VSA ].setValue( val );
+				ui->labelOSAVal->setText( QString( "%1 %2" ).arg( val ).arg( row.at( 3 ) ) );
+				//ui->pushButtonOSHA->setEnabled( false );
+				//ui->lineEditCommentOSA->setEnabled( true );
+				measurements[ currMeasurementType ].setValue( val );
 
 				break;
 			}
@@ -667,28 +731,32 @@ void MainWindow::slotFrACTFinished( int p_exitCode ) {
 				break;
 		}
 
-		ui->statusBar->clearMessage( );
+		updateTableWidgetResults( );
 
-		if( measurements[ VDN ].measured && measurements[ VDT ].measured && !measurements[ VDA ].measured && measurements[ VDN ].value > measurements[ VDT ].value ) {
+		if( measurements[ MT_OD_NO ].measured && measurements[ MT_OD_TF ].measured && ! measurements[ MT_OD_HA ].measured ) {
 
-			//ui->pushButtonODVisusAperture->setEnabled( true );
-			ui->labelODAVal->setStyleSheet( "QLabel { color : red; }" );
-			ui->labelODAVal->setText( "noch kein kein Wert gemessen" );
+			if( measurements[ MT_OD_NO ].value > measurements[ MT_OD_TF ].value ) {
 
-			ui->statusBar->showMessage( "Die Messung des rechten Auges (OD) ohne Messbrille ist besser als die mit Messbrille.\nBitte messen Sie nun mit Messblende!" );
+				ui->statusBar->showMessage( "Die Messung ohne Messbrille war besser als die mit. Führen Sie nun bitte eine Messung mit Lochblende durch!" );
+				ui->labelODAVal->setText( "Messung erforderlich" );
+				ui->labelODAVal->setStyleSheet( "color : red" );
+			}
 		}
 
-		if( measurements[ VSN ].measured && measurements[ VST ].measured && !measurements[ VSA ].measured && measurements[ VSN ].value > measurements[ VST ].value ) {
+		if( measurements[ MT_OS_NO ].measured && measurements[ MT_OS_TF ].measured && ! measurements[ MT_OS_HA ].measured ) {
 
-			ui->labelOSAVal->setStyleSheet( "QLabel { color : red; }" );
-			ui->labelOSAVal->setText( "noch kein kein Wert gemessen" );
+			if( measurements[ MT_OS_NO ].value > measurements[ MT_OS_TF ].value ) {
 
-			ui->statusBar->showMessage( "Die Messung des linken Auges (OS) ohne Messbrille ist besser als die mit Messbrille.\nBitte messen Sie nun mit Messblende!" );
+				ui->statusBar->showMessage( "Die Messung ohne Messbrille war besser als die mit. Führen Sie nun bitte eine Messung mit Lochblende durch!" );
+				ui->labelOSAVal->setText( "Messung erforderlich" );
+				ui->labelOSAVal->setStyleSheet( "color : red" );
+			}
 		}
 	}
 }
 
-void MainWindow::slotNewExaminatorOK( ) {
+void
+MainWindow::slotNewExaminatorOK( ) {
 
 	bool
 	ok  = true;
@@ -731,7 +799,21 @@ void MainWindow::slotNewExaminatorOK( ) {
 
 	if( ok ) {
 
-		cfg.rp( ).in( "cfg" ).in( "examinators" ).addTag( "examinator" ).att( "id", ui->lineEditExaminatorID->text( ) ).att( "vname", ui->lineEditExaminatorVName->text( ) ).att( "nname", ui->lineEditExaminatorNName->text( ) );
+		currExaminatorID = ui->lineEditExaminatorID->text( );
+
+		int
+		sz = cfg.rp( )
+			.in( "cfg" )
+				.in( "list-examinators" ).curr( )->children( ).size( );
+
+		cfg.rp( )
+			.in( "cfg" )
+				.in( "list-examinators" ).att( "size", QString( "%1" ).arg( sz + 1 ) )
+					.tag( "item" ).att( "i", QString( "%1" ).arg( sz ) )
+						.tag( "id" ).txt( currExaminatorID ).gat( )
+						.tag( "vname" ).txt( ui->lineEditExaminatorVName->text( ) ).gat( )
+						.tag( "nname" ).txt( ui->lineEditExaminatorNName->text( ) ).gat( 3 )
+				.in( "last-examinator-id" ).txt( currExaminatorID );
 
 		cfg.save( "cfg.xml" );
 
@@ -739,7 +821,7 @@ void MainWindow::slotNewExaminatorOK( ) {
 
 		ui->pushButtonStartSession->setFocus( );
 
-		showWidget( LOBBY );
+		switchWidget( SWID_LOBBY );
 	}
 
 /*
@@ -789,12 +871,14 @@ void MainWindow::slotNewExaminatorOK( ) {
 */
 }
 
-void MainWindow::slotNewExaminatorCancel( ) {
+void
+MainWindow::slotNewExaminatorCancel( ) {
 
-	ui->stackedWidget->setCurrentIndex( LOBBY );
+	ui->stackedWidget->setCurrentIndex( SWID_LOBBY );
 }
 
-void MainWindow::slotScanSic( QString const & p_sic ) {
+void
+MainWindow::slotScanSic( QString const & p_sic ) {
 
 	QRegularExpression re( "^LI\\d{7}[\\d{1}xX]", QRegularExpression::CaseInsensitiveOption );
 	QRegularExpressionMatch m = re.match( p_sic );
@@ -803,75 +887,47 @@ void MainWindow::slotScanSic( QString const & p_sic ) {
 
 		currSIC = m.captured( ).toUpper( );
 
-		ui->pushButtonStartVisusTest->setFocus( );
-
 		ui->lineEditSIC->setEnabled( false );
 
-		ui->pushButtonStartVisusTest->setEnabled( true );
+		this->setWindowTitle( "FrACT Wrapper - aktuelle Untersuchung - UID: " + currExaminatorID + " - SIC: " + currSIC );
+
+		prepareSession( );
+
+		switchWidget( SWID_EXAMINATION );
 	}
 }
 
-void MainWindow::slotShowLobby( ) {
+void
+MainWindow::slotShowLobby( ) {
 
-	//updateExaminatorsView( );
+	switchWidget( SWID_LOBBY );
 }
 
-void MainWindow::slotShowProperties( ) {
+void
+MainWindow::slotShowProperties( ) {
 
 	ui->lineEditFlashPlayer->setText( cfg.rp( ).in( "cfg" ).in( "paths" ).in( "flash" ).curr( )->data( ) );
 	ui->lineEditFractSWF->setText( cfg.rp( ).in( "cfg" ).in( "paths" ).in( "fract" ).curr( )->data( ) );
 	ui->lineEditDataDir->setText( cfg.rp( ).in( "cfg" ).in( "paths" ).in( "data" ).curr( )->data( ) );
 
-	lastWidget = SETUP;
-
-	ui->spinBoxView->setValue( SETUP );
+ 	switchWidget( SWID_SETUP );
 }
 
-void MainWindow::slotStartSession( ) {
+void MainWindow::slotShowHelp( ) {
 
-	tableSession.clearContent( );
-
-	updateExaminationView( );
-
-	for( int i = 0; i < 6; ++ i ) {
-
-		measurements[ i ].clear( );
-	}
-
-	ui->lineEditSIC->setEnabled( true );
-	ui->lineEditSIC->clear( );
-	ui->lineEditSIC->setFocus( );
-
-	ui->pushButtonStartVisusTest->setEnabled( false );
-
-	ui->labelODVal->setStyleSheet( "QLabel { color : black }" );
-	ui->labelODVal->setText( "noch kein Wert gemesen" );
-	ui->lineEditCommentOD->clear( );
-
-	ui->labelOSVal->setStyleSheet( "QLabel { color : black }" );
-	ui->labelOSVal->setText( "noch kein Wert gemesen" );
-	ui->lineEditCommentOS->clear( );
-
-	ui->labelODTFVal->setStyleSheet( "QLabel { color : black }" );
-	ui->labelODTFVal->setText( "noch kein Wert gemesen" );
-	ui->lineEditCommentODTF->clear( );
-
-	ui->labelOSTFVal->setStyleSheet( "QLabel { color : black }" );
-	ui->labelOSTFVal->setText( "noch kein Wert gemesen" );
-	ui->lineEditCommentOSTF->clear( );
-
-	ui->labelODAVal->setStyleSheet( "QLabel { color : black }" );
-	ui->labelODAVal->setText( "keine Messung nötig" );
-	ui->lineEditCommentODA->clear( );
-
-	ui->labelOSAVal->setStyleSheet( "QLabel { color : black }" );
-	ui->labelOSAVal->setText( "keine Messung nötig" );
-	ui->lineEditCommentOSA->clear( );
-
-	ui->stackedWidget->setCurrentIndex( STARTSESSION );
+	switchWidget( SWID_HELP );
 }
 
-void MainWindow::slotStartFileDialogForFlashPlayer( ) {
+void
+MainWindow::slotStartSession( ) {
+
+	prepareSession( );
+
+	switchWidget( SWID_STARTSESSION );
+}
+
+void
+MainWindow::slotStartFileDialogForFlashPlayer( ) {
 
 	QString
 	flashPlayerEXE = QFileDialog::getOpenFileName( this, tr( "Flash Player Projector" ), ".", tr( "Exe Datei (*.exe)" ) );
@@ -883,12 +939,13 @@ void MainWindow::slotStartFileDialogForFlashPlayer( ) {
 
 	ui->lineEditFlashPlayer->setText( flashPlayerEXE );
 
-	cfg.rp( ).in( "cfg" ).in( "paths" ).in( "flash" ).curr()->setData( flashPlayerEXE );
+	cfg.rp( ).in( "cfg" ).in( "paths" ).in( "flash" ).curr( )->setData( flashPlayerEXE );
 
 	cfg.save( "cfg.xml" );
 }
 
-void MainWindow::slotStartFileDialogForFractSWF( ) {
+void
+MainWindow::slotStartFileDialogForFractSWF( ) {
 
 	QString
 	fractSWF = QFileDialog::getOpenFileName( this, tr( "FrACT*.swf" ), ".", tr( "SWF Datei (*.swf)" ) );
@@ -900,13 +957,13 @@ void MainWindow::slotStartFileDialogForFractSWF( ) {
 
 	ui->lineEditFractSWF->setText( fractSWF );
 
-	cfg.rp( ).in( "cfg" ).in( "paths" ).in( "fract" ).curr()->setData( fractSWF );
+	cfg.rp( ).in( "cfg" ).in( "paths" ).in( "fract" ).curr( )->setData( fractSWF );
 
 	cfg.save( "cfg.xml" );
-
 }
 
-void MainWindow::slotStartFileDialogForDataDir( ) {
+void
+MainWindow::slotStartFileDialogForDataDir( ) {
 
 	QString
 	dataDir = QFileDialog::getExistingDirectory( this, tr( "Daten Verzeichnis" ), tr( "." ), QFileDialog::ShowDirsOnly );
@@ -923,39 +980,50 @@ void MainWindow::slotStartFileDialogForDataDir( ) {
 	cfg.save( "cfg.xml" );
 }
 
-void MainWindow::slotStartFrACTAcuity_LandoltCOD( ) {
+void
+MainWindow::slotStartFrACTOD( ) {
 
-	currMeasurementType = VDN;
+	currMeasurementType = MT_OD_NO;
 
 	startFrACT( );
 }
 
-void MainWindow::slotStartFrACTAcuity_LandoltCOS( )
-{
-	currMeasurementType = VSN;
+void
+MainWindow::slotStartFrACTOS( ) {
+
+	currMeasurementType = MT_OS_NO;
+
 	startFrACT( );
 }
 
-void MainWindow::slotStartFrACTAcuity_LandoltCODWithTrialFrame( )
-{
-	currMeasurementType = VDT;
+void
+MainWindow::slotStartFrACTODTF( ) {
+
+	currMeasurementType = MT_OD_TF;
+
 	startFrACT( );
 }
 
-void MainWindow::slotStartFrACTAcuity_LandoltCOSWithTrialFrame( )
-{
-	currMeasurementType = VST;
+void
+MainWindow::slotStartFrACTOSTF( ) {
+
+	currMeasurementType = MT_OS_TF;
+
 	startFrACT( );
 }
 
-void MainWindow::slotStartFrACTAcuity_LandoltCODWithHoleAperture( ) {
+void
+MainWindow::slotStartFrACTODHA( ) {
 
-	currMeasurementType = VDA;
+	currMeasurementType = MT_OD_HA;
+
 	startFrACT( );
 }
 
-void MainWindow::slotStartFrACTAcuity_LandoltCOSWithHoleAperture( )
-{
-	currMeasurementType = VSA;
+void
+MainWindow::slotStartFrACTOSHA( ) {
+
+	currMeasurementType = MT_OS_HA;
+
 	startFrACT( );
 }

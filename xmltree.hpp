@@ -25,35 +25,38 @@ class XMLTag {
 
 	public:
 
-	friend class XMLTree;
+		friend class XMLTree;
 
 		explicit
-		XMLTag( ) :
+		XMLTag( bool p_comment = false ) :
 		__parent( nullptr ),
 		__name( ),
 		__data( ),
 		__attr( ),
-		__nspace( ) {
+		__nspace( ),
+		__comment( p_comment ) {
 
 		}
 
 		explicit
-		XMLTag( QString const & p_name ) :
+		XMLTag( QString const & p_name, bool p_comment = false ) :
 		__parent( nullptr ),
 		__name( p_name ),
 		__data( ),
 		__attr( ),
-		__nspace( ) {
+		__nspace( ),
+		__comment( p_comment ) {
 
 		}
 
 		explicit
-		XMLTag( QString const & p_name, XMLTag * p_parent ) :
+		XMLTag( QString const & p_name, XMLTag * p_parent, bool p_comment = false ) :
 		__parent( p_parent ),
 		__name( p_name ),
 		__data( ),
 		__attr( ),
-		__nspace( ) {
+		__nspace( ),
+		__comment( p_comment ) {
 
 		}
 
@@ -80,6 +83,9 @@ class XMLTag {
 
 		TagList
 		__children;
+
+		bool
+		__comment;
 
 	public:
 
@@ -154,10 +160,10 @@ class XMLTag {
 		}
 
 		XMLTag
-		* addTag( QString const & p_name ) {
+		* addTag( QString const & p_name, bool p_comment = false ) {
 
 			XMLTag
-			* nt = new XMLTag( p_name, this );
+			* nt = new XMLTag( p_name, this, p_comment );
 
 			__children.append( nt );
 
@@ -289,7 +295,6 @@ class XMLTag {
 						__children.append( xmlTag );
 					}
 
-
 					break;
 				}
 
@@ -312,6 +317,8 @@ class XMLTag {
 				case QXmlStreamReader::Comment : {
 
 //					std::cout << "[Comment]";
+
+					__data = p_sr.text( ).toString( );
 
 					break;
 				}
@@ -355,6 +362,13 @@ class XMLTag {
 
 		void
 		write( QXmlStreamWriter & p_sw ) {
+
+			if( __comment && ! __data.isEmpty( ) ) {
+
+				p_sw.writeComment( __data );
+
+				return;
+			}
 
 			p_sw.writeStartElement( __name );
 
@@ -574,29 +588,23 @@ class XMLTree {
 		}
 
 		XMLTree
-		& addTag( QString const & p_name ) {
+		& tag( QString const & p_name, bool p_comment = false ) {
 
 			if( ! __root ) {
 
-				__curr  = new XMLTag( p_name, nullptr );
+				__curr  = new XMLTag( p_name, nullptr, p_comment );
 				__root = __curr;
 
 				return *this;
 			}
 
-			__curr = __curr->addTag( p_name );
+			__curr = __curr->addTag( p_name, p_comment );
 
 			return *this;
 		}
 
 		XMLTree
-		& tag( QString const & p_name ) {
-
-			return addTag( p_name );
-		}
-
-		XMLTree
-		& setText( QString const & p_data ) {
+		& txt( QString const & p_data ) {
 
 			if( __curr ) {
 
@@ -607,32 +615,18 @@ class XMLTree {
 		}
 
 		XMLTree
-		& txt( QString const & p_data ) {
-
-			return setText( p_data );
-		}
-
-		XMLTree
-		& setAttr( Attrs const & p_xmlsa ) {
+		& att( QString const & p_key, QString const & p_value ) {
 
 			if( __curr ) {
 
-				__curr->setAttrs( p_xmlsa );
+				__curr->setAttr( Attr( p_key, p_value ) );
 			}
 
 			return *this;
 		}
 
 		XMLTree
-		& att( QString const & p_key, QString const & p_value ) {
-
-			__curr->setAttr( Attr( p_key, p_value ) );
-
-			return *this;
-		}
-
-		XMLTree
-		& setNSpace( NSpaces const & p_nsd ) {
+		& npace( NSpaces const & p_nsd ) {
 
 			if( __curr ) {
 

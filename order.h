@@ -4,7 +4,7 @@
 #include <iostream>
 #include <vector>
 
-typedef std::vector< std::size_t > Order;
+typedef std::vector< int > Order;
 
 template< typename TValue >
 bool

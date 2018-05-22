@@ -9,23 +9,182 @@
 
 enum MeasurementType {
 
-	VDN,	// Visus OD without optical aid
-	VSN,	// Visus OS without optical aid
-	VDT,	// Visus OD with trial frame
-	VST,	// Visus OS with trial frame
-	VDA,	// Visus OD with aperture
-	VSA,	// Visus OS with aperture
-	VDC,	// Visus OD with aperture, condition VD > VDTF
-	VSC, 	// Visus OS with aperture, condition VS > VSTF
-	CDN,	// Contrast OD without optical aid
-	CSN,	// Contrast OS without optical aid
-	CDF,	// Contrast OD with trial frame
-	CSF,	// Contrast OS with trial frame
-	CDA,	// Contrast OD with aperture
-	CSA,	// Contrast OS with aperture
-	CDC,	// Contrast OD with aperture, condition CD > CDTF
-	CSC, 	// Contrast OS with aperture, condition CS > CSTF
-	NO		// no measurement
+	MT_NO,		// no measurement
+	MT_OD_NO,	// OD without optical aid
+	MT_OS_NO,	// OS without optical aid
+	MT_OD_TF,	// OD with trial frame
+	MT_OS_TF,	// OS with trial frame
+	MT_OD_HA,	// OD with aperture
+	MT_OS_HA	// OS with aperture
+};
+
+/*
+enum ExaminationType {
+
+	ET_VDN,	// Visus OD without optical aid
+	ET_VSN,	// Visus OS without optical aid
+	ET_VDT,	// Visus OD with trial frame
+	ET_VST,	// Visus OS with trial frame
+	ET_VDA,	// Visus OD with aperture
+	ET_VSA,	// Visus OS with aperture
+	ET_VDC,	// Visus OD with aperture, bedingt
+	ET_VSC,	// Visus OS with aperture, bedingt
+	ET_CDN,	// Contrast OD without optical aid
+	ET_CSN,	// Contrast OS without optical aid
+	ET_CDT,	// Contrast OD with trial frame
+	ET_CST,	// Contrast OS with trial frame
+	ET_CDA,	// Contrast OD with aperture
+	ET_CSA,	// Contrast OS with aperture
+	ET_CDC,	// Contrast OD with aperture, bedingt
+	ET_CSC,	// Contrast OS with aperture, bedingt
+	ET_NO	// no examination
+};
+*/
+
+static QString const MeasurementText[ ] = {
+
+	"keine Untersuchung",
+	"Oculus Dexter  -  ohne optische Hilfsmittel",
+	"Oculus Sinister  -  ohne optische Hilfsmittel",
+	"Oculus Dexter  -  mit Messbrille",
+	"Oculus Sinister  -  mit Messbrille",
+	"Oculus Dexter  -  mit Lochblende",
+	"Oculus Sinister  -  mit Lochblende"
+};
+
+class Measurement {
+
+	public:
+
+		Measurement( ) :
+		measurementType( MT_NO ),
+		__measured( false ),
+		__value( 0. ) {
+
+		}
+
+		Measurement( MeasurementType p_measurementType ) :
+		measurementType( p_measurementType ),
+		__measured( false ),
+		__value( 0. ) {
+
+		}
+
+		Measurement( Measurement const & p_measurement ) :
+		measurementType( p_measurement.measurementType ),
+		__measured( false ),
+		__value( p_measurement.__value ) {
+
+		}
+
+		~Measurement( ) {
+
+		}
+
+	public:
+
+		MeasurementType
+		measurementType;
+
+	private:
+
+		bool
+		__measured;
+
+		double
+		__value;
+
+	public:
+
+		void
+		measure( double const &p_value ) {
+
+			__value = p_value;
+			__measured = true;
+		}
+
+		bool
+		measured( ) const {
+
+			return __measured;
+		}
+
+		double
+		value( ) const {
+
+			return __value;
+		}
+
+		QString
+		typeToStr( ) {
+
+			return MeasurementText[ measurementType ];
+		}
+
+		QString
+		valToStr( ) {
+
+			return QString( "%1" ).arg( __value );
+		}
+
+		QString
+		measuredToStr( ) {
+
+			return QString( "%1" ).arg( __measured ? "yes" : "no" );
+		}
+};
+
+class Examination :
+public Measurement {
+
+	public:
+
+		Examination( ) :
+		Measurement( ),
+		__conditioned( false ) {
+
+		}
+
+		Examination( MeasurementType p_measurementType, bool p_conditioned = false ) :
+		Measurement( p_measurementType ),
+		__conditioned( p_conditioned ) {
+
+		}
+
+		Examination( Examination const & p_examination ) :
+		Measurement( p_examination ),
+		__conditioned( p_examination.__conditioned ) {
+
+		}
+
+		~Examination( ) {
+
+		}
+
+	private:
+
+		bool
+		__conditioned;
+
+	public:
+
+		bool
+		conditioned( ) const {
+
+			return __conditioned;
+		}
+
+		QString
+		typeToStr( ) {
+
+			return Measurement::typeToStr( ) + ( __conditioned ? ", falls Messung ohne Messbrille besser war, als die mit Messbrille" : "" );
+		}
+
+		QString
+		conditionedToStr( ) {
+
+			return measured( ) ? "yes" : "no";
+		}
 };
 
 class Session {
@@ -46,7 +205,7 @@ class Session {
 		Session( Session const & p_s ) :
 		name( p_s.name ),
 		currSessionId( p_s.currSessionId ),
-		measurements( p_s.measurements ) {
+		examinations( p_s.examinations ) {
 
 		}
 
@@ -63,33 +222,27 @@ class Session {
 		int
 		currSessionId;
 
-		QVector< MeasurementType >
-		measurements;
+		QVector< Examination >
+		examinations;
 
 		void
 		clear( ) {
 
 			currSessionId = 0;
-			measurements.clear( );
+			examinations.clear( );
 			name.clear( );
 		}
 
 		void
-		addMeasurement( MeasurementType p_pt ) {
+		addExamintion( MeasurementType p_mt, bool p_conditioned = false ) {
 
-			measurements << p_pt;
+			examinations << Examination( p_mt, p_conditioned );
 		}
 
 		void
-		setMeasurement( int p_id, MeasurementType p_pt ) {
+		setExamination( int p_id, MeasurementType p_mt, bool p_conditioned = false ) {
 
-			measurements[ p_id ] = p_pt;
-		}
-
-		void
-		delMeasurement( int p_id ) {
-
-			measurements[ p_id ] = NO;
+			examinations[ p_id ] = Examination( p_mt, p_conditioned );
 		}
 
 		bool
@@ -111,9 +264,9 @@ class Session {
 			QTextStream
 			ts( &file );
 
-			for( auto it = measurements.cbegin( ); it != measurements. cend( ); ++ it ) {
+			for( auto it = examinations.cbegin( ); it != examinations.cend( ); ++ it ) {
 
-				ts << *it << "\n";
+				ts << it->value( ) << "\n";
 			}
 
 			file.close( );
@@ -126,13 +279,13 @@ class Session {
 
 			currSessionId = 0;
 
-			return measurements[ currSessionId ];
+			return currSessionId < examinations.size( ) ? examinations[ currSessionId ].measurementType : MT_NO;
 		}
 
 		MeasurementType
 		next( ) {
 
-			return measurements[ ++ currSessionId ];
+			return ++ currSessionId < examinations.size( ) ? examinations[ currSessionId ].measurementType : MT_NO;
 		}
 };
 #endif // SESSION_HPP

@@ -5,10 +5,10 @@
 #include <iostream>
 #include <vector>
 
-std::vector< std::size_t >
+Order
 naturalOrder( int p_size ) {
 
-	std::vector< std::size_t >
+	Order
 	idx( p_size );
 
 	for( int i = 0; i < p_size; ++ i ) {
