@@ -44,4 +44,4 @@ A Wrapper for FrACT of Michael Bach
 
             1. Q: Was mache ich, wenn ich den keine swf-Datei auf der Festplatte nicht finde.
 
-               1. A: Downloade eine Version! Speichere Sie auf der Festplatte und trage den Pfad im Feld "fract" ein. Die Version 10.0.0d findet man unter (FrACT)[http://www.michaelbach.de/fract/versions/FrACT3.10.0d.swf]
+               1. A: Downloade eine Version! Speichere Sie auf der Festplatte und trage den Pfad im Feld "fract" ein. Die Version 10.0.0d findet man unter [FrACT](http://www.michaelbach.de/fract/versions/FrACT3.10.0d.swf)
