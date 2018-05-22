@@ -31,7 +31,6 @@ order.cpp
 HEADERS += \
 mainwindow.h \
 table.hpp \
-session.hpp \
 xmltree.hpp \
 order.h
 

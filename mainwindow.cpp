@@ -95,8 +95,10 @@ MainWindow::loadConfig( ) {
 
 		QString
 		cdir  = QDir::currentPath( ),
-		flash = QDir( cdir ).filePath( "flash/flashplayer_29_sa.exe" ),
+ 		flash = QDir( cdir ).filePath( "flash/flashplayer_29_sa.exe" ),
+//		flash = "https://fpdownload.macromedia.com/pub/flashplayer/updaters/29/flashplayer_29_sa.exe",
 		fract = QDir( cdir ).filePath( "fract/FrACT3.10.0d.swf" ),
+//		fract = "http://www.michaelbach.de/fract/versions/FrACT3.10.0d.swf",
 		data  = QDir( cdir ).filePath( "data" );
 
 		cfg.rp( )
@@ -120,6 +122,7 @@ MainWindow::loadConfig( ) {
 		emit signalNoConfigFound( );
 	}
 
+	currExaminatorID = cfg.rp( ).in( "cfg" ).in( "last-examinator-id" ).curr( )->data( ).toLong( );
 	examinationId = cfg.rp( ).in( "cfg" ).in( "last-examination-id" ).curr( )->data( ).toLong( );
 }
 
@@ -515,6 +518,12 @@ MainWindow::slotFinishHelp( ) {
 
 void
 MainWindow::slotFinishSetup( ) {
+
+	cfg.rp( ).in( "cfg" ).in( "paths" ).in( "flash" ).curr( )->setData( ui->lineEditFlashPlayer->text( ) );
+	cfg.rp( ).in( "cfg" ).in( "paths" ).in( "fract" ).curr( )->setData( ui->lineEditFractSWF->text( ) );
+	cfg.rp( ).in( "cfg" ).in( "paths" ).in( "data" ).curr()->setData( ui->lineEditDataDir->text( ) );
+
+	cfg.save( "cfg.xml" );
 
 	switchWidgetBack( );
 }
@@ -913,7 +922,8 @@ MainWindow::slotShowProperties( ) {
  	switchWidget( SWID_SETUP );
 }
 
-void MainWindow::slotShowHelp( ) {
+void
+MainWindow::slotShowHelp( ) {
 
 	switchWidget( SWID_HELP );
 }
@@ -938,10 +948,6 @@ MainWindow::slotStartFileDialogForFlashPlayer( ) {
 	}
 
 	ui->lineEditFlashPlayer->setText( flashPlayerEXE );
-
-	cfg.rp( ).in( "cfg" ).in( "paths" ).in( "flash" ).curr( )->setData( flashPlayerEXE );
-
-	cfg.save( "cfg.xml" );
 }
 
 void
@@ -956,10 +962,6 @@ MainWindow::slotStartFileDialogForFractSWF( ) {
 	}
 
 	ui->lineEditFractSWF->setText( fractSWF );
-
-	cfg.rp( ).in( "cfg" ).in( "paths" ).in( "fract" ).curr( )->setData( fractSWF );
-
-	cfg.save( "cfg.xml" );
 }
 
 void
@@ -974,10 +976,6 @@ MainWindow::slotStartFileDialogForDataDir( ) {
 	}
 
 	ui->lineEditDataDir->setText( dataDir );
-
-	cfg.rp( ).in( "cfg" ).in( "paths" ).in( "data" ).curr()->setData( dataDir );
-
-	cfg.save( "cfg.xml" );
 }
 
 void
