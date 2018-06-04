@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1435</width>
-    <height>584</height>
+    <width>1455</width>
+    <height>597</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -75,14 +75,14 @@
               <item row="0" column="1">
                <widget class="QPushButton" name="pushButtonNewAccountOK">
                 <property name="text">
-                 <string>Konto anlegen</string>
+                 <string>&amp;Konto anlegen</string>
                 </property>
                </widget>
               </item>
               <item row="1" column="1">
                <widget class="QPushButton" name="pushButtonNewAccountAbort">
                 <property name="text">
-                 <string>abbrechen</string>
+                 <string>a&amp;bbrechen</string>
                 </property>
                </widget>
               </item>
@@ -401,7 +401,7 @@ dann legen Sie bitte ein neues an!</string>
            <item row="2" column="1">
             <widget class="QPushButton" name="pushButtonStartSession">
              <property name="sizePolicy">
-              <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+              <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
@@ -436,6 +436,19 @@ dann legen Sie bitte ein neues an!</string>
               <size>
                <width>40</width>
                <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="3" column="1">
+            <spacer name="verticalSpacer_9">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
               </size>
              </property>
             </spacer>
@@ -505,6 +518,9 @@ dann legen Sie bitte ein neues an!</string>
              <property name="text">
               <string>Scannen Sie bitte jetzt die SIC vom Laufzettel des Probanden!</string>
              </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
              <property name="wordWrap">
               <bool>true</bool>
              </property>
@@ -563,7 +579,7 @@ dann legen Sie bitte ein neues an!</string>
           </property>
           <widget class="QGroupBox" name="groupBox">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+            <sizepolicy hsizetype="Maximum" vsizetype="Minimum">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
@@ -575,10 +591,16 @@ dann legen Sie bitte ein neues an!</string>
             <item row="0" column="0">
              <widget class="QLabel" name="label_3">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
               </property>
               <property name="toolTip">
                <string>rechtes Auge des Probanden</string>
@@ -594,29 +616,19 @@ dann legen Sie bitte ein neues an!</string>
               </property>
              </widget>
             </item>
-            <item row="0" column="1">
-             <widget class="QLabel" name="label_21">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="text">
-               <string>Oculus</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
             <item row="0" column="2">
              <widget class="QLabel" name="label_4">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
               </property>
               <property name="toolTip">
                <string>linkes Auge des Probanden</string>
@@ -632,15 +644,37 @@ dann legen Sie bitte ein neues an!</string>
               </property>
              </widget>
             </item>
-            <item row="1" column="0" colspan="3">
-             <widget class="Line" name="line_8">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
+            <item row="0" column="1">
+             <widget class="QLabel" name="label_21">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Oculus</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
               </property>
              </widget>
             </item>
             <item row="2" column="0" colspan="3">
              <widget class="Line" name="line_4">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0" colspan="3">
+             <widget class="Line" name="line_8">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
@@ -654,6 +688,12 @@ dann legen Sie bitte ein neues an!</string>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
+              </property>
               <property name="font">
                <font>
                 <pointsize>12</pointsize>
@@ -662,39 +702,26 @@ dann legen Sie bitte ein neues an!</string>
                </font>
               </property>
               <property name="toolTip">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt; font-weight:600; text-decoration: underline;&quot;&gt;Visus Test&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Oculus&lt;/span&gt;&lt;/p&gt;&lt;p&gt;-Dexter&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;-rechtes Auge des Probanden&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Messbrille &lt;/span&gt;&lt;/p&gt;&lt;p&gt;-nein&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Lochblende&lt;/span&gt;&lt;/p&gt;&lt;p&gt;-nein&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Oculus&lt;/span&gt;&lt;/p&gt;&lt;p&gt;-Dexter&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;-rechtes Auge des Probanden&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Messbrille &lt;/span&gt;&lt;/p&gt;&lt;p&gt;-nein&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Lochblende&lt;/span&gt;&lt;/p&gt;&lt;p&gt;-nein&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
               <property name="text">
                <string>&amp;1 OD</string>
               </property>
              </widget>
             </item>
-            <item row="3" column="1">
-             <widget class="QLabel" name="label_5">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="toolTip">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Benutzen Sie bitte für die Messung weder Messbrille noch Lochblende!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-              </property>
-              <property name="text">
-               <string>ohne Sehhilfen</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="2">
-             <widget class="QPushButton" name="pushButtonOSNO">
+            <item row="7" column="0">
+             <widget class="QPushButton" name="pushButtonODTF">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
               </property>
               <property name="font">
                <font>
@@ -704,26 +731,10 @@ dann legen Sie bitte ein neues an!</string>
                </font>
               </property>
               <property name="toolTip">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt; font-weight:600; text-decoration: underline;&quot;&gt;Visus Test&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Oculus&lt;/span&gt;&lt;/p&gt;&lt;p&gt;-Sinister&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;-linkes Auge des Probanden&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Messbrille &lt;/span&gt;&lt;/p&gt;&lt;p&gt;-nein&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Lochblende&lt;/span&gt;&lt;/p&gt;&lt;p&gt;-nein&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Oculus&lt;/span&gt;&lt;/p&gt;&lt;p&gt;-Dexter&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;-rechtes Auge des Probanden&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Messbrille &lt;/span&gt;&lt;/p&gt;&lt;p&gt;-ja&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Lochblende&lt;/span&gt;&lt;/p&gt;&lt;p&gt;-nein&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
               <property name="text">
-               <string>&amp;2 OS</string>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="0">
-             <widget class="QLabel" name="labelODVal">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="text">
-               <string>noch kein Wert gemessen</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
+               <string>&amp;3 OD Messbrille</string>
               </property>
              </widget>
             </item>
@@ -743,79 +754,49 @@ dann legen Sie bitte ein neues an!</string>
               </property>
              </widget>
             </item>
-            <item row="5" column="0">
-             <widget class="QLineEdit" name="lineEditCommentOD"/>
-            </item>
-            <item row="5" column="1">
-             <widget class="QLabel" name="label_16">
-              <property name="text">
-               <string>&lt;Kommentare&gt;</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item row="5" column="2">
-             <widget class="QLineEdit" name="lineEditCommentOS"/>
-            </item>
-            <item row="6" column="0" colspan="3">
+            <item row="5" column="0" colspan="3">
              <widget class="Line" name="line_7">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
              </widget>
             </item>
-            <item row="7" column="0" colspan="3">
+            <item row="6" column="0" colspan="3">
              <widget class="Line" name="line_3">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
              </widget>
             </item>
-            <item row="8" column="0">
-             <widget class="QPushButton" name="pushButtonODTF">
+            <item row="4" column="0">
+             <widget class="QLabel" name="labelODVal">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+               <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
-              <property name="font">
-               <font>
-                <pointsize>12</pointsize>
-                <weight>75</weight>
-                <bold>true</bold>
-               </font>
-              </property>
-              <property name="toolTip">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt; font-weight:600; text-decoration: underline;&quot;&gt;Visus Test&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Oculus&lt;/span&gt;&lt;/p&gt;&lt;p&gt;-Dexter&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;-rechtes Auge des Probanden&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Messbrille &lt;/span&gt;&lt;/p&gt;&lt;p&gt;-ja&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Lochblende&lt;/span&gt;&lt;/p&gt;&lt;p&gt;-nein&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-              </property>
               <property name="text">
-               <string>&amp;3 OD Messbrille</string>
-              </property>
-             </widget>
-            </item>
-            <item row="8" column="1">
-             <widget class="QLabel" name="label_6">
-              <property name="toolTip">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Benutzen Sie bitte für die Messung eine Messbrille!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-              </property>
-              <property name="text">
-               <string>Messbrille</string>
+               <string>noch kein Wert gemessen</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
               </property>
              </widget>
             </item>
-            <item row="8" column="2">
-             <widget class="QPushButton" name="pushButtonOSTF">
+            <item row="3" column="2">
+             <widget class="QPushButton" name="pushButtonOSNO">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
               </property>
               <property name="font">
                <font>
@@ -825,14 +806,14 @@ dann legen Sie bitte ein neues an!</string>
                </font>
               </property>
               <property name="toolTip">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt; font-weight:600; text-decoration: underline;&quot;&gt;Visus Test&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Oculus&lt;/span&gt;&lt;/p&gt;&lt;p&gt;-Sinister&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;-linkes Auge des Probanden&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Messbrille &lt;/span&gt;&lt;/p&gt;&lt;p&gt;-ja&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Lochblende&lt;/span&gt;&lt;/p&gt;&lt;p&gt;-nein&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Oculus&lt;/span&gt;&lt;/p&gt;&lt;p&gt;-Sinister&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;-linkes Auge des Probanden&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Messbrille &lt;/span&gt;&lt;/p&gt;&lt;p&gt;-nein&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Lochblende&lt;/span&gt;&lt;/p&gt;&lt;p&gt;-nein&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
               <property name="text">
-               <string>&amp;4 OS Messbrille</string>
+               <string>&amp;2 OS</string>
               </property>
              </widget>
             </item>
-            <item row="9" column="0">
+            <item row="8" column="0">
              <widget class="QLabel" name="labelODTFVal">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
@@ -848,7 +829,14 @@ dann legen Sie bitte ein neues an!</string>
               </property>
              </widget>
             </item>
-            <item row="9" column="2">
+            <item row="10" column="0" colspan="3">
+             <widget class="Line" name="line_2">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="8" column="2">
              <widget class="QLabel" name="labelOSTFVal">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
@@ -864,43 +852,19 @@ dann legen Sie bitte ein neues an!</string>
               </property>
              </widget>
             </item>
-            <item row="10" column="0">
-             <widget class="QLineEdit" name="lineEditCommentODTF"/>
-            </item>
-            <item row="10" column="1">
-             <widget class="QLabel" name="label_22">
-              <property name="text">
-               <string>&lt;Kommentare&gt;</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item row="10" column="2">
-             <widget class="QLineEdit" name="lineEditCommentOSTF"/>
-            </item>
-            <item row="11" column="0" colspan="3">
-             <widget class="Line" name="line">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-             </widget>
-            </item>
-            <item row="12" column="0" colspan="3">
-             <widget class="Line" name="line_2">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-             </widget>
-            </item>
-            <item row="13" column="0">
-             <widget class="QPushButton" name="pushButtonODHA">
+            <item row="7" column="2">
+             <widget class="QPushButton" name="pushButtonOSTF">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
               </property>
               <property name="font">
                <font>
@@ -910,15 +874,138 @@ dann legen Sie bitte ein neues an!</string>
                </font>
               </property>
               <property name="toolTip">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt; font-weight:600; text-decoration: underline;&quot;&gt;Visus Test&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Oculus&lt;/span&gt;&lt;/p&gt;&lt;p&gt;-Dexter&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;-rechtes Auge des Probanden&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Messbrille &lt;/span&gt;&lt;/p&gt;&lt;p&gt;-nein&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Lochblende&lt;/span&gt;&lt;/p&gt;&lt;p&gt;-ja&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Oculus&lt;/span&gt;&lt;/p&gt;&lt;p&gt;-Sinister&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;-linkes Auge des Probanden&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Messbrille &lt;/span&gt;&lt;/p&gt;&lt;p&gt;-ja&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Lochblende&lt;/span&gt;&lt;/p&gt;&lt;p&gt;-nein&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="text">
+               <string>&amp;4 OS Messbrille</string>
+              </property>
+             </widget>
+            </item>
+            <item row="9" column="0" colspan="3">
+             <widget class="Line" name="line">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="11" column="2">
+             <widget class="QPushButton" name="pushButtonOSHA">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>12</pointsize>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Oculus&lt;/span&gt;&lt;/p&gt;&lt;p&gt;-Sinister&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;-linkes Auge des Probanden&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Messbrille &lt;/span&gt;&lt;/p&gt;&lt;p&gt;-nein&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Lochblende&lt;/span&gt;&lt;/p&gt;&lt;p&gt;-ja&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="text">
+               <string>&amp;6 OS Lochblende</string>
+              </property>
+             </widget>
+            </item>
+            <item row="13" column="0" colspan="3">
+             <widget class="Line" name="line_6">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="12" column="2">
+             <widget class="QLabel" name="labelOSAVal">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>keine Messung erforderlich</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="14" column="0" colspan="3">
+             <widget class="Line" name="line_5">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="11" column="0">
+             <widget class="QPushButton" name="pushButtonODHA">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>12</pointsize>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Oculus&lt;/span&gt;&lt;/p&gt;&lt;p&gt;-Dexter&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;-rechtes Auge des Probanden&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Messbrille &lt;/span&gt;&lt;/p&gt;&lt;p&gt;-nein&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Lochblende&lt;/span&gt;&lt;/p&gt;&lt;p&gt;-ja&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
               <property name="text">
                <string>&amp;5 OD Lochblende</string>
               </property>
              </widget>
             </item>
-            <item row="13" column="1">
+            <item row="12" column="0">
+             <widget class="QLabel" name="labelODAVal">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>keine Messung erforderlich</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="11" column="1" rowspan="2">
              <widget class="QLabel" name="label_7">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
+              </property>
               <property name="toolTip">
                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Benutzen Sie bitte für die Messung eine Lochblende!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
@@ -930,111 +1017,101 @@ dann legen Sie bitte ein neues an!</string>
               </property>
              </widget>
             </item>
-            <item row="13" column="2">
-             <widget class="QPushButton" name="pushButtonOSHA">
+            <item row="7" column="1" rowspan="2">
+             <widget class="QLabel" name="label_6">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
-              <property name="font">
-               <font>
-                <pointsize>12</pointsize>
-                <weight>75</weight>
-                <bold>true</bold>
-               </font>
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
               </property>
               <property name="toolTip">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt; font-weight:600; text-decoration: underline;&quot;&gt;Visus Test&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Oculus&lt;/span&gt;&lt;/p&gt;&lt;p&gt;-Sinister&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;-linkes Auge des Probanden&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Messbrille &lt;/span&gt;&lt;/p&gt;&lt;p&gt;-nein&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Lochblende&lt;/span&gt;&lt;/p&gt;&lt;p&gt;-ja&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Benutzen Sie bitte für die Messung eine Messbrille!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
               <property name="text">
-               <string>&amp;6 OS Lochblende</string>
+               <string>Messbrille</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
               </property>
              </widget>
             </item>
-            <item row="14" column="0">
-             <widget class="QLabel" name="labelODAVal">
+            <item row="3" column="1" rowspan="2">
+             <widget class="QLabel" name="label_5">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Benutzen Sie bitte für die Messung weder Messbrille noch Lochblende!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
               <property name="text">
-               <string>keine Messung nötig</string>
+               <string>ohne Sehhilfen</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
               </property>
              </widget>
             </item>
-            <item row="14" column="2">
-             <widget class="QLabel" name="labelOSAVal">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="text">
-               <string>keine Messung nötig</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item row="15" column="0">
-             <widget class="QLineEdit" name="lineEditCommentODA"/>
-            </item>
-            <item row="15" column="1">
-             <widget class="QLabel" name="label_24">
-              <property name="text">
-               <string>&lt;Kommentare&gt;</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item row="15" column="2">
-             <widget class="QLineEdit" name="lineEditCommentOSA"/>
-            </item>
-            <item row="16" column="0" colspan="3">
-             <widget class="Line" name="line_6">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-             </widget>
-            </item>
-            <item row="17" column="0" colspan="3">
-             <widget class="Line" name="line_5">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-             </widget>
-            </item>
-            <item row="18" column="0">
+            <item row="17" column="1">
              <widget class="QPushButton" name="pushButtonCancelSession">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
+              </property>
               <property name="text">
-               <string>Unersuchungsblock abbrechen</string>
+               <string>verwerfen</string>
               </property>
              </widget>
             </item>
-            <item row="18" column="2">
+            <item row="15" column="0" colspan="3">
              <widget class="QPushButton" name="pushButtonFinishSession">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
               </property>
               <property name="toolTip">
                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Untersuchung fertigstellen&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
               <property name="text">
-               <string>Untersuchungsblock abschliessen</string>
+               <string>speichern</string>
+              </property>
+             </widget>
+            </item>
+            <item row="16" column="0" colspan="3">
+             <widget class="Line" name="line_9">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
               </property>
              </widget>
             </item>
@@ -1047,18 +1124,45 @@ dann legen Sie bitte ein neues an!</string>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>0</height>
+            </size>
+           </property>
            <property name="title">
             <string>Ergebnisse</string>
            </property>
            <layout class="QGridLayout" name="gridLayout_2">
             <item row="0" column="0">
              <widget class="QTableWidget" name="tableWidgetResult">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>900</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="baseSize">
+               <size>
+                <width>300</width>
+                <height>0</height>
+               </size>
+              </property>
               <property name="alternatingRowColors">
                <bool>true</bool>
               </property>
               <property name="sortingEnabled">
                <bool>true</bool>
               </property>
+              <attribute name="horizontalHeaderDefaultSectionSize">
+               <number>64</number>
+              </attribute>
               <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
                <bool>true</bool>
               </attribute>
@@ -1081,14 +1185,14 @@ dann legen Sie bitte ein neues an!</string>
         <item row="1" column="1">
          <widget class="QPushButton" name="pushButtonExitFromTabView">
           <property name="text">
-           <string>Programm beenden</string>
+           <string>Programm &amp;beenden</string>
           </property>
          </widget>
         </item>
         <item row="1" column="0">
          <widget class="QPushButton" name="pushButtonNewProbandFromTabView">
           <property name="text">
-           <string>Neuer Proband</string>
+           <string>&amp;Neuer Proband</string>
           </property>
          </widget>
         </item>
@@ -1223,7 +1327,7 @@ dann legen Sie bitte ein neues an!</string>
            <item row="0" column="0">
             <widget class="QPushButton" name="pushButtonSetupBack">
              <property name="text">
-              <string>zurück</string>
+              <string>&amp;zurück</string>
              </property>
             </widget>
            </item>
@@ -1250,7 +1354,7 @@ dann legen Sie bitte ein neues an!</string>
         <item row="0" column="0">
          <widget class="QTabWidget" name="tabWidgetHelp">
           <property name="currentIndex">
-           <number>1</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="tabHelpFract">
            <attribute name="title">
@@ -1367,7 +1471,7 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1435</width>
+     <width>1455</width>
      <height>21</height>
     </rect>
    </property>
@@ -1458,7 +1562,7 @@ p, li { white-space: pre-wrap; }
   </action>
   <action name="action_Feierabend">
    <property name="text">
-    <string>&amp;Mache Feierabend!</string>
+    <string>E&amp;xit</string>
    </property>
   </action>
   <action name="action_Zeige">
@@ -1488,7 +1592,7 @@ p, li { white-space: pre-wrap; }
   </action>
   <action name="actionEinstellungen">
    <property name="text">
-    <string>Einstellungen!</string>
+    <string>&amp;Einstellungen</string>
    </property>
   </action>
   <action name="action_HelpFractWrapper">
@@ -1526,19 +1630,12 @@ p, li { white-space: pre-wrap; }
   <tabstop>pushButtonAddNewAccount</tabstop>
   <tabstop>lineEditSIC</tabstop>
   <tabstop>pushButtonODNO</tabstop>
-  <tabstop>lineEditCommentOD</tabstop>
   <tabstop>pushButtonOSNO</tabstop>
-  <tabstop>lineEditCommentOS</tabstop>
   <tabstop>pushButtonODTF</tabstop>
-  <tabstop>lineEditCommentODTF</tabstop>
   <tabstop>pushButtonOSTF</tabstop>
-  <tabstop>lineEditCommentOSTF</tabstop>
   <tabstop>pushButtonODHA</tabstop>
-  <tabstop>lineEditCommentODA</tabstop>
   <tabstop>pushButtonOSHA</tabstop>
-  <tabstop>lineEditCommentOSA</tabstop>
   <tabstop>pushButtonFinishSession</tabstop>
-  <tabstop>pushButtonCancelSession</tabstop>
   <tabstop>tableWidgetResult</tabstop>
   <tabstop>tableWidgetExamination</tabstop>
   <tabstop>pushButtonNewProbandFromTabView</tabstop>

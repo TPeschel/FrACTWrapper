@@ -11,6 +11,7 @@
 #include <QString>
 #include <QStringList>
 #include <QClipboard>
+#include <QTableWidgetItem>
 #include "table.hpp"
 #include "xmltree.hpp"
 //#include "session.hpp"
@@ -156,6 +157,7 @@ public QMainWindow {
 	public slots:
 
 		void slotAddNewExaminator( );
+		void slotChangeComment( QTableWidgetItem * p_item );
 		void slotExaminatorVNameChanged( int p_id );
 		void slotExaminatorNNameChanged( int p_id );
 		void slotExaminatorIDChanged( int p_id );

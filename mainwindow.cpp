@@ -3,10 +3,20 @@
 #include "ui_mainwindow.h"
 
 QTableWidgetItem
-* createTableItemAlignCenter( QString const & p_value ) {
+* createTableItemAlignCenter( QString const & p_value, bool p_readonly = true ) {
 
 	QTableWidgetItem* tmp = new QTableWidgetItem( p_value );
 	tmp->setTextAlignment( Qt::AlignCenter );
+
+	if( p_readonly ) {
+
+		tmp->setFlags( tmp->flags( ) & ~Qt::ItemIsEditable );
+	}
+	else {
+
+		tmp->setFlags( tmp->flags( ) | Qt::ItemIsEditable );
+	}
+
 	return tmp;
 }
 
@@ -16,15 +26,17 @@ ui( new Ui::MainWindow ) {
 
 	ui->setupUi( this );
 
+	this->setWindowState( this->windowState( ) | Qt::WindowMaximized );
+
 	currWidget = SWID_LOBBY;
 
 	proc = nullptr;
 
 	tableSession.newHeader(
-	QStringList( ) <<
-	"SIC" << "DATE" << "TIME" << "RESULT" <<
-	"RESULT_UNIT" << "OCULUS" << "OPTICAL_AID" << "TEST_NAME" <<
-	"DISTANCE" << "DISTANCE_UNIT" << "N_TRIALS" << "EID" << "COMMENT" << "MID" );
+		QStringList( ) <<
+		"SIC" << "DATE" << "TIME" << "EID" << "RESULT" <<
+		"RESULT_UNIT" << "OCULUS" << "OPTICAL_AID" << "TEST_NAME" <<
+		"DISTANCE" << "DISTANCE_UNIT" << "N_TRIALS" << "MID" << "COMMENT" );
 
 //    this->layout()->setSizeConstraint(QLayout::SetFixedSize);
 //    this->setWindowFlags( this->windowFlags( ) & ~( Qt::WindowMaximizeButtonHint | Qt::WindowMinimizeButtonHint | Qt::Window | Qt::MSWindowsFixedSizeDialogHint ) );
@@ -66,6 +78,8 @@ ui( new Ui::MainWindow ) {
 
 	connect( ui->action_Beenden,              SIGNAL( triggered( ) ), this, SLOT( close( ) ) );
 	connect( ui->action_Feierabend,           SIGNAL( triggered( ) ), this, SLOT( close( ) ) );
+
+	connect( ui->tableWidgetResult, SIGNAL( itemChanged( QTableWidgetItem * ) ), this, SLOT( slotChangeComment( QTableWidgetItem * ) ) );
 
 	ui->tableWidgetExamination->horizontalHeader( )->setSectionResizeMode( QHeaderView::Stretch );
 	ui->tableWidgetResult->horizontalHeader( )->setSectionResizeMode( QHeaderView::Stretch );
@@ -151,39 +165,27 @@ MainWindow::prepareSession( ) {
 	ui->labelODVal->setStyleSheet( "QLabel { color : black }" );
 	ui->labelODVal->setText( "noch kein Wert gemesen" );
 	ui->pushButtonODNO->setEnabled( true );
-//	ui->lineEditCommentOD->setEnabled( false );
-	ui->lineEditCommentOD->clear( );
 
 	ui->labelOSVal->setStyleSheet( "QLabel { color : black }" );
 	ui->labelOSVal->setText( "noch kein Wert gemesen" );
 	ui->pushButtonOSNO->setEnabled( true );
-//	ui->lineEditCommentOS->setEnabled( false );
-	ui->lineEditCommentOS->clear( );
 
 	ui->labelODTFVal->setStyleSheet( "QLabel { color : black }" );
 	ui->labelODTFVal->setText( "noch kein Wert gemesen" );
 	ui->pushButtonODTF->setEnabled( true );
-//	ui->lineEditCommentODTF->setEnabled( false );
-	ui->lineEditCommentODTF->clear( );
 
 	ui->labelOSTFVal->setStyleSheet( "QLabel { color : black }" );
 	ui->labelOSTFVal->setText( "noch kein Wert gemesen" );
 	ui->pushButtonOSTF->setEnabled( true );
-//	ui->lineEditCommentOSTF->setEnabled( false );
-	ui->lineEditCommentOSTF->clear( );
 
 	ui->labelODAVal->setStyleSheet( "QLabel { color : black }" );
-	ui->labelODAVal->setText( "keine Messung nötig" );
+	ui->labelODAVal->setText( "keine Messung erforderlich" );
 	ui->pushButtonODHA->setEnabled( true );
-//	ui->lineEditCommentODA->setEnabled( false );
-	ui->lineEditCommentODA->clear( );
 	ui->labelODAVal->setStyleSheet( "color : black" );
 
 	ui->labelOSAVal->setStyleSheet( "QLabel { color : black }" );
-	ui->labelOSAVal->setText( "keine Messung nötig" );
+	ui->labelOSAVal->setText( "keine Messung erforderlich" );
 	ui->pushButtonOSHA->setEnabled( true );
-//	ui->lineEditCommentOSA->setEnabled( false );
-	ui->lineEditCommentOSA->clear( );
 	ui->labelOSAVal->setStyleSheet( "color : black" );
 
 //	ui->stackedWidget->setCurrentIndex( STARTSESSION );
@@ -195,44 +197,6 @@ MainWindow::prepareSession( ) {
 
 void
 MainWindow::saveSession( ) {
-
-	for( int r = 0; r < tableSession.rows( ); ++ r ) {
-
-		QString
-		oc = tableSession.get( r, 5 ),
-		oa = tableSession.get( r, 6 );
-
-		if( oc == "dexter" ) {
-
-			if( oa == "none" ) {
-
-				tableSession.set( r, 12, ui->lineEditCommentOD->text( ) );
-			}
-			else if ( oa == "trial_frame" ) {
-
-				tableSession.set( r, 12, ui->lineEditCommentODTF->text( ) );
-			}
-			else if ( oa == "hole_aperture" ) {
-
-				tableSession.set( r, 12, ui->lineEditCommentODA->text( ) );
-			}
-		}
-		else if( oc == "sinister" ) {
-
-			if( oa == "none" ) {
-
-				tableSession.set( r, 12, ui->lineEditCommentOS->text( ) );
-			}
-			else if ( oa == "trial_frame" ) {
-
-				tableSession.set( r, 12, ui->lineEditCommentOSTF->text( ) );
-			}
-			else if ( oa == "hole_aperture" ) {
-
-				tableSession.set( r, 12, ui->lineEditCommentOSA->text( ) );
-			}
-		}
-	}
 
 	updateExaminationView( );
 
@@ -424,22 +388,25 @@ MainWindow::updateTableWidgetResults( ) {
 	Row
 	hdr;
 
-	for( int i = 0; i < tableSession.cols( ) - 2; ++ i ) {
+	for( int i = 0; i < tableSession.cols( ); ++ i ) {
 
 		hdr << tableSession.header( ).at( i );
 	}
 
 	ui->tableWidgetResult->clear( );
 	ui->tableWidgetResult->setRowCount( tableSession.rows( ) );
-	ui->tableWidgetResult->setColumnCount( tableSession.cols( ) - 2 );
+	ui->tableWidgetResult->setColumnCount( tableSession.cols( ) );
 	ui->tableWidgetResult->setHorizontalHeaderLabels( hdr );
 	ui->tableWidgetResult->horizontalHeader( )->setSectionResizeMode( QHeaderView::ResizeToContents );
 
 	for( int r = 0; r < tableSession.rows( ); ++ r ) {
 
-		for( int c = 0; c < tableSession.cols( ) - 2; ++ c ) {
+		for( int c = 0; c < tableSession.cols( ); ++ c ) {
 
-			ui->tableWidgetResult->setItem( r, c, createTableItemAlignCenter( tableSession.get( r, c ) ) );
+			QTableWidgetItem
+			* item = createTableItemAlignCenter( tableSession.get( r, c ), c + 1 != tableSession.cols( ) );
+
+			ui->tableWidgetResult->setItem( r, c, item );
 		}
 	}
 }
@@ -454,6 +421,12 @@ MainWindow::slotAddNewExaminator( ) {
 	ui->lineEditExaminatorID->setText( "" );
 
 	switchWidget( SWID_ADDNEWEXAMINATOR );
+}
+
+void
+MainWindow::slotChangeComment( QTableWidgetItem * p_item ) {
+
+	tableSession.set( p_item->row( ), p_item->column( ), p_item->text( ) );
 }
 
 void
@@ -594,12 +567,13 @@ MainWindow::slotFrACTFinished( int p_exitCode ) {
 			ts( &fileResult );
 
 			ts <<
-				"SIC" << "\t" << "DATE" << "\t" << "TIME" << "\t" << "RESULT" << "\t" <<
+				"SIC" << "\t" << "DATE" << "\t" << "TIME" << "\t" << "EID" << "\t" << "RESULT" << "\t" <<
 				"RESULT_UNIT" << "\t" << "OCULUS" << "\t" << "OPTICAL_AID" << "\t" << "TEST_NAME" <<
-				"\t" << "DISTANCE" << "\t" << "DISTANCE_UNIT" << "\t" << "N_TRIALS" << "\t" << "EID" << "\t" << "COMMENT" << "\t" << "MID" << "\n" <<
+				"\t" << "DISTANCE" << "\t" << "DISTANCE_UNIT" << "\t" << "N_TRIALS" << "\t" << "MID" <<  "\t" << "COMMENT" << "\n" <<
 				currSIC << "\t" <<
 				row.at( 0 ) << "\t" <<
 				row.at( 1 ) << "\t" <<
+				currExaminatorID << "\t" <<
 				row.at( 2 ) << "\t" <<
 				row.at( 3 ) << "\t" <<
 				msl[ 0 ] << "\t" <<
@@ -608,9 +582,7 @@ MainWindow::slotFrACTFinished( int p_exitCode ) {
 				row.at( 5 ) << "\t" <<
 				row.at( 6 ) << "\t" <<
 				row.at( 7 ) << "\t" <<
-				currExaminatorID << "\t" <<
-				"" <<
-				examinationId;
+				QString( "%1" ).arg( examinationId ) << "\t" << "";
 
 			fileResult.close( );
 		}
@@ -645,18 +617,20 @@ MainWindow::slotFrACTFinished( int p_exitCode ) {
 
 		tableSession.addRow(
 			QStringList( ) <<
-			currSIC <<
-			row.at( 0 ) <<
-			row.at( 1 ) <<
-			row.at( 2 ) <<
-			row.at( 3 ) <<
-			msl[ 0 ] <<
-			msl[ 1 ] <<
-			row.at( 4 ) <<
-			row.at( 5 ) <<
-			row.at( 6 ) <<
-			row.at( 7 ) <<
-			currExaminatorID << "" << QString( "%1" ).arg( examinationId ) );
+			currSIC <<			//sic
+			row.at( 0 ) <<		//date
+			row.at( 1 ) <<		//time
+			currExaminatorID << //examinator id
+			row.at( 2 ) <<		//result
+			row.at( 3 ) <<		//res_unit
+			msl[ 0 ] <<			//oculus
+			msl[ 1 ] <<			//opt aid
+			row.at( 4 ) <<		//test type
+			row.at( 5 ) <<		//distance
+			row.at( 6 ) <<		//distance unit
+			row.at( 7 ) <<		//n_trials
+			QString( "%1" ).arg( examinationId ) << //measurement id
+			"" );									//comment
 
 		double
 		val = row.at( 2 ).toDouble( );
@@ -750,6 +724,12 @@ MainWindow::slotFrACTFinished( int p_exitCode ) {
 				ui->labelODAVal->setText( "Messung erforderlich" );
 				ui->labelODAVal->setStyleSheet( "color : red" );
 			}
+			else {
+
+				ui->statusBar->clearMessage( );
+				ui->labelODAVal->setText( "keine Messung erforderlich" );
+				ui->labelODAVal->setStyleSheet( "color : black" );
+			}
 		}
 
 		if( measurements[ MT_OS_NO ].measured && measurements[ MT_OS_TF ].measured && ! measurements[ MT_OS_HA ].measured ) {
@@ -759,6 +739,12 @@ MainWindow::slotFrACTFinished( int p_exitCode ) {
 				ui->statusBar->showMessage( "Die Messung ohne Messbrille war besser als die mit. Führen Sie nun bitte eine Messung mit Lochblende durch!" );
 				ui->labelOSAVal->setText( "Messung erforderlich" );
 				ui->labelOSAVal->setStyleSheet( "color : red" );
+			}
+			else {
+
+				ui->statusBar->clearMessage( );
+				ui->labelOSAVal->setText( "keine Messung erforderlich" );
+				ui->labelOSAVal->setStyleSheet( "color : black" );
 			}
 		}
 	}
