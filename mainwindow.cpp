@@ -24,6 +24,8 @@ MainWindow::MainWindow( QWidget * parent ) :
 QMainWindow( parent ),
 ui( new Ui::MainWindow ) {
 
+	fractRunning = false;
+
 	ui->setupUi( this );
 
 	this->setWindowState( this->windowState( ) | Qt::WindowMaximized );
@@ -76,8 +78,8 @@ ui( new Ui::MainWindow ) {
 	connect( ui->pushButtonExitFromTabView,       SIGNAL( released( ) ), this, SLOT( close( ) ) );
 	connect( ui->pushButtonNewProbandFromTabView, SIGNAL( released( ) ), this, SLOT( slotStartSession( ) ) );
 
-	connect( ui->action_Beenden,              SIGNAL( triggered( ) ), this, SLOT( close( ) ) );
-	connect( ui->action_Feierabend,           SIGNAL( triggered( ) ), this, SLOT( close( ) ) );
+	connect( ui->action_Beenden,              SIGNAL( triggered( ) ), this, SLOT( slotClose( ) ) );
+	connect( ui->action_Feierabend,           SIGNAL( triggered( ) ), this, SLOT( slotClose( ) ) );
 
 	connect( ui->tableWidgetResult, SIGNAL( itemChanged( QTableWidgetItem * ) ), this, SLOT( slotChangeComment( QTableWidgetItem * ) ) );
 
@@ -259,6 +261,8 @@ MainWindow::startFrACT( ) {
 	proc->start(
 		cfg.rp( ).in( "cfg" ).in( "paths" ).in( "flash" ).curr( )->data( ),
 		QStringList( ) << cfg.rp( ).in( "cfg" ).in( "paths" ).in( "fract" ).curr( )->data( ) ); //windows
+
+	fractRunning = true;
 }
 
 void
@@ -432,7 +436,10 @@ MainWindow::slotChangeComment( QTableWidgetItem * p_item ) {
 void
 MainWindow::slotCancelSession( ) {
 
-	//saveSession( );
+	if( messageBox( ) ) {
+
+		return;
+	}
 
 	ui->lineEditSIC->clear( );
 	ui->lineEditSIC->setEnabled( true );
@@ -501,8 +508,33 @@ MainWindow::slotFinishSetup( ) {
 	switchWidgetBack( );
 }
 
+bool
+MainWindow::messageBox( ) {
+
+	if( fractRunning ) {
+
+		QMessageBox
+		mb;
+
+		mb.setText( "Das Programm FrACT ist noch geöffnet. Das heisst, es läuft noch eine Messung. Beenden Sie diese bitte bevor Sie eine neue Messung starten!" );
+
+		mb.setInformativeText( "Wechseln Sie dazu bitte via Alt-TAB in den Flashplayer, [Weisses 'F' auf rotem Untergrund.] oder bewegen Sie die Maus rechts aus dem Bildschirm und druecken Sie dann die linke Maustaste! Nun kann das Programm 'FrACT' wie gewohnt mit 'x' beendet werden." );
+
+		mb.exec( );
+
+		return true;
+	}
+
+	return false;
+}
+
 void
 MainWindow::slotFinishSession( ) {
+
+	if( messageBox( ) ) {
+
+		return;
+	}
 
 	saveSession( );
 
@@ -526,6 +558,8 @@ MainWindow::slotFrACTFinished( int p_exitCode ) {
 	if( p_exitCode != 0 )
 
 		return;
+
+	fractRunning = false;
 
 	QClipboard
 	*cb = QApplication::clipboard( );
@@ -967,6 +1001,10 @@ MainWindow::slotStartFileDialogForDataDir( ) {
 void
 MainWindow::slotStartFrACTOD( ) {
 
+	if( messageBox( ) )
+
+		return;
+
 	currMeasurementType = MT_OD_NO;
 
 	startFrACT( );
@@ -974,6 +1012,10 @@ MainWindow::slotStartFrACTOD( ) {
 
 void
 MainWindow::slotStartFrACTOS( ) {
+
+	if( messageBox( ) )
+
+		return;
 
 	currMeasurementType = MT_OS_NO;
 
@@ -983,6 +1025,10 @@ MainWindow::slotStartFrACTOS( ) {
 void
 MainWindow::slotStartFrACTODTF( ) {
 
+	if( messageBox( ) )
+
+		return;
+
 	currMeasurementType = MT_OD_TF;
 
 	startFrACT( );
@@ -990,6 +1036,10 @@ MainWindow::slotStartFrACTODTF( ) {
 
 void
 MainWindow::slotStartFrACTOSTF( ) {
+
+	if( messageBox( ) )
+
+		return;
 
 	currMeasurementType = MT_OS_TF;
 
@@ -999,6 +1049,10 @@ MainWindow::slotStartFrACTOSTF( ) {
 void
 MainWindow::slotStartFrACTODHA( ) {
 
+	if( messageBox( ) )
+
+		return;
+
 	currMeasurementType = MT_OD_HA;
 
 	startFrACT( );
@@ -1007,7 +1061,22 @@ MainWindow::slotStartFrACTODHA( ) {
 void
 MainWindow::slotStartFrACTOSHA( ) {
 
+	if( messageBox( ) )
+
+		return;
+
 	currMeasurementType = MT_OS_HA;
 
 	startFrACT( );
+}
+
+void
+MainWindow::slotClose( ) {
+
+	if( messageBox( ) ) {
+
+		return;
+	}
+
+	close( );
 }

@@ -153,6 +153,7 @@ public QMainWindow {
 		void updateExaminationView( );
 		void updatePathsConfigView( );
 		void updateTableWidgetResults( );
+		bool messageBox( );
 
 	public slots:
 
@@ -182,6 +183,7 @@ public QMainWindow {
 		void slotStartFileDialogForFlashPlayer( );
 		void slotStartFileDialogForFractSWF( );
 		void slotStartFileDialogForDataDir( );
+		void slotClose( );
 
 	signals:
 
@@ -264,6 +266,9 @@ public QMainWindow {
 
 		std::size_t
 		examinationId;
+
+		bool
+		fractRunning;
 };
 
 #endif // MAINWINDOW_H
