@@ -1354,7 +1354,7 @@ dann legen Sie bitte ein neues an!</string>
         <item row="0" column="0">
          <widget class="QTabWidget" name="tabWidgetHelp">
           <property name="currentIndex">
-           <number>0</number>
+           <number>2</number>
           </property>
           <widget class="QWidget" name="tabHelpFract">
            <attribute name="title">
@@ -1445,6 +1445,35 @@ p, li { white-space: pre-wrap; }
                <bool>true</bool>
               </property>
               <property name="openExternalLinks">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="tabLicense">
+           <attribute name="title">
+            <string>Lizens und Nutzungsbedingungen</string>
+           </attribute>
+           <layout class="QGridLayout" name="gridLayout_13">
+            <item row="0" column="0">
+             <widget class="QLabel" name="label">
+              <property name="layoutDirection">
+               <enum>Qt::LeftToRight</enum>
+              </property>
+              <property name="text">
+               <string>Dieses Programm ist Eigentum von Thomas Peschel.
+Es ist erlaubt, dieses Programm in der LIFE-Studie an der Medizinischen Fakultät Leipzig zu nutzen, solange ein ordentliches Arbeitsverhältnis zwischen Herrn Peschel und der Medizinischen Fakultät Leipzig besteht.
+Diese Erlaubnis erlischt sofort nach Beendigung des Arbeitsverhältnisses mit Herrn Peschel und der Medizinischen Fakultät Leipzig.
+Das derzeitige Arbeitsverhältnis endet am 28.02.2019.
+Danach fällt eine monatliche Nutzungsgebühr von 2000€ an.
+Wahlweise kann das Programm auch für einen Betrag von 20000€ erworben werden.
+Bei Fragen wenden Sie sich bitte an TPeschel@life.uni-leipzig.de.</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+              <property name="wordWrap">
                <bool>true</bool>
               </property>
              </widget>

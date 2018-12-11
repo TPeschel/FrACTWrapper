@@ -24,7 +24,7 @@ swap( std::size_t p_i, std::size_t p_j, TContainer & p_values ) {
 }
 
 Order
-naturalOrder( int p_size );
+naturalOrder( std::size_t const & p_size );
 
 template< typename TContainer, typename TValue >
 void

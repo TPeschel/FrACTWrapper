@@ -6,7 +6,7 @@
 #include <vector>
 
 Order
-naturalOrder( int p_size ) {
+naturalOrder( std::size_t const & p_size ) {
 
 	Order
 	idx( p_size );

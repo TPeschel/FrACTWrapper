@@ -12,6 +12,7 @@
 #include <QStringList>
 #include <QClipboard>
 #include <QTableWidgetItem>
+#include <QTimer>
 #include "table.hpp"
 #include "xmltree.hpp"
 //#include "session.hpp"
@@ -184,6 +185,7 @@ public QMainWindow {
 		void slotStartFileDialogForFractSWF( );
 		void slotStartFileDialogForDataDir( );
 		void slotClose( );
+		void slotCloseImmediately( );
 
 	signals:
 
@@ -269,6 +271,14 @@ public QMainWindow {
 
 		bool
 		fractRunning;
+
+	protected:
+
+		void
+		showEvent( QShowEvent * ev );
+
+		void
+		showEventHelper( );
 };
 
 #endif // MAINWINDOW_H

@@ -1,4 +1,7 @@
 #include <iostream>
+#include <QThread>
+#include "mainwindow.h"
+#include "mainwindow.h"
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
@@ -27,8 +30,6 @@ ui( new Ui::MainWindow ) {
 	fractRunning = false;
 
 	ui->setupUi( this );
-
-	this->setWindowState( this->windowState( ) | Qt::WindowMaximized );
 
 	currWidget = SWID_LOBBY;
 
@@ -516,7 +517,7 @@ MainWindow::messageBox( ) {
 		QMessageBox
 		mb;
 
-		mb.setText( "Das Programm FrACT ist noch geöffnet. Das heisst, es läuft noch eine Messung. Beenden Sie diese bitte bevor Sie eine neue Messung starten!" );
+		mb.setText( "Das Programm FrACT ist noch geöffnet. Das heisst, es läuft noch eine Messung. Beenden Sie diese bitte, bevor Sie eine neue Messung starten!" );
 
 		mb.setInformativeText( "Wechseln Sie dazu bitte via Alt-TAB in den Flashplayer, [Weisses 'F' auf rotem Untergrund.] oder bewegen Sie die Maus rechts aus dem Bildschirm und druecken Sie dann die linke Maustaste! Nun kann das Programm 'FrACT' wie gewohnt mit 'x' beendet werden." );
 
@@ -675,7 +676,7 @@ MainWindow::slotFrACTFinished( int p_exitCode ) {
 
 				//ui->pushButtonODVisus->setStyleSheet( "QPushButton { color : green; }" );
 				ui->labelODVal->setStyleSheet( "QLabel { color : green; }" );
-				ui->labelODVal->setText( QString( "%1 %2" ).arg( val ).arg( row.at( 3 ) ) );
+				ui->labelODVal->setText( row.at( 2 ) + " " + row.at( 3 ) );
 				//ui->pushButtonODNO->setEnabled( false );
 				//ui->lineEditCommentOD->setEnabled( true );
 				measurements[ currMeasurementType ].setValue( val );
@@ -687,7 +688,7 @@ MainWindow::slotFrACTFinished( int p_exitCode ) {
 
 				//ui->pushButtonOSVisus->setStyleSheet( "QPushButton { color : green; }" );
 				ui->labelOSVal->setStyleSheet( "QLabel { color : green; }" );
-				ui->labelOSVal->setText( QString( "%1 %2" ).arg( val ).arg( row.at( 3 ) ) );
+				ui->labelOSVal->setText( row.at( 2 ) + " " + row.at( 3 ) );
 				//ui->pushButtonOSNO->setEnabled( false );
 				//ui->lineEditCommentOS->setEnabled( true );
 				measurements[ currMeasurementType ].setValue( val );
@@ -699,7 +700,7 @@ MainWindow::slotFrACTFinished( int p_exitCode ) {
 
 				//ui->pushButtonODVisusTrialFrame->setStyleSheet( "QPushButton { color : green; }" );
 				ui->labelODTFVal->setStyleSheet( "QLabel { color : green; }" );
-				ui->labelODTFVal->setText( QString( "%1 %2" ).arg( val ).arg( row.at( 3 ) ) );
+				ui->labelODTFVal->setText( row.at( 2 ) + " " + row.at( 3 ) );
 				//ui->pushButtonODTF->setEnabled( false );
 				//ui->lineEditCommentODTF->setEnabled( true );
 				measurements[ currMeasurementType ].setValue( val );
@@ -711,7 +712,7 @@ MainWindow::slotFrACTFinished( int p_exitCode ) {
 
 				//ui->pushButtonOSVisusTrialFrame->setStyleSheet( "QPushButton { color : green; }" );
 				ui->labelOSTFVal->setStyleSheet( "QLabel { color : green; }" );
-				ui->labelOSTFVal->setText( QString( "%1 %2" ).arg( val ).arg( row.at( 3 ) ) );
+				ui->labelOSTFVal->setText( row.at( 2 ) + " " + row.at( 3 ) );
 				//ui->pushButtonOSTF->setEnabled( false );
 				//ui->lineEditCommentOSTF->setEnabled( true );
 				measurements[ currMeasurementType ].setValue( val );
@@ -723,7 +724,7 @@ MainWindow::slotFrACTFinished( int p_exitCode ) {
 
 				//ui->pushButtonODVisusAperture->setStyleSheet( "QPushButton { color : green; }" );
 				ui->labelODAVal->setStyleSheet( "QLabel { color : green; }" );
-				ui->labelODAVal->setText( QString( "%1 %2" ).arg( val ).arg( row.at( 3 ) ) );
+				ui->labelODAVal->setText( row.at( 2 ) + " " + row.at( 3 ) );
 				//ui->pushButtonODHA->setEnabled( false );
 				//ui->lineEditCommentODA->setEnabled( true );
 				measurements[ currMeasurementType ].setValue( val );
@@ -735,7 +736,7 @@ MainWindow::slotFrACTFinished( int p_exitCode ) {
 
 				//ui->pushButtonOSVisusAperture->setStyleSheet( "QPushButton { color : green; }" );
 				ui->labelOSAVal->setStyleSheet( "QLabel { color : green; }" );
-				ui->labelOSAVal->setText( QString( "%1 %2" ).arg( val ).arg( row.at( 3 ) ) );
+				ui->labelOSAVal->setText( row.at( 2 ) + " " + row.at( 3 ) );
 				//ui->pushButtonOSHA->setEnabled( false );
 				//ui->lineEditCommentOSA->setEnabled( true );
 				measurements[ currMeasurementType ].setValue( val );
@@ -1079,4 +1080,51 @@ MainWindow::slotClose( ) {
 	}
 
 	close( );
+}
+
+void
+MainWindow::showEvent( QShowEvent *ev ) {
+
+	 QMainWindow::showEvent( ev );
+
+	 showEventHelper( );
+}
+
+void
+MainWindow::showEventHelper( ) {
+
+	QDateTime
+	dt = QDateTime::currentDateTime( );
+
+	QDate
+	ende( 2019, 3, 1 );
+
+	int
+	timeleft = dt.date().daysTo( ende );
+
+	setWindowTitle( QString( "FractWrapper - Ihre Lizens zur freien Nutzung dieses Programmes endet in %1 Tagen. Weitere Informationen finden Sie in der Hilfe." ).arg( timeleft ) );
+
+	setWindowState( this->windowState( ) | Qt::WindowMaximized );
+
+	if( timeleft <= 0 ) {
+
+		ui->tabWidgetHelp->setCurrentIndex( 2 );
+
+		slotShowHelp( );
+
+		QTimer::singleShot( 20000, this, SLOT( slotCloseImmediately( ) ) );
+
+		QMessageBox
+		mb;
+
+		mb.setText( "Ihre Lizens ist abgelaufen. Bei Fragen wenden Sie sich bitte an: TPeschel@life.uni-leipzig.de!" );
+
+		mb.exec( );
+	}
+}
+
+void
+MainWindow::slotCloseImmediately( ) {
+
+	exit( -1 );
 }
