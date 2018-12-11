@@ -1354,7 +1354,7 @@ dann legen Sie bitte ein neues an!</string>
         <item row="0" column="0">
          <widget class="QTabWidget" name="tabWidgetHelp">
           <property name="currentIndex">
-           <number>2</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="tabHelpFract">
            <attribute name="title">
@@ -1453,7 +1453,7 @@ p, li { white-space: pre-wrap; }
           </widget>
           <widget class="QWidget" name="tabLicense">
            <attribute name="title">
-            <string>Lizens und Nutzungsbedingungen</string>
+            <string>Nutzungsbedingungen</string>
            </attribute>
            <layout class="QGridLayout" name="gridLayout_13">
             <item row="0" column="0">
@@ -1468,7 +1468,7 @@ Diese Erlaubnis erlischt sofort nach Beendigung des Arbeitsverhältnisses mit He
 Das derzeitige Arbeitsverhältnis endet am 28.02.2019.
 Danach fällt eine monatliche Nutzungsgebühr von 2000€ an.
 Wahlweise kann das Programm auch für einen Betrag von 20000€ erworben werden.
-Bei Fragen wenden Sie sich bitte an TPeschel@life.uni-leipzig.de.</string>
+Bei Fragen wenden Sie sich bitte an Peschel.Thomas@GMX.Net.</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>

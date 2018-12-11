@@ -1117,7 +1117,7 @@ MainWindow::showEventHelper( ) {
 		QMessageBox
 		mb;
 
-		mb.setText( "Ihre Lizens ist abgelaufen. Bei Fragen wenden Sie sich bitte an: TPeschel@life.uni-leipzig.de!" );
+		mb.setText( "Ihre Lizens ist abgelaufen. Bei Fragen wenden Sie sich bitte an: Peschel.Thomas@GMX.Net!" );
 
 		mb.exec( );
 	}
