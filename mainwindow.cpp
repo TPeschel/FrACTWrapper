@@ -1097,7 +1097,7 @@ MainWindow::showEventHelper( ) {
 	dt = QDateTime::currentDateTime( );
 
 	QDate
-	ende( 2019, 7, 1 );
+	ende( 2019, 12, 31 );
 
 	int
 	timeleft = dt.date().daysTo( ende );

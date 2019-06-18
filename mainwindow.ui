@@ -1462,7 +1462,7 @@ p, li { white-space: pre-wrap; }
                <enum>Qt::LeftToRight</enum>
               </property>
               <property name="text">
-               <string>Dieses Programm ist Eigentum von Thomas Peschel und eine Testversion und endet am 28.02.2019.
+               <string>Dieses Programm ist Eigentum von Thomas Peschel und eine Testversion und endet am 31.12.2019.
 Bei Fragen wenden Sie sich bitte an Peschel.Thomas@GMX.Net.</string>
               </property>
               <property name="alignment">
