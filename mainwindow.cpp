@@ -31,6 +31,8 @@ ui( new Ui::MainWindow ) {
 
 	ui->setupUi( this );
 
+	setWindowState( Qt::WindowMaximized );
+
 	currWidget = SWID_LOBBY;
 
 	proc = nullptr;
@@ -1080,47 +1082,6 @@ MainWindow::slotClose( ) {
 	}
 
 	close( );
-}
-
-void
-MainWindow::showEvent( QShowEvent *ev ) {
-
-	 QMainWindow::showEvent( ev );
-
-	 showEventHelper( );
-}
-
-void
-MainWindow::showEventHelper( ) {
-
-	QDateTime
-	dt = QDateTime::currentDateTime( );
-
-	QDate
-	ende( 2019, 12, 31 );
-
-	int
-	timeleft = dt.date().daysTo( ende );
-
-	setWindowTitle( QString( "FractWrapper - Ihre Lizens zur freien Nutzung dieses Programmes endet in %1 Tagen. Weitere Informationen finden Sie in der Hilfe." ).arg( timeleft ) );
-
-	setWindowState( this->windowState( ) | Qt::WindowMaximized );
-
-	if( timeleft <= 0 ) {
-
-		ui->tabWidgetHelp->setCurrentIndex( 2 );
-
-		slotShowHelp( );
-
-		QTimer::singleShot( 20000, this, SLOT( slotCloseImmediately( ) ) );
-
-		QMessageBox
-		mb;
-
-		mb.setText( "Ihre Lizens ist abgelaufen. Bei Fragen wenden Sie sich bitte an: Peschel.Thomas@GMX.Net!" );
-
-		mb.exec( );
-	}
 }
 
 void

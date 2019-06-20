@@ -271,14 +271,6 @@ public QMainWindow {
 
 		bool
 		fractRunning;
-
-	protected:
-
-		void
-		showEvent( QShowEvent * ev );
-
-		void
-		showEventHelper( );
 };
 
 #endif // MAINWINDOW_H
